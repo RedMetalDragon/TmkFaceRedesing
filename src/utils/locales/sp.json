@@ -2,12 +2,10 @@
     "dashboard": "Tablero",
     "default": "Predeterminado",
     "analytics": "Analíticas",
-
     "widget": "Widget",
     "statistics": "Estadísticas",
     "data": "Datos",
     "chart": "Gráfico",
-
     "application": "Aplicación",
     "users": "Usuarios",
     "social-profile": "Perfil Social",
@@ -32,7 +30,6 @@
     "product-details": "Detalles del Producto",
     "product-list": "Lista de Productos",
     "checkout": "Pagar",
-
     "forms": "Formularios",
     "components": "Componentes",
     "autocomplete": "Autocompletar",
@@ -76,7 +73,6 @@
     "multi-column-forms": "Formularios de Múltiples Columnas",
     "action-bar": "Barra de Acción",
     "sticky-action-bar": "Barra de Acción Pegajosa",
-
     "ui-element": "Elemento UI",
     "basic": "Básico",
     "basic-caption": "8+ Componentes Básicos",
@@ -86,7 +82,6 @@
     "breadcrumb": "Miga de Pan",
     "chip": "Chip",
     "tabs": "Pestañas",
-
     "advance": "Avanzado",
     "alert": "Alerta",
     "dialog": "Diálogo",
@@ -99,7 +94,6 @@
     "timeline": "Línea de Tiempo",
     "toggle-button": "Botón de Alternar",
     "treeview": "Vista de Árbol",
-
     "pages": "Páginas",
     "pages-caption": "Páginas Preconstruidas",
     "authentication": "Autenticación",
@@ -120,7 +114,6 @@
     "contact-us": "Contáctenos",
     "faqs": "FAQs",
     "privacy-policy": "Política de Privacidad",
-
     "utilities": "Utilidades",
     "typography": "Tipografía",
     "color": "Color",
@@ -130,7 +123,6 @@
     "material-icons": "Iconos de Material",
     "animation": "Animación",
     "grid": "Rejilla",
-
     "others": "Otros",
     "menu-level": "Niveles de Menú",
     "level": "Nivel",
@@ -144,18 +136,26 @@
     "coded": "Codificado",
     "c": "C",
     "outlined": "Contorneado",
-
     "sample-page": "Página de Ejemplo",
     "documentation": "Documentación",
     "roadmap": "Hoja de Ruta",
-
     "title": "Multilenguaje",
     "home": "Inicio",
     "change": "Cambiar Idioma",
     "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiatnulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollitanim id est laborum.",
-
     "account-settings": "Configuración de Cuenta",
     "logout": "Cerrar Sesión",
-
-    "more-items": "Más Ítems"
+    "more-items": "Más Ítems",
+    "day-of-week-monday": "Lunes",
+    "day-of-week-tuesday": "Martes",
+    "day-of-week-wednesday": "Miercoles",
+    "day-of-week-thursday": "Jueves",
+    "day-of-week-friday": "Viernes",
+    "day-of-week-saturday": "Sabado",
+    "day-of-week-sunday": "Domingo",
+    "schedule-data-in": "Entrada",
+    "schedule-data-out": "Salida",
+    "schedule-data-day": "Dia",
+    "schedule-data-date": "Fecha",
+    "schedule-data-hours": "Horas"
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // project imports
 import useAuth from 'hooks/useAuth';
+import RestrictedAccessDialog from 'ui-component/dialogs/RestrictedAcces';
 // ==============================|| AUTH GUARD ||============================== //
 
 /**
@@ -11,7 +12,7 @@ import useAuth from 'hooks/useAuth';
  * @param {PropTypes.node} children children element/node
  */
 const AuthGuard = ({ children }) => {
-    const { isLoggedIn, features } = useAuth();
+    const { isLoggedIn, features, hasAccess } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const AuthGuard = ({ children }) => {
         }
     }, [isLoggedIn, navigate, features]);
 
-    return <>{children}</>;
+    return hasAccess(window.location.href) && isLoggedIn ? children : <RestrictedAccessDialog></RestrictedAccessDialog>;
 };
 
 AuthGuard.propTypes = {

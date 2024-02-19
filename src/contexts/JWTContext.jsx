@@ -15,6 +15,13 @@ import axios from 'utils/axios';
 
 const chance = new Chance();
 
+// ==============================|| Mock Features to test ||============================== //
+const mockFeature = {
+    name: 'Calendar',
+    route: '/apps/calendar',
+    icon: '../assets/bar-chart-outline.svg'
+};
+
 // constant
 const initialState = {
     isLoggedIn: false,
@@ -83,6 +90,8 @@ export const JWTProvider = ({ children }) => {
     const login = async (username, password) => {
         const response = await axios.post('/users/login', { username, password });
         const { access_token, role_features } = response.data;
+        // TODO change the payload from mockFeatures to role_features
+        role_features.push(mockFeature);
         setSession(access_token);
         dispatch({
             type: LOGIN,
@@ -137,7 +146,9 @@ export const JWTProvider = ({ children }) => {
     }
 
     const hasAccess = (route) => {
-        return state.features.some((feature) => route.includes(feature));
+        console.log(route);
+        return true;
+        //return state.features.some((feature) => route.includes(feature.route));
     };
 
     return (

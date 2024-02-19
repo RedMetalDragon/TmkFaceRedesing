@@ -19,7 +19,6 @@ import Chip from 'ui-component/extended/Chip';
 import MainCard from 'ui-component/cards/MainCard';
 import ImagePlaceholder from 'ui-component/cards/Skeleton/ImagePlaceholder';
 import { gridSpacing } from 'store/constant';
-import RestrictedAccessDialog from 'ui-component/dialogs/RestrictedAcces';
 
 // assets
 import { IconFriends, IconInbox, IconPhoto, IconUserPlus, IconUsers } from '@tabler/icons-react';
@@ -94,7 +93,7 @@ const tabOptions = [
 const SocialProfile = () => {
     const theme = useTheme();
 
-    const { user, hasAccess } = useAuth();
+    const { user } = useAuth();
     const { borderRadius } = useConfig();
     const { tab } = useParams();
 
@@ -126,7 +125,7 @@ const SocialProfile = () => {
         setLoading(false);
     }, []);
 
-    return hasAccess('social-profile') ? (
+    return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <MainCard
@@ -284,8 +283,6 @@ const SocialProfile = () => {
                 </TabPanel>
             </Grid>
         </Grid>
-    ) : (
-        <RestrictedAccessDialog open={true} />
     );
 };
 

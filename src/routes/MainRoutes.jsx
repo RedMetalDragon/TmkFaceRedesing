@@ -18,11 +18,11 @@ const WidgetData = Loadable(lazy(() => import('views/widget/Data')));
 const WidgetChart = Loadable(lazy(() => import('views/widget/Chart')));
 
 // application - user social & account profile routing
-const AppUserSocialProfile = Loadable(lazy(() => import('views/application/users/social-profile')));
+//const AppUserSocialProfile = Loadable(lazy(() => import('views/application/users/social-profile')));
 const AppUserAccountProfile1 = Loadable(lazy(() => import('views/application/users/account-profile/Profile1')));
 const AppUserAccountProfile2 = Loadable(lazy(() => import('views/application/users/account-profile/Profile2')));
 const AppUserAccountProfile3 = Loadable(lazy(() => import('views/application/users/account-profile/Profile3')));
-
+const AppUserSchedule = Loadable(lazy(() => import('views/application/users/schedule')));
 // application - user cards & list variant routing
 const AppProfileCardStyle1 = Loadable(lazy(() => import('views/application/users/card/CardStyle1')));
 const AppProfileCardStyle2 = Loadable(lazy(() => import('views/application/users/card/CardStyle2')));
@@ -170,7 +170,7 @@ const MainRoutes = {
 
         {
             path: '/apps/user/social-profile/:tab',
-            element: <AppUserSocialProfile />
+            element: <AppUserSchedule />
         },
         {
             path: '/apps/user/account-profile/profile1',
