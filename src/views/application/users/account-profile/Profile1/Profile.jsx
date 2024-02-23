@@ -33,9 +33,10 @@ import { IconEdit } from '@tabler/icons-react';
 import PhonelinkRingTwoToneIcon from '@mui/icons-material/PhonelinkRingTwoTone';
 import PinDropTwoToneIcon from '@mui/icons-material/PinDropTwoTone';
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone';
-
+//import { useEffect } from 'react';
+//import { fillPersonalInfo } from 'store/slices/user';
 import Avatar3 from 'assets/images/users/avatar-3.png';
-
+import { useSelector } from 'store';
 // progress
 function LinearProgressWithLabel({ value, ...others }) {
     return (
@@ -73,6 +74,8 @@ function createData(name, calories, fat, carbs, protein) {
 // ==============================|| PROFILE 1 - PROFILE ||============================== //
 
 const Profile = () => {
+    const userInfo = useSelector((state) => state.user);
+    const { userFirstName, userLastName, email, phone } = userInfo;
     const { user } = useAuth();
 
     const rows = [
@@ -96,7 +99,7 @@ const Profile = () => {
                             </Grid>
                             <Grid item xs zeroMinWidth>
                                 <Typography align="left" variant="subtitle1">
-                                    {user?.name}
+                                    {userFirstName} {userLastName}
                                 </Typography>
                                 <Typography align="left" variant="subtitle2">
                                     UI/UX Designer
@@ -116,7 +119,7 @@ const Profile = () => {
                             <ListItemText primary={<Typography variant="subtitle1">Email</Typography>} />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    demo@sample.com
+                                    {email}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>
@@ -128,7 +131,7 @@ const Profile = () => {
                             <ListItemText primary={<Typography variant="subtitle1">Phone</Typography>} />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    (+99) 9999 999 999
+                                    {phone}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>

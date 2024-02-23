@@ -35,7 +35,7 @@ const UserScheduleTable = () => {
             <Grid item xs={12}>
                 <MainCard
                     content={false}
-                    title="Attendance Table"
+                    title={<FormattedMessage id="user-attendance-table-title"></FormattedMessage>}
                     secondary={
                         <Stack direction="row" spacing={2} alignItems="center">
                             {/* <CSVExport data={data} filename="basic-table.csv" header={header} /> */}

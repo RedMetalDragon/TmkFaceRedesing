@@ -23,60 +23,27 @@ const application = {
     title: <FormattedMessage id="application" />,
     icon: icons.IconApps,
     type: 'group',
+    route: '*',
     children: [
         {
             id: 'users',
-            title: <FormattedMessage id="users" />,
+            title: <FormattedMessage id="user" />,
             type: 'collapse',
             icon: icons.IconUserCheck,
+            route: '/time_management',
             children: [
-                {
-                    id: 'posts',
-                    title: <FormattedMessage id="social-profile" />,
-                    type: 'item',
-                    url: '/apps/user/social-profile/posts'
-                },
                 {
                     id: 'account-profile',
                     title: <FormattedMessage id="account-profile" />,
-                    type: 'collapse',
-                    children: [
-                        {
-                            id: 'profile1',
-                            title: (
-                                <>
-                                    <FormattedMessage id="profile" /> 01
-                                </>
-                            ),
-                            type: 'item',
-                            url: '/apps/user/account-profile/profile1'
-                        },
-                        {
-                            id: 'profile2',
-                            title: (
-                                <>
-                                    <FormattedMessage id="profile" /> 02
-                                </>
-                            ),
-                            type: 'item',
-                            url: '/apps/user/account-profile/profile2'
-                        },
-                        {
-                            id: 'profile3',
-                            title: (
-                                <>
-                                    <FormattedMessage id="profile" /> 03
-                                </>
-                            ),
-                            type: 'item',
-                            url: '/apps/user/account-profile/profile3'
-                        }
-                    ]
+                    type: 'item',
+                    route: '',
+                    url: '/apps/user/account-profile'
                 },
                 {
                     id: 'user-card',
                     title: <FormattedMessage id="cards" />,
                     type: 'collapse',
+                    route: '*user-card',
                     children: [
                         {
                             id: 'card1',
@@ -86,6 +53,7 @@ const application = {
                                 </>
                             ),
                             type: 'item',
+                            route: '*card1',
                             url: '/apps/user/card/card1'
                         },
                         {
@@ -96,6 +64,7 @@ const application = {
                                 </>
                             ),
                             type: 'item',
+                            route: '*card2',
                             url: '/apps/user/card/card2'
                         },
                         {
@@ -106,6 +75,7 @@ const application = {
                                 </>
                             ),
                             type: 'item',
+                            route: '*card3',
                             url: '/apps/user/card/card3'
                         }
                     ]
@@ -140,15 +110,24 @@ const application = {
             ]
         },
         {
-            id: 'customer',
-            title: <FormattedMessage id="customer" />,
+            id: 'time-management',
+            title: <FormattedMessage id="time-management" />,
             type: 'collapse',
-            icon: icons.IconBasket,
+            route: '/time_management',
+            icon: icons.IconCalendar,
             children: [
                 {
-                    id: 'customer-list',
+                    id: 'attendance',
+                    title: <FormattedMessage id="user-attendance" />,
+                    type: 'item',
+                    route: '/schedule',
+                    url: '/apps/user/schedule/attendance'
+                },
+                {
+                    id: 'punch-in-out',
                     title: <FormattedMessage id="customer-list" />,
                     type: 'item',
+                    route: '/punch-in-out',
                     url: '/apps/customer/customer-list',
                     breadcrumbs: false
                 },
@@ -156,6 +135,7 @@ const application = {
                     id: 'order-list',
                     title: <FormattedMessage id="order-list" />,
                     type: 'item',
+                    route: '*order-list',
                     url: '/apps/customer/order-list',
                     breadcrumbs: false
                 },
@@ -163,6 +143,7 @@ const application = {
                     id: 'create-invoice',
                     title: <FormattedMessage id="create-invoice" />,
                     type: 'item',
+                    route: '*create-invoice',
                     url: '/apps/customer/create-invoice',
                     breadcrumbs: false
                 },
@@ -170,12 +151,14 @@ const application = {
                     id: 'order-details',
                     title: <FormattedMessage id="order-details" />,
                     type: 'item',
+                    route: '*order-details',
                     url: '/apps/customer/order-details'
                 },
                 {
                     id: 'product',
                     title: <FormattedMessage id="product" />,
                     type: 'item',
+                    route: '*product',
                     url: '/apps/customer/product',
                     breadcrumbs: false
                 },
@@ -183,6 +166,7 @@ const application = {
                     id: 'product-review',
                     title: <FormattedMessage id="product-review" />,
                     type: 'item',
+                    route: '*product-review',
                     url: '/apps/customer/product-review',
                     breadcrumbs: false
                 }

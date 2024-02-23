@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -14,12 +14,15 @@ import ChangePassword from './ChangePassword';
 import Settings from './Settings';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
+import { useEffect } from 'react';
+import { fillPersonalInfo } from 'store/slices/user';
+import { useSelector, useDispatch } from 'store';
 
 // assets
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
 import LibraryBooksTwoToneIcon from '@mui/icons-material/LibraryBooksTwoTone';
-import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
+//import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone';
 
 // tabs panel
@@ -58,10 +61,10 @@ const tabsOption = [
         label: 'My Account',
         icon: <LibraryBooksTwoToneIcon sx={{ fontSize: '1.3rem' }} />
     },
-    {
-        label: 'Change Password',
-        icon: <LockTwoToneIcon sx={{ fontSize: '1.3rem' }} />
-    },
+    // {
+    //     label: 'Change Password',
+    //     icon: <LockTwoToneIcon sx={{ fontSize: '1.3rem' }} />
+    // },
     {
         label: 'Settings',
         icon: <MailTwoToneIcon sx={{ fontSize: '1.3rem' }} />
@@ -72,11 +75,16 @@ const tabsOption = [
 
 const Profile1 = () => {
     const theme = useTheme();
-
+    //eslint-disable-next-line
+    const userInfo = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    useEffect(() => {
+        dispatch(fillPersonalInfo());
+    }, []);
 
     return (
         <MainCard>

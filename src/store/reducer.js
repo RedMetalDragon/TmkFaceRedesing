@@ -17,6 +17,7 @@ import kanbanReducer from './slices/kanban';
 import menuReducer from './slices/menu';
 import features from './slices/features';
 import schedule from './slices/schedule';
+import contentFeeder from './slices/contentFeeder';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -40,7 +41,8 @@ const reducer = combineReducers({
     user: userReducer,
     menu: menuReducer,
     features: features,
-    schedule: schedule
+    schedule: schedule,
+    contentFeeder: contentFeeder
 });
 
 export default reducer;

@@ -7,14 +7,14 @@
     "data": "Data",
     "chart": "Chart",
     "application": "Application",
-    "users": "Users",
+    "user": "User",
     "social-profile": "Social Profile",
     "account-profile": "Account Profile",
     "profile": "Profile",
     "cards": "Cards",
     "list": "List",
     "style": "Style",
-    "customer": "Customer",
+    "time-management": "Time Management",
     "customer-list": "Customer List",
     "order-list": "Order List",
     "create-invoice": "Create Invoice",
@@ -157,5 +157,10 @@
     "schedule-data-out": "Out",
     "schedule-data-day": "Day",
     "schedule-data-date": "Date",
-    "schedule-data-hours": "Hours"
+    "schedule-data-hours": "Hours",
+    "user-attendance": "Attendance",
+    "user-attendance-table-title": "Attendance Table",
+    "greeting-morning": "Good Morning ",
+    "greeting-afternoon": "Good Afternoon ",
+    "greeting-evening": "Good Evening "
 }

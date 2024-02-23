@@ -16,12 +16,14 @@ const dashboard = {
     title: <FormattedMessage id="dashboard" />,
     icon: icons.IconDashboard,
     type: 'group',
+    route: '*',
     children: [
         {
             id: 'default',
             title: <FormattedMessage id="default" />,
             type: 'item',
             url: '/dashboard/default',
+            route: '/dashboard',
             icon: icons.IconDashboard,
             breadcrumbs: false
         },
@@ -29,6 +31,7 @@ const dashboard = {
             id: 'analytics',
             title: <FormattedMessage id="analytics" />,
             type: 'item',
+            route: '/dashboard',
             url: '/dashboard/analytics',
             icon: icons.IconDeviceAnalytics,
             breadcrumbs: false

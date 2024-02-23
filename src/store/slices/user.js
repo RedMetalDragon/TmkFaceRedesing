@@ -9,6 +9,17 @@ import { dispatch } from '../index';
 
 const initialState = {
     error: null,
+    userFirstName: '',
+    userLastName: '',
+    email: 'mgr@gmail.com',
+    displayName: '',
+    photoURL: '',
+    cover: '',
+    phone: '786-322-1234',
+    location: '',
+    about: '',
+    address: '',
+    zipCode: '',
     usersS1: [],
     usersS2: [],
     followers: [],
@@ -28,6 +39,21 @@ const slice = createSlice({
         // HAS ERROR
         hasError(state, action) {
             state.error = action.payload;
+        },
+
+        fillPersonalInfo(state, action) {
+            state.userFirstName = action.payload.userFirstName ? action.payload.userFirstName : state.userFirstName;
+            state.userLastName = action.payload.userLastName ? action.payload.userLastName : state.userLastName;
+            state.userMiddleName = action.payload.userMiddleName ? action.payload.userMiddleName : state.userMiddleName;
+            state.email = action.payload.email ? action.payload.email : state.email;
+            state.displayName = action.payload.displayName ? action.payload.displayName : state.displayName;
+            state.photoURL = action.payload.photoURL ? action.payload.photoURL : '/static/images/placeholder.svg';
+            state.cover = action.payload.cover ? action.payload.cover : '/static/images/placeholder.svg';
+            state.phone = action.payload.phone ? action.payload.phone : state.phone;
+            state.location = action.payload.location ? action.payload.location : state.location;
+            state.about = action.payload.about ? action.payload.about : state.about;
+            state.address = action.payload.address ? action.payload.address : state.address;
+            state.zipCode = action.payload.zipCode ? action.payload.zipCode : state.zipCode;
         },
 
         // GET USERS STYLE 1
@@ -383,6 +409,31 @@ export function filterProfileCards(key) {
         try {
             const response = await axios.post('/api/profile-card/filter', { key });
             dispatch(slice.actions.filterProfileCardsSuccess(response.data.results));
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
+
+export function fillPersonalInfo() {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get('/users/dashboard');
+            const mappedData = {
+                userFirstName: response.data.employee_fname,
+                userLastName: response.data.employee_lname,
+                userMiddleName: response.data.employee_lname,
+                email: response.data.email,
+                displayName: response.data.displayName,
+                photoURL: response.data.photoURL,
+                cover: response.data.cover,
+                phone: response.data.phone,
+                location: response.data.location,
+                about: response.data.about,
+                address: response.data.address,
+                zipCode: response.data.zipCode
+            };
+            dispatch(slice.actions.fillPersonalInfo(mappedData));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }

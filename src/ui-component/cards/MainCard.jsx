@@ -16,7 +16,7 @@ const MainCard = React.forwardRef(
     (
         {
             border = false,
-            boxShadow,
+            boxShadow = true,
             children,
             content = true,
             contentClass = '',

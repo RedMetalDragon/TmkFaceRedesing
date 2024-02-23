@@ -10,8 +10,8 @@ import Logo from 'ui-component/Logo';
 // ==============================|| MAIN LOGO ||============================== //
 
 const LogoSection = () => (
-    <Link component={RouterLink} to={DASHBOARD_PATH} aria-label="berry logo">
-        <Logo />
+    <Link component={RouterLink} to={DASHBOARD_PATH} aria-label="time-keeper-logo">
+        <Logo showText={true} />
     </Link>
 );
 

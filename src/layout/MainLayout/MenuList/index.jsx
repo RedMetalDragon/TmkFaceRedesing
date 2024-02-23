@@ -3,6 +3,7 @@ import { memo, useEffect } from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Box, Divider, List, Typography, useMediaQuery } from '@mui/material';
+import { filterTreeComponentsByRoutes } from 'utils/featuresSkeletons';
 
 // project imports
 import NavItem from './NavItem';
@@ -15,18 +16,21 @@ import { Menu } from 'menu-items/widget';
 import LAYOUT_CONST from 'constant';
 import { HORIZONTAL_MAX_ITEM } from 'config';
 import { useSelector } from 'store';
+import useAuth from 'hooks/useAuth';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuList = () => {
     const theme = useTheme();
     const { layout } = useConfig();
+    const { features } = useAuth();
     const { drawerOpen } = useSelector((state) => state.menu);
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+    const menuItemsFiltered = menuItem.items.map((componentTree) => filterTreeComponentsByRoutes(componentTree, features));
 
     const getMenu = Menu();
     const handlerMenuItem = () => {
-        const isFound = menuItem.items.some((element) => {
+        const isFound = menuItemsFiltered.some((element) => {
             if (element.id === 'widget') {
                 return true;
             }

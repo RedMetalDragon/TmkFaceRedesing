@@ -7,14 +7,14 @@
     "data": "Datos",
     "chart": "Gráfico",
     "application": "Aplicación",
-    "users": "Usuarios",
+    "user": "Usuario",
     "social-profile": "Perfil Social",
     "account-profile": "Perfil de Cuenta",
     "profile": "Perfil",
     "cards": "Tarjetas",
     "list": "Lista",
     "style": "Estilo",
-    "customer": "Cliente",
+    "time-management": "Manejo",
     "customer-list": "Lista de Clientes",
     "order-list": "Lista de Pedidos",
     "create-invoice": "Crear Factura",
@@ -157,5 +157,10 @@
     "schedule-data-out": "Salida",
     "schedule-data-day": "Dia",
     "schedule-data-date": "Fecha",
-    "schedule-data-hours": "Horas"
+    "schedule-data-hours": "Horas",
+    "user-attendance": "Asistencia",
+    "user-attendance-table-title": "Tabla de Asistencia",
+    "greeting-morning": "Buenos Días ",
+    "greeting-afternoon": "Buenas Tardes ",
+    "greeting-evening": "Buenas Noches "
 }

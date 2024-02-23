@@ -169,11 +169,11 @@ const MainRoutes = {
         },
 
         {
-            path: '/apps/user/social-profile/:tab',
+            path: '/apps/user/schedule/attendance',
             element: <AppUserSchedule />
         },
         {
-            path: '/apps/user/account-profile/profile1',
+            path: '/apps/user/account-profile',
             element: <AppUserAccountProfile1 />
         },
         {
