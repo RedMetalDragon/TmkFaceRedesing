@@ -84,7 +84,7 @@ const Profile1 = () => {
     };
     useEffect(() => {
         dispatch(fillPersonalInfo());
-    }, []);
+    }, [dispatch]);
 
     return (
         <MainCard>
