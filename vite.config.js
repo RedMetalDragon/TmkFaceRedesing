@@ -23,14 +23,16 @@ export default defineConfig({
         ]
     },
     server: {
+        host: '0.0.0.0',
         // this ensures that the browser opens upon server start
-        open: true,
+        open: false,
         // this sets a default port to 3000
         port: 3000
     },
     preview: {
+        host: '0.0.0.0',
         // this ensures that the browser opens upon preview start
-        open: true,
+        open: false,
         // this sets a default port to 3000
         port: 3000
     }

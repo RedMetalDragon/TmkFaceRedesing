@@ -18,7 +18,6 @@ import SeoChartCard from 'ui-component/cards/SeoChartCard';
 import SalesLineChartCard from 'ui-component/cards/SalesLineChartCard';
 import AnalyticsChartCard from 'ui-component/cards/AnalyticsChartCard';
 import { gridSpacing } from 'store/constant';
-import RestrictedAccessDialog from 'ui-component/RestrictedAccessDialog';
 
 // chart data
 import chartData from './chart-data';
@@ -37,7 +36,6 @@ import LaptopIcon from '@mui/icons-material/Laptop';
 const Chart = () => {
     const theme = useTheme();
     const { navType } = useConfig();
-    const { hasAccess } = useAuth();
 
     const backColor = theme.palette.background.paper;
     const secondary = theme.palette.secondary.main;
@@ -183,192 +181,188 @@ const Chart = () => {
         ApexCharts.exec(`satisfaction-chart`, 'updateOptions', newSatisfactionChartCardData);
     }, [navType, backColor, secondary, error, primary, successDark, orange, orangeDark]);
 
-    return !hasAccess() ? (
-        <RestrictedAccessDialog open={true} onClose={() => {}} />
-    ) : (
-        <Grid container spacing={gridSpacing} alignItems="center">
-            <Grid item xs={12} sm={6} lg={3}>
-                <TotalLineChartCard chartData={chartData.TotalLineCardChart1} value={4000} title="Total Sales" percentage="42%" />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-                <TotalLineChartCard
-                    chartData={chartData.TotalLineCardChart2}
-                    bgColor={theme.palette.error.main}
-                    value={2500}
-                    title="Total Comment"
-                    percentage="15%"
-                />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-                <TotalLineChartCard
-                    chartData={chartData.TotalLineCardChart3}
-                    bgColor={theme.palette.success.dark}
-                    value={2500}
-                    title="Total Status"
-                    percentage="95%"
-                />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-                <TotalLineChartCard
-                    chartData={chartData.TotalLineCardChart3}
-                    bgColor={theme.palette.secondary.main}
-                    value={12500}
-                    title="Total Visitors"
-                    percentage="75%"
-                />
-            </Grid>
-
-            <Grid item xs={12} md={6} lg={7}>
-                <MarketSaleChartCard chartData={chartData.MarketChartCardData} />
-            </Grid>
-            <Grid item xs={12} md={6} lg={5}>
-                <RevenueChartCard chartData={chartData.RevenueChartCardData} />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData4} value={798} title="Users" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData5} value={486} title="Timeout" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData6} value="9, 454" title="Views" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData7} value={7.15} title="Session" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData8} value="04:30" title="Avg. Session" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
-                <SeoChartCard type={1} chartData={chartData.SeoChartCardData9} value="1.55%" title="Bounce Rate" />
-            </Grid>
-
-            <Grid item xs={12} sm={6} lg={4}>
-                <SalesLineChartCard
-                    chartData={chartData.SalesLineCardChart}
-                    bgColor={theme.palette.error.main}
-                    title="Sales Per Day"
-                    percentage="3%"
-                    icon={<TrendingDownIcon />}
-                    footerData={[
-                        {
-                            value: '$4230',
-                            label: 'Total Revenue'
-                        },
-                        {
-                            value: '321',
-                            label: 'Today Sales'
-                        }
-                    ]}
-                />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={4}>
-                <SalesLineChartCard
-                    chartData={chartData.SalesLineCardChart}
-                    title="Order Per Month"
-                    percentage="28%"
-                    icon={<TrendingDownIcon />}
-                    footerData={[
-                        {
-                            value: '1695',
-                            label: 'Total Orders'
-                        },
-                        {
-                            value: '321',
-                            label: 'Today Orders'
-                        }
-                    ]}
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} lg={4}>
-                <AnalyticsChartCard
-                    chartData={chartData.AnalyticsChartCardData}
-                    title="Page view by device"
-                    dropData={{
-                        title: 'Weekly',
-                        options: [
-                            {
-                                value: 1,
-                                label: '1 Week'
-                            },
-                            {
-                                value: 104,
-                                label: '2 Years'
-                            },
-                            {
-                                value: 12,
-                                label: '3 Monthes'
-                            }
-                        ]
-                    }}
-                    listData={[
-                        {
-                            color: theme.palette.primary.main,
-                            icon: <ImportantDevicesIcon color="inherit" fontSize="small" />,
-                            value: 66.6,
-                            percentage: 2,
-                            state: 1
-                        },
-                        {
-                            color: theme.palette.success.dark,
-                            icon: <PhonelinkLockIcon color="inherit" fontSize="small" />,
-                            value: 29.7,
-                            percentage: 3,
-                            state: 1
-                        },
-                        {
-                            color: theme.palette.error.main,
-                            icon: <TabletAndroidIcon color="inherit" fontSize="small" />,
-                            value: 32.8,
-                            percentage: 8,
-                            state: 0
-                        },
-                        {
-                            color: theme.palette.orange.dark,
-                            icon: <LaptopIcon color="inherit" fontSize="small" />,
-                            value: 50.2,
-                            percentage: 5,
-                            state: 1
-                        }
-                    ]}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={6} lg={4}>
-                <SeoChartCard
-                    chartData={chartData.SeoChartCardData1}
-                    value="$16, 756"
-                    title="Visits"
-                    icon={<ArrowDropDownIcon color="error" />}
-                />
-            </Grid>
-
-            <Grid item xs={12} sm={6} lg={4}>
-                <SeoChartCard
-                    chartData={chartData.SeoChartCardData2}
-                    value="49.54%"
-                    title="Bounce Rate"
-                    icon={<ArrowDropUpIcon color="primary" />}
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} lg={4}>
-                <SeoChartCard
-                    chartData={chartData.SeoChartCardData3}
-                    value="1, 62,564"
-                    title="Products"
-                    icon={<ArrowDropDownIcon color="error" />}
-                />
-            </Grid>
-
-            <Grid item xs={12} md={6} lg={6}>
-                <ConversionsChartCard chartData={chartData.ConversionsChartCardData} />
-            </Grid>
-            <Grid item xs={12} md={6} lg={6}>
-                <SatisfactionChartCard chartData={chartData.SatisfactionChartCardData} />
-            </Grid>
+    <Grid container spacing={gridSpacing} alignItems="center">
+        <Grid item xs={12} sm={6} lg={3}>
+            <TotalLineChartCard chartData={chartData.TotalLineCardChart1} value={4000} title="Total Sales" percentage="42%" />
         </Grid>
-    );
+        <Grid item xs={12} sm={6} lg={3}>
+            <TotalLineChartCard
+                chartData={chartData.TotalLineCardChart2}
+                bgColor={theme.palette.error.main}
+                value={2500}
+                title="Total Comment"
+                percentage="15%"
+            />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+            <TotalLineChartCard
+                chartData={chartData.TotalLineCardChart3}
+                bgColor={theme.palette.success.dark}
+                value={2500}
+                title="Total Status"
+                percentage="95%"
+            />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+            <TotalLineChartCard
+                chartData={chartData.TotalLineCardChart3}
+                bgColor={theme.palette.secondary.main}
+                value={12500}
+                title="Total Visitors"
+                percentage="75%"
+            />
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={7}>
+            <MarketSaleChartCard chartData={chartData.MarketChartCardData} />
+        </Grid>
+        <Grid item xs={12} md={6} lg={5}>
+            <RevenueChartCard chartData={chartData.RevenueChartCardData} />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData4} value={798} title="Users" />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData5} value={486} title="Timeout" />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData6} value="9, 454" title="Views" />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData7} value={7.15} title="Session" />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData8} value="04:30" title="Avg. Session" />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+            <SeoChartCard type={1} chartData={chartData.SeoChartCardData9} value="1.55%" title="Bounce Rate" />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+            <SalesLineChartCard
+                chartData={chartData.SalesLineCardChart}
+                bgColor={theme.palette.error.main}
+                title="Sales Per Day"
+                percentage="3%"
+                icon={<TrendingDownIcon />}
+                footerData={[
+                    {
+                        value: '$4230',
+                        label: 'Total Revenue'
+                    },
+                    {
+                        value: '321',
+                        label: 'Today Sales'
+                    }
+                ]}
+            />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={4}>
+            <SalesLineChartCard
+                chartData={chartData.SalesLineCardChart}
+                title="Order Per Month"
+                percentage="28%"
+                icon={<TrendingDownIcon />}
+                footerData={[
+                    {
+                        value: '1695',
+                        label: 'Total Orders'
+                    },
+                    {
+                        value: '321',
+                        label: 'Today Orders'
+                    }
+                ]}
+            />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={4}>
+            <AnalyticsChartCard
+                chartData={chartData.AnalyticsChartCardData}
+                title="Page view by device"
+                dropData={{
+                    title: 'Weekly',
+                    options: [
+                        {
+                            value: 1,
+                            label: '1 Week'
+                        },
+                        {
+                            value: 104,
+                            label: '2 Years'
+                        },
+                        {
+                            value: 12,
+                            label: '3 Monthes'
+                        }
+                    ]
+                }}
+                listData={[
+                    {
+                        color: theme.palette.primary.main,
+                        icon: <ImportantDevicesIcon color="inherit" fontSize="small" />,
+                        value: 66.6,
+                        percentage: 2,
+                        state: 1
+                    },
+                    {
+                        color: theme.palette.success.dark,
+                        icon: <PhonelinkLockIcon color="inherit" fontSize="small" />,
+                        value: 29.7,
+                        percentage: 3,
+                        state: 1
+                    },
+                    {
+                        color: theme.palette.error.main,
+                        icon: <TabletAndroidIcon color="inherit" fontSize="small" />,
+                        value: 32.8,
+                        percentage: 8,
+                        state: 0
+                    },
+                    {
+                        color: theme.palette.orange.dark,
+                        icon: <LaptopIcon color="inherit" fontSize="small" />,
+                        value: 50.2,
+                        percentage: 5,
+                        state: 1
+                    }
+                ]}
+            />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+            <SeoChartCard
+                chartData={chartData.SeoChartCardData1}
+                value="$16, 756"
+                title="Visits"
+                icon={<ArrowDropDownIcon color="error" />}
+            />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+            <SeoChartCard
+                chartData={chartData.SeoChartCardData2}
+                value="49.54%"
+                title="Bounce Rate"
+                icon={<ArrowDropUpIcon color="primary" />}
+            />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={4}>
+            <SeoChartCard
+                chartData={chartData.SeoChartCardData3}
+                value="1, 62,564"
+                title="Products"
+                icon={<ArrowDropDownIcon color="error" />}
+            />
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={6}>
+            <ConversionsChartCard chartData={chartData.ConversionsChartCardData} />
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+            <SatisfactionChartCard chartData={chartData.SatisfactionChartCardData} />
+        </Grid>
+    </Grid>;
 };
 
 export default Chart;
