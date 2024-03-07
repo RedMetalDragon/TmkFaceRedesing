@@ -162,5 +162,12 @@
     "user-attendance-table-title": "Attendance Table",
     "greeting-morning": "Good Morning ",
     "greeting-afternoon": "Good Afternoon ",
-    "greeting-evening": "Good Evening "
+    "greeting-evening": "Good Evening ",
+    "user-info-manager": "Manager",
+    "user-info-division-department": "Division/Department",
+    "user-info-joining-date": "Joining Date",
+    "user-info-location": "Location",
+    "user-info-phone": "Phone",
+    "user-info-email": "Email",
+    "user-info-about": "About me"
 }

@@ -8,6 +8,8 @@ import jwtDecode from 'jwt-decode';
 // reducer - state management
 import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
+import { useDispatch } from 'store';
+import { fillUserInfo } from 'store/slices/user';
 
 // project imports
 import Loader from 'ui-component/Loader';
@@ -55,6 +57,7 @@ const JWTContext = createContext(null);
 
 export const JWTProvider = ({ children }) => {
     const [state, dispatch] = useReducer(accountReducer, initialState);
+    const dispatchUserInfo = useDispatch();
 
     useEffect(() => {
         const init = async () => {
@@ -89,8 +92,7 @@ export const JWTProvider = ({ children }) => {
 
     const login = async (username, password) => {
         const response = await axios.post('/users/login', { username, password });
-        const { access_token, role_features } = response.data;
-        // TODO change the payload from mockFeatures to role_features
+        const { access_token, role_features, personal_data } = response.data;
         role_features.push(mockFeature);
         setSession(access_token);
         dispatch({
@@ -100,6 +102,7 @@ export const JWTProvider = ({ children }) => {
                 features: role_features
             }
         });
+        dispatchUserInfo(fillUserInfo(personal_data));
     };
 
     const register = async (email, password, firstName, lastName) => {

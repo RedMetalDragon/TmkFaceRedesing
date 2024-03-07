@@ -16,7 +16,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useEffect } from 'react';
 import { fillPersonalInfo } from 'store/slices/user';
-import { useSelector, useDispatch } from 'store';
+import { useDispatch } from 'store';
 
 // assets
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
@@ -76,7 +76,6 @@ const tabsOption = [
 const Profile1 = () => {
     const theme = useTheme();
     //eslint-disable-next-line
-    const userInfo = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {

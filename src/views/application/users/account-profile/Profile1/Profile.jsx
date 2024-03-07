@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
     Box,
     Button,
-    CardContent,
+    // CardContent,
     Chip,
     Divider,
     Grid,
@@ -14,16 +14,16 @@ import {
     ListItemIcon,
     ListItemSecondaryAction,
     ListItemText,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableRow,
+    // Table,
+    // TableBody,
+    // TableCell,
+    // TableContainer,
+    // TableRow,
     Typography
 } from '@mui/material';
 
 // project imports
-import useAuth from 'hooks/useAuth';
+// import useAuth from 'hooks/useAuth';
 import Avatar from 'ui-component/extended/Avatar';
 import SubCard from 'ui-component/cards/SubCard';
 import { gridSpacing } from 'store/constant';
@@ -33,10 +33,14 @@ import { IconEdit } from '@tabler/icons-react';
 import PhonelinkRingTwoToneIcon from '@mui/icons-material/PhonelinkRingTwoTone';
 import PinDropTwoToneIcon from '@mui/icons-material/PinDropTwoTone';
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 //import { useEffect } from 'react';
 //import { fillPersonalInfo } from 'store/slices/user';
 import Avatar3 from 'assets/images/users/avatar-3.png';
 import { useSelector } from 'store';
+import { FormattedMessage } from 'react-intl';
 // progress
 function LinearProgressWithLabel({ value, ...others }) {
     return (
@@ -67,26 +71,47 @@ LinearProgressWithLabel.propTypes = {
 
 // personal details table
 /** names Don&apos;t look right */
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//     return { name, calories, fat, carbs, protein };
+// }
 
 // ==============================|| PROFILE 1 - PROFILE ||============================== //
 
 const Profile = () => {
     const userInfo = useSelector((state) => state.user);
-    const { userFirstName, userLastName, email, phone } = userInfo;
-    const { user } = useAuth();
+    const {
+        userFirstName,
+        userLastName,
+        phone,
+        // birthday,
+        // gender,
+        email,
+        // companyEmailAdress,
+        // address1,
+        // address2,
+        city,
+        state,
+        // zipCode,
+        country,
+        joiningDate,
+        // status,
+        division,
+        department,
+        jobTitle,
+        managerFirstName,
+        managerLastName
+    } = userInfo;
+    // const { user } = useAuth();
 
-    const rows = [
-        createData('Full Name', ':', user?.name),
-        createData('Fathers Name', ':', 'Mr. Deepen Handgun'),
-        createData('Address', ':', 'Street 110-B Kalians Bag, Dewan, M.P. INDIA'),
-        createData('Zip Code', ':', '12345'),
-        createData('Phone', ':', '+0 123456789 , +0 123456789'),
-        createData('Email', ':', 'support@example.com'),
-        createData('Website', ':', 'http://example.com')
-    ];
+    // const rows = [
+    //     createData('Full Name', ':', user?.name),
+    //     createData('Fathers Name', ':', 'Mr. Deepen Handgun'),
+    //     createData('Address', ':', 'Street 110-B Kalians Bag, Dewan, M.P. INDIA'),
+    //     createData('Zip Code', ':', '12345'),
+    //     createData('Phone', ':', '+0 123456789 , +0 123456789'),
+    //     createData('Email', ':', 'support@example.com'),
+    //     createData('Website', ':', 'http://example.com')
+    // ];
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -102,7 +127,7 @@ const Profile = () => {
                                     {userFirstName} {userLastName}
                                 </Typography>
                                 <Typography align="left" variant="subtitle2">
-                                    UI/UX Designer
+                                    {jobTitle}
                                 </Typography>
                             </Grid>
                             <Grid item>
@@ -116,7 +141,13 @@ const Profile = () => {
                             <ListItemIcon>
                                 <MailTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant="subtitle1">Email</Typography>} />
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-email" />
+                                    </Typography>
+                                }
+                            />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
                                     {email}
@@ -128,7 +159,13 @@ const Profile = () => {
                             <ListItemIcon>
                                 <PhonelinkRingTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant="subtitle1">Phone</Typography>} />
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-phone" />
+                                    </Typography>
+                                }
+                            />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
                                     {phone}
@@ -140,15 +177,75 @@ const Profile = () => {
                             <ListItemIcon>
                                 <PinDropTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant="subtitle1">Location</Typography>} />
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-location" />
+                                    </Typography>
+                                }
+                            />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    Melbourne
+                                    {city}, {state}, {country}
+                                </Typography>
+                            </ListItemSecondaryAction>
+                        </ListItemButton>
+                        <Divider />
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <DateRangeIcon sx={{ fontSize: '1.3rem' }} />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-joining-date" />
+                                    </Typography>
+                                }
+                            />
+                            <ListItemSecondaryAction>
+                                <Typography variant="subtitle2" align="right">
+                                    {joiningDate}
+                                </Typography>
+                            </ListItemSecondaryAction>
+                        </ListItemButton>
+                        <Divider />
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <EngineeringIcon sx={{ fontSize: '1.3rem' }} />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-division-department" />
+                                    </Typography>
+                                }
+                            />
+                            <ListItemSecondaryAction>
+                                <Typography variant="subtitle2" align="right">
+                                    {division}/{department}
+                                </Typography>
+                            </ListItemSecondaryAction>
+                        </ListItemButton>
+                        <Divider />
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <PeopleAltIcon sx={{ fontSize: '1.3rem' }} />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={
+                                    <Typography variant="subtitle1">
+                                        <FormattedMessage id="user-info-manager" />
+                                    </Typography>
+                                }
+                            />
+                            <ListItemSecondaryAction>
+                                <Typography variant="subtitle2" align="right">
+                                    {managerFirstName} {managerLastName}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>
                     </List>
-                    <CardContent>
+                    {/* <CardContent>
                         <Grid container spacing={0}>
                             <Grid item xs={4}>
                                 <Typography align="center" variant="h3">
@@ -175,14 +272,14 @@ const Profile = () => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                    </CardContent>
+                    </CardContent> */}
                 </SubCard>
             </Grid>
             <Grid item lg={8} xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12}>
                         <SubCard
-                            title="About me"
+                            title={<FormattedMessage id="user-info-about" />}
                             secondary={
                                 <Button aria-label="Edit Details">
                                     <IconEdit stroke={1.5} size="20px" />
@@ -192,15 +289,16 @@ const Profile = () => {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Typography variant="body2">
-                                        Hello,I’m Anshan Handgun Creative Graphic Designer & User Experience Designer based in Website, I
-                                        create digital Products a more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at.
+                                        Hello I am {userFirstName} {userLastName}, I’m a {jobTitle} based in {city}, {state}, {country}.
+                                        {/* Hello,I’m Anshan Handgun Creative Graphic Designer & User Experience Designer based in Website, I
+                                        create digital Products a more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at. */}
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <Typography variant="subtitle1">Personal Details</Typography>
-                                </Grid>
+                                </Grid> */}
                                 <Divider sx={{ pt: 1 }} />
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <TableContainer>
                                         <Table
                                             sx={{
@@ -221,11 +319,11 @@ const Profile = () => {
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         </SubCard>
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <SubCard title="Education">
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
@@ -272,8 +370,8 @@ const Profile = () => {
                                 </Grid>
                             </Grid>
                         </SubCard>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Grid> */}
+                    {/* <Grid item xs={12}>
                         <SubCard title="Employment">
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
@@ -308,8 +406,8 @@ const Profile = () => {
                                 </Grid>
                             </Grid>
                         </SubCard>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Grid> */}
+                    {/* <Grid item xs={12}>
                         <SubCard title="Skills">
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
@@ -368,7 +466,7 @@ const Profile = () => {
                                 </Grid>
                             </Grid>
                         </SubCard>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Grid>
         </Grid>

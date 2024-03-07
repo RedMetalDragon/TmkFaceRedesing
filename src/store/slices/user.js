@@ -11,15 +11,29 @@ const initialState = {
     error: null,
     userFirstName: '',
     userLastName: '',
+    birthday: '',
+    gender: '',
     email: 'mgr@gmail.com',
+    companyEmailAdress: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    joiningDate: '',
+    status: '',
+    division: '',
+    department: '',
+    jobTitle: '',
+    managerFirstName: '',
+    managerLastName: '',
     displayName: '',
     photoURL: '',
     cover: '',
     phone: '786-322-1234',
     location: '',
     about: '',
-    address: '',
-    zipCode: '',
     usersS1: [],
     usersS2: [],
     followers: [],
@@ -42,14 +56,33 @@ const slice = createSlice({
         },
 
         fillPersonalInfo(state, action) {
-            state.userFirstName = action.payload.userFirstName ? action.payload.userFirstName : state.userFirstName;
-            state.userLastName = action.payload.userLastName ? action.payload.userLastName : state.userLastName;
+            state.userFirstName = action.payload.first_name ? action.payload.first_name : state.userFirstName;
+            state.userLastName = action.payload.last_name ? action.payload.last_name : state.userLastName;
+            state.birthday = action.payload.birthday ? action.payload.birthday : state.birthday;
+            state.gender = action.payload.gender ? action.payload.gender : state.gender;
             state.userMiddleName = action.payload.userMiddleName ? action.payload.userMiddleName : state.userMiddleName;
-            state.email = action.payload.email ? action.payload.email : state.email;
+            state.phone = action.payload.contact_number ? action.payload.contact_number : state.phone;
+            state.email = action.payload.email_address ? action.payload.email_address : state.email;
+            state.companyEmailAdress = action.payload.company_email_address
+                ? action.payload.company_email_address
+                : state.companyEmailAdress;
+            state.address1 = action.payload.address_1 ? action.payload.address_1 : state.address1;
+            state.address2 = action.payload.address_2 ? action.payload.address_2 : state.address2;
+            state.city = action.payload.city ? action.payload.city : state.city;
+            state.state = action.payload.state ? action.payload.state : state.state;
+            state.zipCode = action.payload.zip_code ? action.payload.zip_code : state.zipCode;
+            state.country = action.payload.country ? action.payload.country : state.country;
+            state.joiningDate = action.payload.joining_date ? action.payload.joining_date : state.joiningDate;
+            state.status = action.payload.status ? action.payload.status : state.status;
+            state.division = action.payload.division ? action.payload.division : state.division;
+            state.department = action.payload.department ? action.payload.department : state.department;
+            state.jobTitle = action.payload.job_title ? action.payload.job_title : state.jobTitle;
+            state.managerFirstName = action.payload.manager.first_name ? action.payload.manager.first_name : state.managerFirstName;
+            state.managerLastName = action.payload.manager.last_name ? action.payload.manager.last_name : state.managerLastName;
+            // TODO - These are not already implemented in the backend
             state.displayName = action.payload.displayName ? action.payload.displayName : state.displayName;
             state.photoURL = action.payload.photoURL ? action.payload.photoURL : '/static/images/placeholder.svg';
             state.cover = action.payload.cover ? action.payload.cover : '/static/images/placeholder.svg';
-            state.phone = action.payload.phone ? action.payload.phone : state.phone;
             state.location = action.payload.location ? action.payload.location : state.location;
             state.about = action.payload.about ? action.payload.about : state.about;
             state.address = action.payload.address ? action.payload.address : state.address;
@@ -434,6 +467,16 @@ export function fillPersonalInfo() {
                 zipCode: response.data.zipCode
             };
             dispatch(slice.actions.fillPersonalInfo(mappedData));
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
+
+export function fillUserInfo(personaData) {
+    return async (dispatch) => {
+        try {
+            dispatch(slice.actions.fillPersonalInfo(personaData));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }

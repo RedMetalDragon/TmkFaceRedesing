@@ -6,7 +6,8 @@ import { LOGIN, LOGOUT, REGISTER } from './actions';
 const initialState = {
     isLoggedIn: false,
     isInitialized: false,
-    features: []
+    features: [],
+    personalData: {}
 };
 
 // eslint-disable-next-line
@@ -20,12 +21,13 @@ const accountReducer = (state = initialState, action) => {
             };
         }
         case LOGIN: {
-            const { features } = action.payload;
+            const { features, personalData } = action.payload;
             return {
                 ...state,
                 isLoggedIn: true,
                 isInitialized: true,
-                features: features
+                features: features,
+                personalData: personalData
             };
         }
         case LOGOUT: {

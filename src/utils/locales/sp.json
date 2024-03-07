@@ -162,5 +162,12 @@
     "user-attendance-table-title": "Tabla de Asistencia",
     "greeting-morning": "Buenos Días ",
     "greeting-afternoon": "Buenas Tardes ",
-    "greeting-evening": "Buenas Noches "
+    "greeting-evening": "Buenas Noches ",
+    "user-info-manager": "Manager",
+    "user-info-division-department": "Division/Departmento",
+    "user-info-joining-date": "Fecha de Ingreso",
+    "user-info-location": "Ubicación",
+    "user-info-phone": "Telefono",
+    "user-info-email": "Email",
+    "user-info-about": "Acerca de mi"
 }
