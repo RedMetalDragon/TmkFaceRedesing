@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Grid, Typography } from '@mui/material';
@@ -98,5 +98,7 @@ const GreetingCard = ({ userName }) => {
         </CardWrapper>
     );
 };
-
+GreetingCard.propTypes = {
+    userName: PropTypes.string
+};
 export default GreetingCard;

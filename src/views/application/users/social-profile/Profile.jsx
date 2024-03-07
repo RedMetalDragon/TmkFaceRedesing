@@ -20,7 +20,6 @@ import LayersTwoToneIcon from '@mui/icons-material/LayersTwoTone';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
-import PublicTwoToneIcon from '@mui/icons-material/PublicTwoTone';
 import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
 
 // ==============================|| SOCIAL PROFILE - POST ||============================== //
@@ -187,11 +186,6 @@ const Profile = () => {
                                     }
                                 }}
                             >
-                                <Grid item xs={12}>
-                                    <Link href="https://codedthemes.com/" target="_blank" underline="hover">
-                                        <PublicTwoToneIcon color="secondary" /> https://codedthemes.com/
-                                    </Link>
-                                </Grid>
                                 <Grid item xs={12}>
                                     <Link href="https://www.instagram.com/codedthemes" target="_blank" underline="hover">
                                         <InstagramIcon sx={{ color: theme.palette.orange.dark }} /> https://www.instagram.com/codedthemes
