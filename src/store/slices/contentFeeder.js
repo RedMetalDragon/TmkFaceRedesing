@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { dispatch } from '../index';
+import config from 'config';
 
 const initialState = {
     error: null,
-    images: ['/src/assets/images/cards/card-1.jpg', '/src/assets/images/cards/card-2.jpg', '/src/assets/images/cards/card-3.jpg'],
+    images: [1, 2, 3].map((n) => `${config.assetsPath}images/cards/card-${n}.jpg`),
     text: [
         'Lorem ipsum dolor sit at met asdasdasd dasdasdasdasdsa sadjasdnasjdnasjdsa dshadbasdhbsakfbasjkkjkdsfs iidfsd',
         'consectetur adipiscing elit',

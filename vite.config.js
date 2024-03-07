@@ -5,11 +5,16 @@ import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 
 export default defineConfig({
+    build: {
+        commonjsOptions: {
+            transformMixedEsModules: true
+        }
+    },
     plugins: [react(), jsconfigPaths()],
     // https://github.com/jpuri/react-draft-wysiwyg/issues/1317
-    define: {
-        global: 'window'
-    },
+    // define: {
+    //     global: ''
+    // },
     resolve: {
         alias: [
             {
@@ -19,7 +24,17 @@ export default defineConfig({
             {
                 find: /^src(.+)/,
                 replacement: path.join(process.cwd(), 'src/$1')
-            }
+            },
+            // {
+            //     find: /^jss-plugin-(.*)$/,
+            //     replacement: '$1',
+            //     customResolver: (id) => {
+            //         if (id === '{}') {
+            //             id = 'global';
+            //         }
+            //         return resolve(__dirname, `./node_modules/jss-plugin-${id}/src/index.js`);
+            //     }
+            // }
         ]
     },
     server: {

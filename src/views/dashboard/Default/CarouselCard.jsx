@@ -12,8 +12,6 @@ import { Box, Grid } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-// import SkeletonCarouselCard from 'ui-component/cards/Skeleton/CarouselCard';
-// import { useSelector } from 'react-redux';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.ligth,
