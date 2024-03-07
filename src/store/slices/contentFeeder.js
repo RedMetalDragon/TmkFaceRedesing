@@ -1,10 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { dispatch } from '../index';
-import config from 'config';
+// import config from 'config';
+//eslint-disable-next-line
+import card1 from 'assets/images/cards/card-1.jpg';
+//eslint-disable-next-line
+import card2 from 'assets/images/cards/card-2.jpg';
+//eslint-disable-next-line
+import card3 from 'assets/images/cards/card-3.jpg';
 
 const initialState = {
     error: null,
-    images: [1, 2, 3].map((n) => `${config.assetsPath}images/cards/card-${n}.jpg`),
+    images: [card1, card2, card3],
+    //images: [1, 2, 3].map((n) => `${config.assetsPath}images/cards/card-${n}.jpg`),
     text: [
         'Lorem ipsum dolor sit at met asdasdasd dasdasdasdasdsa sadjasdnasjdnasjdsa dshadbasdhbsakfbasjkkjkdsfs iidfsd',
         'consectetur adipiscing elit',
