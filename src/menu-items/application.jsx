@@ -120,16 +120,22 @@ const application = {
                     id: 'attendance',
                     title: <FormattedMessage id="user-attendance" />,
                     type: 'item',
-                    route: '/schedule',
+                    route: '/punch-in-out',
                     url: '/apps/user/schedule/attendance'
                 },
                 {
-                    id: 'punch-in-out',
-                    title: <FormattedMessage id="customer-list" />,
+                    id: 'view-schedule',
+                    title: <FormattedMessage id="view-schedule" />,
                     type: 'item',
-                    route: '/punch-in-out',
-                    url: '/apps/customer/customer-list',
-                    breadcrumbs: false
+                    route: '/schedule',
+                    url: '/apps/user/schedule/view-sched'
+                },
+                {
+                    id: 'org-schedule',
+                    title: <FormattedMessage id="create-schedule" />,
+                    type: 'item',
+                    route: '/create-sched',
+                    url: '/apps/manager/schedule/org-sched'
                 },
                 {
                     id: 'order-list',

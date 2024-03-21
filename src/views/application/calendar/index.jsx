@@ -97,6 +97,7 @@ const Calendar = () => {
             const calendarApi = calendarEl.getApi();
 
             calendarApi.next();
+
             setDate(calendarApi.getDate());
         }
     };
@@ -176,7 +177,9 @@ const Calendar = () => {
         setIsModalOpen(true);
     };
 
-    if (loading) return <Loader />;
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <MainCard

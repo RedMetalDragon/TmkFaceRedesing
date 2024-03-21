@@ -8,7 +8,7 @@ const initialState = {
     data: []
 };
 const slice = createSlice({
-    name: 'schedule',
+    name: 'attendance',
     initialState,
     reducers: {
         // HAS ERROR
@@ -33,11 +33,11 @@ const slice = createSlice({
 
 export const { fetchDataStart, fetchDataSuccess, fetchDataFailed } = slice.actions;
 
-export function fetchUserScheduleTable() {
+export function fetchUserAttendanceTable() {
     return async (dispatch) => {
         dispatch(fetchDataStart());
         try {
-            const response = await axios.get('/users/schedule');
+            const response = await axios.get('/users/attendance');
             dispatch(fetchDataSuccess(response.data));
         } catch (error) {
             dispatch(fetchDataFailed(error));

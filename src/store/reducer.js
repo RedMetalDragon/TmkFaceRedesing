@@ -16,8 +16,9 @@ import cartReducer from './slices/cart';
 import kanbanReducer from './slices/kanban';
 import menuReducer from './slices/menu';
 import features from './slices/features';
-import schedule from './slices/schedule';
+import attendance from './slices/attendance';
 import contentFeeder from './slices/contentFeeder';
+import orgSchedules from './slices/orgSchedules';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -41,7 +42,8 @@ const reducer = combineReducers({
     user: userReducer,
     menu: menuReducer,
     features: features,
-    schedule: schedule,
+    attendance: attendance,
+    orgSchedules: orgSchedules,
     contentFeeder: contentFeeder
 });
 

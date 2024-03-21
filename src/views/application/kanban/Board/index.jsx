@@ -30,9 +30,12 @@ const Board = () => {
         let newColumn;
         const { source, destination, draggableId, type } = result;
 
-        if (!destination) return;
-        if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-
+        if (!destination) {
+            return;
+        }
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
+            return;
+        }
         if (type === 'column') {
             const newColumnsOrder = Array.from(columnsOrder);
 

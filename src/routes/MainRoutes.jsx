@@ -45,6 +45,7 @@ const AppKanbanBacklogs = Loadable(lazy(() => import('views/application/kanban/B
 const AppKanbanBoard = Loadable(lazy(() => import('views/application/kanban/Board')));
 const AppMail = Loadable(lazy(() => import('views/application/mail')));
 const AppCalendar = Loadable(lazy(() => import('views/application/calendar')));
+const OrgSchedule = Loadable(lazy(() => import('views/application/orgSchedules')))
 const AppContactCard = Loadable(lazy(() => import('views/application/contact/Card')));
 const AppContactList = Loadable(lazy(() => import('views/application/contact/List')));
 
@@ -254,8 +255,16 @@ const MainRoutes = {
             ]
         },
         {
-            path: '/apps/calendar',
-            element: <AppCalendar />
+            path: '/apps/user/schedule/view-sched',
+            element: <AppCalendar create={false} />
+        },
+        {
+            path: '/apps/manager/schedule/org-sched',
+            element: <OrgSchedule />
+        },
+        {
+            path: '/apps/user/schedule/create-sched',
+            element: <AppCalendar create={true} />
         },
         {
             path: '/apps/contact/c-card',

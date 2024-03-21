@@ -48,6 +48,8 @@ const ColorBox = ({ bgcolor, title, data, dark }) => (
     </>
 );
 
+export { ColorBox };
+
 ColorBox.propTypes = {
     bgcolor: PropTypes.string,
     title: PropTypes.string,

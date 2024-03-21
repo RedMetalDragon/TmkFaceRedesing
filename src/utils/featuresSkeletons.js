@@ -1,48 +1,48 @@
 //eslint-disable-next-line
-var roleFeatures = [
-    {
-        name: 'Dashboard',
-        route: '/dashboard',
-        icon: '../assets/bar-chart-outline.svg'
-    },
-    {
-        name: 'Pay',
-        route: '/pay',
-        icon: '../assets/card-outline.svg'
-    },
-    {
-        name: 'Time Management',
-        icon: '../assets/timer.svg',
-        sublists: [
-            {
-                name: 'Log Attendance',
-                route: '/punch-in-out'
-            },
-            {
-                name: 'View Schedule',
-                route: '/schedule'
-            },
-            {
-                name: 'Create Schedule',
-                route: '/create-sched'
-            }
-        ]
-    },
-    {
-        name: 'Employee',
-        icon: '../assets/icon_group.svg',
-        sublists: [
-            {
-                name: 'My Team',
-                route: '/my-team'
-            },
-            {
-                name: 'Organization Chart',
-                route: '/org-chart'
-            }
-        ]
-    }
-];
+// var roleFeatures = [
+//     {
+//         name: 'Dashboard',
+//         route: '/dashboard',
+//         icon: '../assets/bar-chart-outline.svg'
+//     },
+//     {
+//         name: 'Pay',
+//         route: '/pay',
+//         icon: '../assets/card-outline.svg'
+//     },
+//     {
+//         name: 'Time Management',
+//         icon: '../assets/timer.svg',
+//         sublists: [
+//             {
+//                 name: 'Log Attendance',
+//                 route: '/punch-in-out'
+//             },
+//             {
+//                 name: 'View Schedule',
+//                 route: '/schedule'
+//             },
+//             {
+//                 name: 'Create Schedule',
+//                 route: '/create-sched'
+//             }
+//         ]
+//     },
+//     {
+//         name: 'Employee',
+//         icon: '../assets/icon_group.svg',
+//         sublists: [
+//             {
+//                 name: 'My Team',
+//                 route: '/my-team'
+//             },
+//             {
+//                 name: 'Organization Chart',
+//                 route: '/org-chart'
+//             }
+//         ]
+//     }
+// ];
 
 // const dashboard = {
 //     id: 'dashboard',
@@ -76,6 +76,14 @@ const treeFeaturesSkeleton = {
     route: '*',
     childrens: []
 };
+
+/**
+ * Builds a tree structure from an array of nodes.
+ * The buildTree function takes an array of nodes and recursively builds a tree structure. Each node in the array can have children nodes, forming a hierarchical structure.
+ * @param {Array} arrayOfNodes - The array of nodes to build the tree from.
+ * @param {Object} [parent=treeFeaturesSkeleton] - The parent node to attach the built tree to. Defaults to treeFeaturesSkeleton.
+ * @returns {Object} The parent node with the built tree structure.
+ */
 // eslint-disable-next-line
 function buildTree(arrayOfNodes, parent = treeFeaturesSkeleton) {
     if (!Array.isArray(arrayOfNodes)) {
@@ -93,12 +101,18 @@ function buildTree(arrayOfNodes, parent = treeFeaturesSkeleton) {
     return parent;
 }
 
+/**
+ * Replaces spaces with underscores and converts the name to lowercase.
+ * The replaceNodeName function takes a name string and replaces any spaces with underscores. It then converts the name to lowercase.
+ * @param {string} name - The name string to be replaced.
+ * @returns {string} The modified name string with spaces replaced by underscores and converted to lowercase.
+ */
 function replaceNodeName(name) {
     return name.replace(' ', '_').toLowerCase();
 }
 
 function replaceNodeRoute(route) {
-    var replaced = '/';
+    const replaced = '/';
     return replaced + route.replace(' ', '_').toLowerCase();
 }
 // eslint-disable-next-line

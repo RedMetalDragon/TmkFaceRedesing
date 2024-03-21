@@ -6,15 +6,15 @@ import Loader from 'ui-component/Loader';
 import { FormattedMessage } from 'react-intl';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { fetchUserScheduleTable } from 'store/slices/schedule';
+import { fetchUserAttendanceTable } from 'store/slices/attendance';
 import { useEffect } from 'react';
 import { formatTime } from 'utils/helperFunctions';
 
-const UserScheduleTable = () => {
+const AttendanceTable = () => {
     const dispatch = useDispatch();
-    const scheduleState = useSelector((state) => state.schedule);
+    const scheduleState = useSelector((state) => state.attendance);
     const { loading, data } = scheduleState;
-    const prefixLabel = 'schedule-data-';
+    const prefixLabel = 'user-attendance-';
     const prefixDayOfWeek = 'day-of-week-';
     // Headers table
     const header = [
@@ -25,10 +25,12 @@ const UserScheduleTable = () => {
         { label: 'hours', key: 5 }
     ];
     useEffect(() => {
-        dispatch(fetchUserScheduleTable());
+        dispatch(fetchUserAttendanceTable());
     }, [dispatch]);
 
-    if (loading) return <Loader />;
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -76,4 +78,4 @@ const UserScheduleTable = () => {
     );
 };
 
-export default UserScheduleTable;
+export default AttendanceTable;
