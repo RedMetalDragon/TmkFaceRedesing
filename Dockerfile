@@ -6,6 +6,9 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
+# Install curl for health checks or minimal debugging
+RUN apk add --no-cache curl
+
 # Stage 2: Serve the application using Nginx
 FROM nginx:stable-alpine AS production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
