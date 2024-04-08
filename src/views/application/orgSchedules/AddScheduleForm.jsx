@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { ColorPicker, ColorInput } from 'material-ui-color';
+import { ColorPicker } from 'material-ui-color';
 import { FormattedMessage } from 'react-intl';
 import {
     Button,
@@ -15,15 +15,12 @@ import {
     Grid,
     IconButton,
     InputAdornment,
-    Radio,
-    RadioGroup,
     Stack,
-    Switch,
     TextField,
     Tooltip,
     Typography
 } from '@mui/material';
-import { LocalizationProvider, MobileDateTimePicker, MobileTimePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider, MobileTimePicker } from '@mui/x-date-pickers';
 import '@mui/lab';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
@@ -34,6 +31,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // project imports
 //import ColorPalette from './ColorPalette';
 import { gridSpacing } from 'store/constant';
+import Loader from 'ui-component/Loader';
 
 // ===========================|| ADD SCHEDULE FORM ||=========================== //
 
@@ -92,6 +90,12 @@ const AddScheduleForm = ({ onCancel, event, range, handleCreate, handleUpdate })
             }
         }
     });
+
+    // Check that this feature works proeprly
+    if (formik.isSubmitting) {
+        return <Loader />;
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <FormikProvider value={formik}>
