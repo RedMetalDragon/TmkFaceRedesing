@@ -176,5 +176,7 @@
     "org-schedules-name": "Name",
     "org-schedules-startAt": "Start At",
     "org-schedules-endAt": "End At",
-    "org-schedules-color": "Color"
+    "org-schedules-color": "Color",
+    "org-schedules-actions-add-event": "Add Schedule",
+    "org-schedules-actions-edit-event": "Update Schedule"
 }

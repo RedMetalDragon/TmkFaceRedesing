@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
+import { useState } from 'react';
+import { Button } from '@mui/material';
 // material-ui
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
-//import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import Loader from 'ui-component/Loader';
 import { FormattedMessage } from 'react-intl';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
+import { Dialog } from '@mui/material';
+import AddScheduleForm from './AddScheduleForm';
 //import { formatTime } from 'utils/helperFunctions';
 //import { ColorBox } from 'views/utilities/Color';
 import { fetchOrgSchedules } from 'store/slices/orgSchedules';
+import Stack from '@mui/material/Stack';
 import { Box } from '@mui/material';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 const ColorBox = ({ bgcolor }) => (
     <Box
@@ -29,6 +34,11 @@ const ColorBox = ({ bgcolor }) => (
 
 // Company Schedules
 const ListSchedules = () => {
+    // use state variables
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRange, setSelectedRange] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    // use dispatch
     const dispatch = useDispatch();
     const orgSchedules = useSelector((state) => state.orgSchedules);
     const { loading, data } = orgSchedules;
@@ -46,6 +56,36 @@ const ListSchedules = () => {
         dispatch(fetchOrgSchedules());
     }, [dispatch]);
 
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        setSelectedEvent(null);
+        setSelectedRange(null);
+    };
+
+    const handleAddClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleEventDelete = async (id) => {
+        try {
+            // TODO: dispatch remove event
+            // dispatch(removeEvent(id));
+            handleModalClose();
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleUpdateEvent = async (eventId, update) => {
+        // dispatch(updateEvent({ eventId, update }));
+        handleModalClose();
+    };
+
+    const handleEventCreate = async (data) => {
+        dispatch(postOrgSchedule(data));
+        handleModalClose();
+    };
+
     if (loading) {
         return <Loader />;
     }
@@ -56,12 +96,15 @@ const ListSchedules = () => {
                 <MainCard
                     content={false}
                     title={<FormattedMessage id="schedules-table-title"></FormattedMessage>}
-                    // secondary={
-                    //     <Stack direction="row" spacing={2} alignItems="center">
-                    //         {/* <CSVExport data={data} filename="basic-table.csv" header={header} /> */}
-                    //         <SecondaryAction link="https://next.material-ui.com/components/tables/" />
-                    //     </Stack>
-                    //}
+                    secondary={
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            {/* <CSVExport data={data} filename="basic-table.csv" header={header} /> */}
+                            <Button color="secondary" variant="contained" onClick={handleAddClick}>
+                                <DateRangeIcon fontSize="small" sx={{ mr: 0.75 }} />
+                                <FormattedMessage id="org-schedules-actions-add-event"></FormattedMessage>
+                            </Button>
+                        </Stack>
+                    }
                 >
                     {/* table */}
                     <TableContainer>
@@ -97,6 +140,18 @@ const ListSchedules = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <Dialog maxWidth="sm" fullWidth onClose={handleModalClose} open={isModalOpen} sx={{ '& .MuiDialog-paper': { p: 0 } }}>
+                        {isModalOpen && (
+                            <AddScheduleForm
+                                event={selectedEvent}
+                                range={selectedRange}
+                                onCancel={handleModalClose}
+                                handleDelete={handleEventDelete}
+                                handleCreate={handleEventCreate}
+                                handleUpdate={handleUpdateEvent}
+                            />
+                        )}
+                    </Dialog>
                 </MainCard>
             </Grid>
         </Grid>

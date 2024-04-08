@@ -176,5 +176,7 @@
     "org-schedules-name": "Nombre",
     "org-schedules-startAt": "Comienza",
     "org-schedules-endAt": "Termina",
-    "org-schedules-color": "Color"
+    "org-schedules-color": "Color",
+    "org-schedules-actions-add-event": "Agregar Horario",
+    "org-schedules-actions-edit-event": "Editar Horario"
 }

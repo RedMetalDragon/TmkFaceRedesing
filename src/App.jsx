@@ -29,6 +29,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getMenu()).then(() => {
             setLoading(true);
+            console.log(`TMK_BAK : ${import.meta.env.VITE_TMK_BACKEND_API_URL}`);
         });
     }, []);
 

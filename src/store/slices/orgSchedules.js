@@ -28,7 +28,16 @@ const slice = createSlice({
         fetchDataFailed(state, action) {
             state.loading = false;
             state.error = action.payload;
+        },
+        // Post data
+        postData(state, action) {
+            state.data.push(action.payload);
+        },
+        // Remove event
+        removeData(state, action) {
+            state.data = state.data.filter((item) => item.id !== action.payload);
         }
+        // Update event
     }
 });
 
@@ -42,6 +51,17 @@ export function fetchOrgSchedules() {
             dispatch(fetchDataSuccess(response.data));
         } catch (error) {
             dispatch(fetchDataFailed(error));
+        }
+    };
+}
+
+export function postOrgSchedule(data) {
+    return async (dispatch) => {
+        try {
+            await axios.post('/schedule', data);
+            dispatch(postData(data));
+        } catch (error) {
+            dispatch(hasError(error));
         }
     };
 }
