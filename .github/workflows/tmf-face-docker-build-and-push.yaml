@@ -22,33 +22,51 @@ jobs:
       with:
         ref: ${{ github.event.inputs.branch || github.ref }}
     
-    - name: Get branch name
-      id: get-branch-name
-      uses: actions/github-script@v5
-      with:
-        script: |
-          const payload = context.payload;
-            const tagName = payload.ref;
-            const branchName = await github.git.listMatchingRefs({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `tags/${tagName}`
-            });
-            const branchNameStr = branchName.data[0].ref.replace('refs/heads/', '');
-            return branchNameStr;
-        result-encoding: string
+    # - name: Get branches associated with tag
+    #   id: get-branches
+    #   uses: actions/github-script@v5
+    #   with:
+    #     script: |
+    #       const tagName = context.ref.replace('refs/tags/', '');
+    #       const branches = await github.repos.listBranches(context.repo);
+    #       const branchesAssociatedWithTag = branches.data.filter(branch => {
+    #         const commitSHA = branch.commit.sha;
+    #         return github.git.getCommit({
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           ref: commitSHA
+    #         }).then(commit => commit.data.message.includes(tagName));
+    #       });
+    #       return branchesAssociatedWithTag.map(branch => branch.name);
+    #     result-encoding: string
+
+    # - name: Get branch name
+    #   id: get-branch-name
+    #   uses: actions/github-script@v5
+    #   with:
+    #     script: |
+    #       const payload = context.payload;
+    #         const tagName = payload.ref;
+    #         const branchName = await github.git.listMatchingRefs({
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           ref: `tags/${tagName}`
+    #         });
+    #         const branchNameStr = branchName.data[0].ref.replace('refs/heads/', '');
+    #         return branchNameStr;
+    #     result-encoding: string
       
 
-    - name: Check branch name
-      id: check-branch-name
-      run: |
-        echo "Branch name: ${{ steps.get-branch-name.outputs.result }}"
-        if [[ "${{ steps.get-branch-name.outputs.result }}" == release/staging* ]]; then
-          echo "The branch name starts with 'release/staging'. Proceeding with the workflow."
-          echo "PROCEED=true" >> $GITHUB_ENV
-        else
-          echo "The branch name does not start with 'release/staging'. Skipping the workflow."
-          echo "PROCEED=false" >> $GITHUB_ENV
+    # - name: Check branch name
+    #   id: check-branch-name
+    #   run: |
+    #     echo "Branch name: ${{ steps.get-branch-name.outputs.result }}"
+    #     if [[ "${{ steps.get-branch-name.outputs.result }}" == release/staging* ]]; then
+    #       echo "The branch name starts with 'release/staging'. Proceeding with the workflow."
+    #       echo "PROCEED=true" >> $GITHUB_ENV
+    #     else
+    #       echo "The branch name does not start with 'release/staging'. Skipping the workflow."
+    #       echo "PROCEED=false" >> $GITHUB_ENV
     
     - name: Validate tag version
       id: check-condition
@@ -83,28 +101,28 @@ jobs:
 
     - name: Set up QEMU
       if: env.proceed == 'true'
-      uses: docker/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v3
 
     - name: Set up Docker Buildx
       if: env.proceed == 'true'
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v3
 
     - name: Login to DockerHub
       if: env.proceed == 'true'
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push multi-arch image
       if: env.proceed == 'true'
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: Dockerfile
         platforms: linux/amd64,linux/arm64  # Specify the platforms
         push: true
-        args: |
+        build-args: |
           VITE_TMK_BACKEND_API_URL=${{ secrets.VITE_TMK_BACKEND_API_URL }}
         tags: |
           marcoguerod/tmkface-amd64:${{ github.event.inputs.tag || env.IMAGE_TAG }}

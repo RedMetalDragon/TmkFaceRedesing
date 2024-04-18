@@ -99,7 +99,7 @@ const AddScheduleForm = ({ onCancel, event, range, handleCreate, handleUpdate })
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <FormikProvider value={formik}>
-                <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
+                <Form autoComplete="on" noValidate onSubmit={formik.handleSubmit}>
                     <DialogTitle sx={{ pt: 2, pb: 2 }}>
                         <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item>
