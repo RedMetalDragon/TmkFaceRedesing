@@ -22,33 +22,51 @@ jobs:
       with:
         ref: ${{ github.event.inputs.branch || github.ref }}
     
-    - name: Get branch name
-      id: get-branch-name
-      uses: actions/github-script@v5
-      with:
-        script: |
-          const payload = context.payload;
-            const tagName = payload.ref;
-            const branchName = await github.git.listMatchingRefs({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `tags/${tagName}`
-            });
-            const branchNameStr = branchName.data[0].ref.replace('refs/heads/', '');
-            return branchNameStr;
-        result-encoding: string
+    # - name: Get branches associated with tag
+    #   id: get-branches
+    #   uses: actions/github-script@v5
+    #   with:
+    #     script: |
+    #       const tagName = context.ref.replace('refs/tags/', '');
+    #       const branches = await github.repos.listBranches(context.repo);
+    #       const branchesAssociatedWithTag = branches.data.filter(branch => {
+    #         const commitSHA = branch.commit.sha;
+    #         return github.git.getCommit({
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           ref: commitSHA
+    #         }).then(commit => commit.data.message.includes(tagName));
+    #       });
+    #       return branchesAssociatedWithTag.map(branch => branch.name);
+    #     result-encoding: string
+
+    # - name: Get branch name
+    #   id: get-branch-name
+    #   uses: actions/github-script@v5
+    #   with:
+    #     script: |
+    #       const payload = context.payload;
+    #         const tagName = payload.ref;
+    #         const branchName = await github.git.listMatchingRefs({
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           ref: `tags/${tagName}`
+    #         });
+    #         const branchNameStr = branchName.data[0].ref.replace('refs/heads/', '');
+    #         return branchNameStr;
+    #     result-encoding: string
       
 
-    - name: Check branch name
-      id: check-branch-name
-      run: |
-        echo "Branch name: ${{ steps.get-branch-name.outputs.result }}"
-        if [[ "${{ steps.get-branch-name.outputs.result }}" == release/staging* ]]; then
-          echo "The branch name starts with 'release/staging'. Proceeding with the workflow."
-          echo "PROCEED=true" >> $GITHUB_ENV
-        else
-          echo "The branch name does not start with 'release/staging'. Skipping the workflow."
-          echo "PROCEED=false" >> $GITHUB_ENV
+    # - name: Check branch name
+    #   id: check-branch-name
+    #   run: |
+    #     echo "Branch name: ${{ steps.get-branch-name.outputs.result }}"
+    #     if [[ "${{ steps.get-branch-name.outputs.result }}" == release/staging* ]]; then
+    #       echo "The branch name starts with 'release/staging'. Proceeding with the workflow."
+    #       echo "PROCEED=true" >> $GITHUB_ENV
+    #     else
+    #       echo "The branch name does not start with 'release/staging'. Skipping the workflow."
+    #       echo "PROCEED=false" >> $GITHUB_ENV
     
     - name: Validate tag version
       id: check-condition
