@@ -1,7 +1,7 @@
 # Stage 1: Build the React application
 FROM node:lts-alpine AS build-stage
 WORKDIR /app
-COPY package.json  ./
+COPY package.json  yarn.lock ./
 RUN yarn install
 ARG VITE_TMK_BACKEND_API_URL
 ENV VITE_TMK_BACKEND_API_URL=$VITE_TMK_BACKEND_API_URL
