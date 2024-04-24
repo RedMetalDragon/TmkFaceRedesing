@@ -21,12 +21,20 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
-      - name: Download image tag
+      - name: Download image tags artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: tmk_face_latest_image_tag
+          path: ./
+      
+      - name: Read image tags
         run: |
-          TMKBRAIN_TAG=${cat tmk_brain_latest_image_tag.txt}
-          TMKFACE_TAG=${cat tmk_face_latest_image_tag.txt}
-          echo "TMKBRAIN_TAG = ${TMKBRAIN_TAG}"
-          echo "TMKFACE_TAG = ${TMKFACE_TAG}"
+          TMKBRAIN_TAG=$(cat tmk_brain_latest_image_tag.txt)
+          TMKFACE_TAG=$(cat tmk_face_latest_image_tag.txt)
+          echo "TMKBRAIN_TAG=$TMKBRAIN_TAG" >> $GITHUB_ENV
+          echo "TMKFACE_TAG=$TMKFACE_TAG" >> $GITHUB_ENV
+          echo "TMKBRAIN_TAG = $TMKBRAIN_TAG"
+          echo "TMKFACE_TAG = $TMKFACE_TAG"
 
 
       - name: Connect to EC2 instance
@@ -36,6 +44,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy Docker Compose
+      - name: Connect to EC2 instance and Deploy Docker Compose
         run: |
-          ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'cd /home/ec2-user/TmkPalantir && /.run-docker-compose.bash ${${TMKBRAIN_TAG}} ${{TMKFACE_TAG}}'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} <<EOF
+          cd /home/ec2-user/TmkPalantir
+          ./run-docker-compose.bash $TMKBRAIN_TAG $TMKFACE_TAG
+          EOF
