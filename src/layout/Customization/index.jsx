@@ -67,6 +67,7 @@ const Customization = () => {
 
     const [value, setValue] = useState(0);
 
+    // tab value change
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
