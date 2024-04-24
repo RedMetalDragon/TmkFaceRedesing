@@ -71,6 +71,11 @@ const Customization = () => {
         setValue(newValue);
     };
 
+    // Hide customization theme component (nut)
+    if (!useConfig().customizationEnabled) {
+        return <></>;
+    }
+
     return (
         <>
             {/* toggle button */}

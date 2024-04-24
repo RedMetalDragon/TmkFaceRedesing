@@ -1,75 +1,4 @@
-//eslint-disable-next-line
-// var roleFeatures = [
-//     {
-//         name: 'Dashboard',
-//         route: '/dashboard',
-//         icon: '../assets/bar-chart-outline.svg'
-//     },
-//     {
-//         name: 'Pay',
-//         route: '/pay',
-//         icon: '../assets/card-outline.svg'
-//     },
-//     {
-//         name: 'Time Management',
-//         icon: '../assets/timer.svg',
-//         sublists: [
-//             {
-//                 name: 'Log Attendance',
-//                 route: '/punch-in-out'
-//             },
-//             {
-//                 name: 'View Schedule',
-//                 route: '/schedule'
-//             },
-//             {
-//                 name: 'Create Schedule',
-//                 route: '/create-sched'
-//             }
-//         ]
-//     },
-//     {
-//         name: 'Employee',
-//         icon: '../assets/icon_group.svg',
-//         sublists: [
-//             {
-//                 name: 'My Team',
-//                 route: '/my-team'
-//             },
-//             {
-//                 name: 'Organization Chart',
-//                 route: '/org-chart'
-//             }
-//         ]
-//     }
-// ];
-
-// const dashboard = {
-//     id: 'dashboard',
-//     //title: <FormattedMessage id="dashboard" />,
-//     //icon: icons.IconDashboard,
-//     type: 'group',
-//     children: [
-//         {
-//             id: 'default',
-//             //title: <FormattedMessage id="default" />,
-//             type: 'item',
-//             url: '/dashboard/default',
-//             //      icon: icons.IconDashboard,
-//             breadcrumbs: false
-//         },
-//         {
-//             id: 'analytics',
-//             //title: <FormattedMessage id="analytics" />,
-//             type: 'item',
-//             url: '/dashboard/analytics',
-//             //       icon: icons.IconDeviceAnalytics,
-//             breadcrumbs: false
-//         }
-//     ]
-// };
-
-const filterEnabled = true;
+import { featureFilterEnabled } from './globalConfig.js';
 
 const treeFeaturesSkeleton = {
     name: 'root',
@@ -183,7 +112,7 @@ function filterTreeByRoutes(node, hashMap, ancestorRoute) {
 }
 
 function filterTreeComponentsByRoutes(componentsTree, roleFeatures) {
-    if (!filterEnabled) {
+    if (!featureFilterEnabled) {
         return componentsTree;
     }
     // We should a call to a function that check the structure of the componentsTree
