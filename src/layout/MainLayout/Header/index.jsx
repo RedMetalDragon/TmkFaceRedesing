@@ -31,7 +31,7 @@ const Header = () => {
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
     const { layout } = useConfig();
 
-    // drawer handler
+    // drawer
     return (
         <>
             {/* logo & toggler button */}
