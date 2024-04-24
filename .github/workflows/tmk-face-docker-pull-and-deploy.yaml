@@ -29,11 +29,8 @@ jobs:
       
       - name: Read image tags
         run: |
-          TMKBRAIN_TAG=$(cat tmk_brain_latest_image_tag.txt)
           TMKFACE_TAG=$(cat tmk_face_latest_image_tag.txt)
-          echo "TMKBRAIN_TAG=$TMKBRAIN_TAG" >> $GITHUB_ENV
           echo "TMKFACE_TAG=$TMKFACE_TAG" >> $GITHUB_ENV
-          echo "TMKBRAIN_TAG = $TMKBRAIN_TAG"
           echo "TMKFACE_TAG = $TMKFACE_TAG"
 
 
@@ -48,5 +45,5 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} <<EOF
           cd /home/ec2-user/TmkPalantir
-          ./run-docker-compose.bash $TMKBRAIN_TAG $TMKFACE_TAG
+          ./run-docker-compose-face.bash $TMKFACE_TAG
           EOF
