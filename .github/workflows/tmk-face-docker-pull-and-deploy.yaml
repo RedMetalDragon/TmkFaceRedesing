@@ -2,15 +2,14 @@ name: Deploy Docker Compose
 
 on:
   pull_request:
-    branches:
-      - release/staging
     types:
       - closed
-  
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.base.ref, 'release/staging')
     environment:
       name: staging
     steps:
