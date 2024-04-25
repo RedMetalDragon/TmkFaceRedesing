@@ -18,4 +18,4 @@ jobs:
         path: ./tmk_face_latest_image_tag.txt  # Optional: define a directory to download to
 
     - name: List downloaded files
-      run: ls -R ./tmk_face_latest_image_tag.txt  # This will list all files in the download directory
+      run: ls -R # This will list all files in the download directory
