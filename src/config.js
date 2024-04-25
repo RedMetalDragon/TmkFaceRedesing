@@ -1,5 +1,5 @@
 import LAYOUT_CONST from 'constant';
-
+import { themeCustomizationEnabled } from './utils/globalConfig';
 export const DASHBOARD_PATH = '/dashboard/default';
 export const HORIZONTAL_MAX_ITEM = 7;
 
@@ -14,7 +14,8 @@ const config = {
     locale: 'en', // 'sp'-Spanish 'en' - English, 'fr' - French, 'ro' - Romanian, 'zh' - Chinese
     rtlLayout: false,
     container: false,
-    assetsPath: import.meta.env.VITE_ASSETS_PATH || '/assets/'
+    assetsPath: import.meta.env.VITE_ASSETS_PATH || '/assets/',
+    customizationEnabled: themeCustomizationEnabled
 };
 
 export default config;

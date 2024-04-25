@@ -16,11 +16,13 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         ref: ${{ github.event.inputs.branch || github.ref }}
+    
     
     # - name: Get branches associated with tag
     #   id: get-branches
@@ -92,12 +94,19 @@ jobs:
           echo "Using commit SHA as tag because no version tag is present: $TAG"
         fi
         echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
+        echo "${{ github.ref }}" > tmk_face_latest_image_tag.txt
 
     - name: Bridge workflow
       if: env.proceed == 'false'
       run:  |
         echo "Skipping the workflow"
         exit 1
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: tmk_face_latest_image_tag
+        path: tmk_face_latest_image_tag.txt
 
     - name: Set up QEMU
       if: env.proceed == 'true'
