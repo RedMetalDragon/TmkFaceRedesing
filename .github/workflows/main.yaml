@@ -6,6 +6,8 @@ on:
 jobs:
   download-artifact:
     runs-on: ubuntu-latest
+    environment:
+      name: staging
 
     steps:
     - name: Checkout Repository
