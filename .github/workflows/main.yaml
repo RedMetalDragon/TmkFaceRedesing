@@ -11,13 +11,13 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2  # Usually good practice to start with a fresh checkout
+      uses: actions/checkout@v4  # Usually good practice to start with a fresh checkout
 
     - name: List downloaded files
       run: ls -R # This will list all files in the download directory
 
     - name: Download Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
-        name: tmk_face_latest_image_tag  # Replace with the exact name of your artifact
-        path: ./tmk_face_latest_image_tag.txt  # Optional: define a directory to download to
+        name: backendTag # Replace with the exact name of your artifact
+        path: artifacts/tagVersions/frontend  # Optional: define a directory to download to

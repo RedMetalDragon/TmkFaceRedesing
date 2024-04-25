@@ -103,10 +103,9 @@ jobs:
         exit 1
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: tmk_face_latest_image_tag
-        path: tmk_face_latest_image_tag.txt
 
     - name: Set up QEMU
       if: env.proceed == 'true'
