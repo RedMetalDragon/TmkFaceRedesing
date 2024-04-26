@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
+    MenuItem,
     Box,
     Button,
     Checkbox,
@@ -18,7 +19,8 @@ import {
     OutlinedInput,
     TextField,
     Typography,
-    useMediaQuery
+    useMediaQuery,
+    Select
 } from '@mui/material';
 
 // third party
@@ -37,6 +39,21 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
+
+const initialFeatures = [
+    {
+        value: 'basic',
+        label: 'Basic'
+    },
+    {
+        value: 'standard',
+        label: 'Standard'
+    },
+    {
+        value: 'premium',
+        label: 'Premium'
+    }
+];
 
 const JWTRegister = ({ ...others }) => {
     const theme = useTheme();
@@ -75,7 +92,7 @@ const JWTRegister = ({ ...others }) => {
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Sign up with Email address</Typography>
+                        <Typography variant="subtitle1">Register up with Email address</Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -86,11 +103,18 @@ const JWTRegister = ({ ...others }) => {
                     password: '',
                     firstName: '',
                     lastName: '',
+                    features: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    password: Yup.string().max(255).required('Password is required'),
+                    features: Yup.string()
+                        .required('Features Plan is required')
+                        .oneOf(
+                            initialFeatures.map((x) => x.value),
+                            'Features Plan is required'
+                        )
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -109,7 +133,6 @@ const JWTRegister = ({ ...others }) => {
                                     close: false
                                 })
                             );
-
                             setTimeout(() => {
                                 navigate('/login', { replace: true });
                             }, 1500);
@@ -124,7 +147,7 @@ const JWTRegister = ({ ...others }) => {
                     }
                 }}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                {({ errors, handleBlur, handleChange, handleSubmit, setFieldValue, setFieldTouched, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
                             <Grid item xs={12} sm={6}>
@@ -154,6 +177,33 @@ const JWTRegister = ({ ...others }) => {
                                 />
                             </Grid>
                         </Grid>
+                        {/* Dropdown menu to select the features plan */}
+                        <FormControl fullWidth error={touched.features && errors.features} sx={{ my: '1.05rem' }}>
+                            <InputLabel id="features-label">Features Plan</InputLabel>
+                            <Select
+                                labelId="features-label"
+                                id="features-select"
+                                variant="outlined"
+                                value={values.features}
+                                onChange={(event) => {
+                                    setFieldValue('features', event.target.value);
+                                    setFieldTouched('features', true, false); // Sets field as touched and optionally run validation
+                                }}
+                                onBlur={handleBlur}
+                                label="Features Plan"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {initialFeatures.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            {touched.features && errors.features && <FormHelperText error>{errors.features}</FormHelperText>}
+                        </FormControl>
+
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
                             <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
                             <OutlinedInput
@@ -171,7 +221,6 @@ const JWTRegister = ({ ...others }) => {
                                 </FormHelperText>
                             )}
                         </FormControl>
-
                         <FormControl
                             fullWidth
                             error={Boolean(touched.password && errors.password)}
@@ -270,7 +319,7 @@ const JWTRegister = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign up
+                                    Register Now
                                 </Button>
                             </AnimateButton>
                         </Box>
