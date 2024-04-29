@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'store';
 import { Link, useNavigate } from 'react-router-dom';
+import CodeVerification from '../authentication1/CodeVerification1';
+import Dialog from '@mui/material/Dialog';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -31,6 +33,7 @@ import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 import { strengthColor, strengthIndicatorNumFunc } from 'utils/password-strength';
 import { openSnackbar } from 'store/slices/snackbar';
+import Loader from 'ui-component/Loader';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
@@ -40,6 +43,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const JWTRegister = ({ ...others }) => {
     const theme = useTheme();
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
@@ -67,8 +71,27 @@ const JWTRegister = ({ ...others }) => {
     };
 
     useEffect(() => {
+        // Simulate three seconds loading
+        // eslint-disable-next-line no-unused-vars
+        const loadingTimeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
         changePassword('123456');
     }, []);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -94,7 +117,9 @@ const JWTRegister = ({ ...others }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        await register(values.email, values.password, values.firstName, values.lastName);
+                        handleModalOpen();
+                        // Uncomment line below to make the request to backend
+                        //await register(values.email, values.password, values.firstName, values.lastName);
                         if (scriptedRef.current) {
                             setStatus({ success: true });
                             setSubmitting(false);
@@ -110,9 +135,10 @@ const JWTRegister = ({ ...others }) => {
                                 })
                             );
 
-                            setTimeout(() => {
-                                navigate('/login', { replace: true });
-                            }, 1500);
+                            // Uncommnet code below to redirect to login page after registration
+                            // setTimeout(() => {
+                            //     navigate('/login', { replace: true });
+                            // }, 1500);
                         }
                     } catch (err) {
                         console.error(err);
@@ -274,6 +300,15 @@ const JWTRegister = ({ ...others }) => {
                                 </Button>
                             </AnimateButton>
                         </Box>
+                        <Dialog
+                            open={isModalOpen}
+                            onClose={handleModalClose}
+                            fullWidth
+                            maxWidth="md"
+                            sx={{ '& .MuiDialog-paper': { p: 0 } }}
+                        >
+                            {isModalOpen && <CodeVerification emailAddress={values.email}></CodeVerification>}
+                        </Dialog>
                     </form>
                 )}
             </Formik>
