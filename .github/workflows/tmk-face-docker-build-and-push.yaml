@@ -55,11 +55,6 @@ jobs:
         echo "Skipping the workflow"
         exit 1
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: tmk_face_latest_image_tag
-
     - name: Set up QEMU
       if: env.proceed == 'true'
       uses: docker/setup-qemu-action@v3
