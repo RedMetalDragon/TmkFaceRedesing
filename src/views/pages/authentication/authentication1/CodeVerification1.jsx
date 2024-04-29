@@ -74,7 +74,7 @@ const items = [
 
 // ===========================|| AUTH1 - CODE VERIFICATION ||=========================== //
 
-const CodeVerification = () => {
+const CodeVerification = ({ emailAddress }) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -118,7 +118,7 @@ const CodeVerification = () => {
                             <Grid item>
                                 <Stack direction="row" justifyContent={matchDownSM ? 'center' : 'flex-start'}>
                                     <Typography variant="caption" fontSize="0.875rem" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                                        We’ve send you code on jone.****@company.com
+                                        {emailAddress}
                                     </Typography>
                                 </Stack>
                             </Grid>
