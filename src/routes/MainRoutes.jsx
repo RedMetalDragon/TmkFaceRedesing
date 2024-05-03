@@ -146,6 +146,8 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+
+//const LandingPage = Loadable(lazy(() => import('views/pages/landing')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {

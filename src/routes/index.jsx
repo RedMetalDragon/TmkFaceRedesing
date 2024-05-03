@@ -12,7 +12,7 @@ import AuthenticationRoutes from './AuthenticationRoutes';
 
 // ==============================|| ROUTING RENDER ||============================== //
 
-const router = createBrowserRouter([LoginRoutes, AuthenticationRoutes, MainRoutes], {
+const router = createBrowserRouter([MainRoutes, LoginRoutes, AuthenticationRoutes], {
     basename: import.meta.env.VITE_APP_BASE_NAME
 });
 
