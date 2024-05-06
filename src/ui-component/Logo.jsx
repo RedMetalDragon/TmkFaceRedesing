@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-
+//import { TmkLogo } from './TmkLog';
 /**
  * if you want to use image instead of <svg> uncomment following.
  *
@@ -137,6 +137,7 @@ const Logo = () => {
                 />
             </defs>
         </svg>
+        // <TmkLogo />
     );
 };
 
