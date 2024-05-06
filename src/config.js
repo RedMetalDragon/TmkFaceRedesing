@@ -1,6 +1,6 @@
 import LAYOUT_CONST from 'constant';
 import { themeCustomizationEnabled } from './utils/globalConfig';
-export const DASHBOARD_PATH = '/dashboard/default';
+export const DASHBOARD_PATH = '/app/dashboard-default';
 export const HORIZONTAL_MAX_ITEM = 7;
 
 const config = {
