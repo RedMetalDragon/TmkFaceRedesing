@@ -1,5 +1,21 @@
 import { featureFilterEnabled } from './globalConfig.js';
 
+/**
+ * The above functions are used to build and filter a tree structure based on routes and node names.
+ * @param arrayOfNodes - The `arrayOfNodes` parameter in the `buildTree` function is an array of nodes
+ * that you want to build a tree structure from. Each node in the array represents a part of the
+ * hierarchical structure, and nodes can have children nodes to form a tree.
+ * @param [parent] - The `parent` parameter in the `buildTree` function refers to the parent node to
+ * which the built tree structure will be attached. By default, if no parent is provided, it will
+ * attach the built tree to the `treeFeaturesSkeleton` object, which represents the root of the tree
+ * structure.
+ * @returns The `filterTreeComponentsByRoutes` function is returning the filtered `componentsTree`
+ * based on the `roleFeatures` provided. It builds a tree structure from `roleFeatures`, creates a
+ * hashmap from that tree, and then filters the `componentsTree` based on the routes present in the
+ * hashmap. The filtered `componentsTree` will only contain nodes that have routes present in the
+ * `roleFeatures`
+ */
+
 const treeFeaturesSkeleton = {
     name: 'root',
     route: '*',

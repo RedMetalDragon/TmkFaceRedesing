@@ -35,7 +35,8 @@ function ConfigProvider({ children }) {
         navType: initialState.navType,
         presetColor: initialState.presetColor,
         locale: initialState.locale,
-        rtlLayout: initialState.rtlLayout
+        rtlLayout: initialState.rtlLayout,
+        searchBarVisible: initialState.searchBarVisible
     });
 
     const onChangeLayout = (layout) => {

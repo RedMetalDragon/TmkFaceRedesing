@@ -79,7 +79,7 @@ jobs:
         platforms: linux/amd64,linux/arm64  # Specify the platforms
         push: true
         build-args: |
-          VITE_TMK_BACKEND_API_URL=${{ secrets.VITE_TMK_BACKEND_API_URL }}
+          VITE_TMK_GATEWAY_URL=${{ secrets.VITE_TMK_GATEWAY_URL }}
         tags: |
           marcoguerod/tmkface-amd64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
           marcoguerod/tmkface-arm64:${{ github.event.inputs.tag || env.IMAGE_TAG }}

@@ -31,6 +31,7 @@
         "@mui/x-date-pickers": "^6.11.2",
         "@mui/x-tree-view": "^6.17.0",
         "@reduxjs/toolkit": "^1.9.5",
+        "@stripe/react-stripe-js": "^2.7.0",
         "@tabler/icons-react": "^2.32.0",
         "@vitejs/plugin-react": "^4.1.0",
         "amazon-cognito-identity-js": "^6.3.3",
