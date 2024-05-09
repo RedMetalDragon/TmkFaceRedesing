@@ -5,10 +5,12 @@ import { Grid } from '@mui/material';
 
 // project imports
 // import EarningCard from './EarningCard';
+//eslint-disable-next-line
 import PopularCard from './PopularCard';
 // import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 // import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 // import TotalIncomeLightCard from './TotalIncomeLightCard';
+//eslint-disable-next-line
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 import CarouselCard from './CarouselCard';
@@ -33,7 +35,7 @@ const Dashboard = () => {
                 <CarouselCard isLoading={isLoading}></CarouselCard>
                 {/* <EarningCard isLoading={isLoading} /> */}
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} md={8}>
                         <TotalGrowthBarChart isLoading={isLoading} />
@@ -42,7 +44,7 @@ const Dashboard = () => {
                         <PopularCard isLoading={isLoading} />
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };
