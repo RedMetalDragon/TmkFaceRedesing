@@ -22,7 +22,7 @@ import widget1 from 'assets/images/landing/hero-widget-1.png';
 import widget2 from 'assets/images/landing/hero-widget-2.png';
 import BgDark from 'assets/images/landing/bg-hero-block-dark.png';
 import BgLight from 'assets/images/landing/bg-hero-block-light.png';
-import { DASHBOARD_PATH } from 'config';
+//import { DASHBOARD_PATH } from 'config';
 
 // styles
 const HeaderImage = styled('img')(({ theme }) => ({
@@ -89,11 +89,11 @@ const HeaderSection = () => {
                             >
                                 <Stack spacing={1}>
                                     <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX}>
-                                        Use Berry to Power Your Next
+                                        Use TimeKeeper to Power Your Next
                                     </Typography>
 
                                     <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
-                                        React Project
+                                        Bussiness
                                     </Typography>
                                 </Stack>
                             </motion.div>
@@ -110,7 +110,7 @@ const HeaderSection = () => {
                                     variant="body1"
                                     sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
                                 >
-                                    Berry is React based Dashboard template which helps you to build faster and beautiful web applications.
+                                    TimeKeeper is a modern and responsive web application for all your bussiness needs.
                                 </Typography>
                             </motion.div>
                         </Grid>
@@ -125,20 +125,20 @@ const HeaderSection = () => {
                                         <AnimateButton>
                                             <Button
                                                 component={RouterLink}
-                                                to={DASHBOARD_PATH}
+                                                to={'#'}
                                                 target="_blank"
                                                 size="large"
                                                 variant="contained"
                                                 color="secondary"
                                                 startIcon={<PlayArrowIcon />}
                                             >
-                                                Live Preview
+                                                Preview
                                             </Button>
                                         </AnimateButton>
                                     </Grid>
                                     <Grid item>
                                         <Button component={Link} href="https://links.codedthemes.com/hsqll" target="_blank" size="large">
-                                            Purchase Now
+                                            Register Now
                                         </Button>
                                     </Grid>
                                 </Grid>

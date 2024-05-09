@@ -80,7 +80,7 @@ const RtlInfoSection = () => {
                                     mt: { xs: 2, sm: 3.75, md: 5.5, xl: 7 }
                                 }}
                             >
-                                Choose Berry for
+                                Choose Timekeeper for
                             </Typography>
                         </Box>
                         <Slider {...settings}>
@@ -97,10 +97,10 @@ const RtlInfoSection = () => {
                                 Effective Support
                             </Typography>
                             <Typography color="text.hint" variant="h2">
-                                Standardization
+                                Scalability
                             </Typography>
                             <Typography color="text.hint" variant="h2">
-                                Compatibility
+                                Saving Time
                             </Typography>
                         </Slider>
                     </Stack>
