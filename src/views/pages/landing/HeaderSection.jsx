@@ -55,7 +55,7 @@ const HeaderSection = () => {
         () => (
             <HeaderAnimationImage
                 src={theme.palette.mode === 'dark' ? BgDark : BgLight}
-                alt="Berry"
+                alt="TimeKeeper"
                 sx={{
                     display: { xs: 'none', md: 'flex' },
                     position: 'absolute',
@@ -89,12 +89,12 @@ const HeaderSection = () => {
                             >
                                 <Stack spacing={1}>
                                     <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX}>
-                                        Use TimeKeeper to Power Your Next
+                                        Optimize Your Workforce Simplify Your Day!
                                     </Typography>
 
-                                    <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
+                                    {/* <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
                                         Bussiness
-                                    </Typography>
+                                    </Typography> */}
                                 </Stack>
                             </motion.div>
                         </Grid>
@@ -110,7 +110,8 @@ const HeaderSection = () => {
                                     variant="body1"
                                     sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
                                 >
-                                    TimeKeeper is a modern and responsive web application for all your bussiness needs.
+                                    Improve scheduling, document signing, and PTO management. Plus, experience the power of AI for employee
+                                    recruitment and job description creation.
                                 </Typography>
                             </motion.div>
                         </Grid>
@@ -144,7 +145,7 @@ const HeaderSection = () => {
                                 </Grid>
                             </motion.div>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <motion.div
                                 initial={{ opacity: 0, translateY: 550 }}
                                 animate={{ opacity: 1, translateY: 0 }}
@@ -159,12 +160,12 @@ const HeaderSection = () => {
                                     />
                                 </Stack>
                             </motion.div>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={7} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Box sx={{ position: 'relative', mt: 8.75, zIndex: 9 }}>
-                        <HeaderImage src={dashboard} alt="Berry" />
+                        <HeaderImage src={dashboard} alt="Timekeeper" />
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -179,7 +180,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.2 }}
                             >
-                                <HeaderAnimationImage src={widget1} alt="Berry" />
+                                <HeaderAnimationImage src={widget1} alt="Timekeeper" />
                             </motion.div>
                         </Box>
                         <Box
@@ -197,7 +198,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.4 }}
                             >
-                                <HeaderAnimationImage src={widget2} alt="Berry" />
+                                <HeaderAnimationImage src={widget2} alt="Timekeeper" />
                             </motion.div>
                         </Box>
                     </Box>

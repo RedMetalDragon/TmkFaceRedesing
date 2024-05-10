@@ -168,7 +168,7 @@ const ComingSoon1 = () => {
                     {theme.palette.mode === 'light' && (
                         <img
                             src={logo}
-                            alt="Berry"
+                            alt="Timekeeper"
                             width="100"
                             style={{ position: rtlLayout ? 'relative' : 'initial', top: rtlLayout ? 30 : 'initial' }}
                         />
@@ -176,7 +176,7 @@ const ComingSoon1 = () => {
                     {theme.palette.mode === 'dark' && (
                         <img
                             src={logoDark}
-                            alt="Berry"
+                            alt="Timekeeper"
                             width="100"
                             style={{ position: rtlLayout ? 'relative' : 'initial', top: rtlLayout ? 30 : 'initial' }}
                         />
@@ -432,7 +432,7 @@ const ComingSoon1 = () => {
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item>
-                                                            <img src={companyLogo} alt="Berry" width="128" />
+                                                            <img src={companyLogo} alt="Timekeeper" width="128" />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

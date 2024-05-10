@@ -92,7 +92,7 @@ const Faqs = () => {
                     <Grid item xs={12} sx={{ position: 'relative', display: { xs: 'none', lg: 'block' } }}>
                         <img
                             src={mailImg}
-                            alt="Berry"
+                            alt="Timekeeper"
                             style={{
                                 marginBottom: -0.625,
                                 position: 'absolute',
