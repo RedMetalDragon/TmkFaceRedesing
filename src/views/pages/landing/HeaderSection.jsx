@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
+//eslint-disable-next-line
 import { Box, Button, CardMedia, Container, Grid, Link, Stack, Typography } from '@mui/material';
 
 // third party
@@ -15,8 +16,8 @@ import useConfig from 'hooks/useConfig';
 // assets
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-import TechLight from 'assets/images/landing/tech-light.svg';
-import TechDark from 'assets/images/landing/tech-dark.svg';
+// import TechLight from 'assets/images/landing/tech-light.svg';
+// import TechDark from 'assets/images/landing/tech-dark.svg';
 import dashboard from 'assets/images/landing/hero-dashboard.png';
 import widget1 from 'assets/images/landing/hero-widget-1.png';
 import widget2 from 'assets/images/landing/hero-widget-2.png';
