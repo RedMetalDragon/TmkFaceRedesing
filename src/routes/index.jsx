@@ -6,6 +6,7 @@ import LoginRoutes from './LoginRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
 import ApplicationRoutes from './ApplicationRoutes';
 import LandingRoutes from './LandingRoutes';
+import StripeRoutes from './StripeRoutes';
 
 // project import
 //import Loadable from 'ui-component/Loadable';
@@ -14,7 +15,7 @@ import LandingRoutes from './LandingRoutes';
 
 // ==============================|| ROUTING RENDER ||============================== //
 
-const router = createBrowserRouter([LandingRoutes, ApplicationRoutes, LoginRoutes, AuthenticationRoutes], {
+const router = createBrowserRouter([StripeRoutes, LandingRoutes, ApplicationRoutes, LoginRoutes, AuthenticationRoutes], {
     basename: import.meta.env.VITE_APP_BASE_NAME
 });
 
