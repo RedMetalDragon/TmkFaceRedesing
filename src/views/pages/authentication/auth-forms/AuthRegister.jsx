@@ -61,6 +61,7 @@ const initialFeatures = [
 const JWTRegister = ({ ...others }) => {
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(true);
+    //eslint-disable-next-line
     const navigate = useNavigate();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const JWTRegister = ({ ...others }) => {
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState();
+    //eslint-disable-next-line
     const { register } = useAuth();
 
     const handleClickShowPassword = () => {
