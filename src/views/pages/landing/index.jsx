@@ -7,6 +7,7 @@ import AppBar from 'ui-component/extended/AppBar';
 import HeaderSection from './HeaderSection';
 import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
+import { Typography } from '@mui/material';
 //eslint-disable-next-line
 import PeopleSection from './PeopleSection';
 //eslint-disable-next-line
@@ -18,6 +19,9 @@ import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 //eslint-disable-next-line
 import StartupProjectSection from './StartupProjectSection';
+import StripePricingTable from '../stripe/StripePricingTable';
+import { Grid } from '@mui/material';
+import { Container } from '@mui/system';
 // import IncludeSection from './IncludeSection';
 // import RtlInfoSection from './RtlInfoSection';
 
@@ -55,6 +59,25 @@ const Landing = () => {
                 <CardSection />
             </SectionWrapper>
 
+            {/* 4. Apps */}
+            <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'grey.50' }}>
+                {/* <PreBuildDashBoard /> */}
+                <Container>
+                    <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
+                        <Grid container spacing={2.5}>
+                            <Grid item xs={12} sx={{ mb: '1.25rem' }}>
+                                <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
+                                    Plans & Pricing
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <StripePricingTable
+                            pricingTableId={import.meta.env.VITE_APP_STRIPE_PRICE_ID_TABLE}
+                            publishableKey={import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY}
+                        />
+                    </Grid>
+                </Container>
+            </SectionWrapper>
             {/* 4. developer experience section */}
             {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'grey.100' }}>
                 <CustomizeSection />
@@ -64,11 +87,6 @@ const Landing = () => {
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
                 <FeatureSection />
             </SectionWrapper>
-
-            {/* 4. Apps */}
-            {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'grey.100' }}>
-                <PreBuildDashBoard />
-            </SectionWrapper> */}
 
             {/* 5. people section */}
             {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
