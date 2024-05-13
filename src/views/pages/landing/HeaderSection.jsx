@@ -127,22 +127,22 @@ const HeaderSection = () => {
                                         <AnimateButton>
                                             <Button
                                                 component={RouterLink}
-                                                to={'#'}
+                                                to={'/register'}
                                                 target="_blank"
                                                 size="large"
                                                 variant="contained"
                                                 color="secondary"
                                                 startIcon={<PlayArrowIcon />}
                                             >
-                                                Preview
+                                                Get Started
                                             </Button>
                                         </AnimateButton>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Button component={Link} href="https://links.codedthemes.com/hsqll" target="_blank" size="large">
                                             Register Now
                                         </Button>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </motion.div>
                         </Grid>
