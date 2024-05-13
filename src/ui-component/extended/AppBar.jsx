@@ -23,7 +23,8 @@ import {
 } from '@mui/material';
 
 // project imports
-import Logo from 'ui-component/Logo';
+// import Logo from 'ui-component/svgs/Logo';
+import HomepageLogo from 'ui-component/svgs/HomepageLogo';
 
 // assets
 import { IconDashboard, IconHome2 } from '@tabler/icons-react';
@@ -70,12 +71,15 @@ const AppBar = ({ ...others }) => {
                 <Container>
                     <Toolbar sx={{ py: 2.5, px: `0 !important` }}>
                         <Typography component="div" sx={{ flexGrow: 1, textAlign: 'left' }}>
-                            <Logo />
+                            <HomepageLogo />
                         </Typography>
                         <Stack direction="row" sx={{ display: { xs: 'none', sm: 'block' } }} spacing={{ xs: 1.5, md: 2.5 }}>
-                            <Button color="inherit" component={Link} href="#">
-                                Home
+                            <Button color="inherit" component={Link} href="/pricing">
+                                Pricing
                             </Button>
+                            {/* <Button color="inherit" component={Link} href="#">
+                                Home
+                            </Button> */}
                             <Button color="inherit" component={RouterLink} to="/login" target="_blank">
                                 Dashboard
                             </Button>

@@ -35,11 +35,12 @@ const AuthCodeVerification = () => {
                         outline: 'none',
                         border: `2px solid ${theme.palette.primary.main}`
                     }}
+                    inputProps={{ autoFocus: true }}
                 />
             </Grid>
             <Grid item xs={12}>
                 <Button disableElevation fullWidth size="large" type="submit" variant="contained">
-                    Continue
+                    Verify
                 </Button>
             </Grid>
             <Grid item xs={12}>

@@ -76,7 +76,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        150+
+                                        1M+
                                     </Typography>
                                     <Typography
                                         variant="h5"
@@ -87,7 +87,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Components
+                                        Users
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -121,7 +121,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        8+
+                                        10000+
                                     </Typography>
                                     <Typography
                                         variant="h5"
@@ -132,7 +132,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Application
+                                        Bussiness
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -175,7 +175,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Pages
+                                        Features
                                     </Typography>
                                 </Stack>
                             </Stack>

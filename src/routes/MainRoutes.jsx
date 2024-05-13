@@ -45,7 +45,7 @@ const AppKanbanBacklogs = Loadable(lazy(() => import('views/application/kanban/B
 const AppKanbanBoard = Loadable(lazy(() => import('views/application/kanban/Board')));
 const AppMail = Loadable(lazy(() => import('views/application/mail')));
 const AppCalendar = Loadable(lazy(() => import('views/application/calendar')));
-const OrgSchedule = Loadable(lazy(() => import('views/application/orgSchedules')))
+const OrgSchedule = Loadable(lazy(() => import('views/application/orgSchedules')));
 const AppContactCard = Loadable(lazy(() => import('views/application/contact/Card')));
 const AppContactList = Loadable(lazy(() => import('views/application/contact/List')));
 
@@ -146,6 +146,8 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+
+//const LandingPage = Loadable(lazy(() => import('views/pages/landing')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -168,7 +170,6 @@ const MainRoutes = {
             path: '/widget/chart',
             element: <WidgetChart />
         },
-
         {
             path: '/apps/user/schedule/attendance',
             element: <AppUserSchedule />

@@ -48,7 +48,7 @@ const Register = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Sign up
+                                                        Register Up
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"

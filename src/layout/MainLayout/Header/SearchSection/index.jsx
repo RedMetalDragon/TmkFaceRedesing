@@ -14,6 +14,7 @@ import Transitions from 'ui-component/extended/Transitions';
 // assets
 import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons-react';
 import { shouldForwardProp } from '@mui/system';
+import useConfig from 'hooks/useConfig';
 
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
@@ -60,6 +61,10 @@ const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => (
 
 const MobileSearch = ({ value, setValue, popupState }) => {
     const theme = useTheme();
+
+    if (!visible) {
+        return null;
+    }
 
     return (
         <OutlineInputStyle
@@ -114,6 +119,10 @@ MobileSearch.propTypes = {
 const SearchSection = () => {
     const theme = useTheme();
     const [value, setValue] = useState('');
+
+    if (useConfig().searchBarVisible === false) {
+        return null;
+    }
 
     return (
         <>

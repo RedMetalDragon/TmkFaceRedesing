@@ -23,53 +23,6 @@ jobs:
       with:
         ref: ${{ github.event.inputs.branch || github.ref }}
     
-    
-    # - name: Get branches associated with tag
-    #   id: get-branches
-    #   uses: actions/github-script@v5
-    #   with:
-    #     script: |
-    #       const tagName = context.ref.replace('refs/tags/', '');
-    #       const branches = await github.repos.listBranches(context.repo);
-    #       const branchesAssociatedWithTag = branches.data.filter(branch => {
-    #         const commitSHA = branch.commit.sha;
-    #         return github.git.getCommit({
-    #           owner: context.repo.owner,
-    #           repo: context.repo.repo,
-    #           ref: commitSHA
-    #         }).then(commit => commit.data.message.includes(tagName));
-    #       });
-    #       return branchesAssociatedWithTag.map(branch => branch.name);
-    #     result-encoding: string
-
-    # - name: Get branch name
-    #   id: get-branch-name
-    #   uses: actions/github-script@v5
-    #   with:
-    #     script: |
-    #       const payload = context.payload;
-    #         const tagName = payload.ref;
-    #         const branchName = await github.git.listMatchingRefs({
-    #           owner: context.repo.owner,
-    #           repo: context.repo.repo,
-    #           ref: `tags/${tagName}`
-    #         });
-    #         const branchNameStr = branchName.data[0].ref.replace('refs/heads/', '');
-    #         return branchNameStr;
-    #     result-encoding: string
-      
-
-    # - name: Check branch name
-    #   id: check-branch-name
-    #   run: |
-    #     echo "Branch name: ${{ steps.get-branch-name.outputs.result }}"
-    #     if [[ "${{ steps.get-branch-name.outputs.result }}" == release/staging* ]]; then
-    #       echo "The branch name starts with 'release/staging'. Proceeding with the workflow."
-    #       echo "PROCEED=true" >> $GITHUB_ENV
-    #     else
-    #       echo "The branch name does not start with 'release/staging'. Skipping the workflow."
-    #       echo "PROCEED=false" >> $GITHUB_ENV
-    
     - name: Validate tag version
       id: check-condition
       run: |
@@ -102,11 +55,6 @@ jobs:
         echo "Skipping the workflow"
         exit 1
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: tmk_face_latest_image_tag
-
     - name: Set up QEMU
       if: env.proceed == 'true'
       uses: docker/setup-qemu-action@v3
@@ -131,10 +79,13 @@ jobs:
         platforms: linux/amd64,linux/arm64  # Specify the platforms
         push: true
         build-args: |
-          VITE_TMK_BACKEND_API_URL=${{ secrets.VITE_TMK_BACKEND_API_URL }}
+          VITE_TMK_GATEWAY_URL=${{ secrets.VITE_TMK_GATEWAY_URL }}
+          VITE_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_APP_STRIPE_PUBLISHABLE_KEY }}
+          VITE_APP_STRIPE_PRICE_ID_TABLE=${{ secrets.VITE_APP_STRIPE_PRICE_ID_TABLE }}
         tags: |
           marcoguerod/tmkface-amd64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
           marcoguerod/tmkface-arm64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
+
 
     - name: Logout from Docker
       if: steps.check-condition.outputs.proceed == 'true'

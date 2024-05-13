@@ -37,7 +37,7 @@ const application = {
                     title: <FormattedMessage id="account-profile" />,
                     type: 'item',
                     route: '',
-                    url: '/apps/user/account-profile'
+                    url: '/app/user/account-profile'
                 },
                 {
                     id: 'user-card',
@@ -121,28 +121,28 @@ const application = {
                     title: <FormattedMessage id="user-attendance" />,
                     type: 'item',
                     route: '/punch-in-out',
-                    url: '/apps/user/schedule/attendance'
+                    url: '/app/user/schedule-attendance'
                 },
                 {
                     id: 'view-schedule',
                     title: <FormattedMessage id="view-schedule" />,
                     type: 'item',
                     route: '/schedule',
-                    url: '/apps/user/schedule/view-sched'
+                    url: '/app/user/schedule-view-sched'
                 },
                 {
                     id: 'org-schedule',
                     title: <FormattedMessage id="create-schedule" />,
                     type: 'item',
                     route: '/create-sched',
-                    url: '/apps/manager/schedule/org-sched'
+                    url: '/app/manager/schedule/org-sched'
                 },
                 {
                     id: 'order-list',
                     title: <FormattedMessage id="order-list" />,
                     type: 'item',
                     route: '*order-list',
-                    url: '/apps/customer/order-list',
+                    url: '/app/customer/order-list',
                     breadcrumbs: false
                 },
                 {
@@ -150,7 +150,7 @@ const application = {
                     title: <FormattedMessage id="create-invoice" />,
                     type: 'item',
                     route: '*create-invoice',
-                    url: '/apps/customer/create-invoice',
+                    url: '/app/customer/create-invoice',
                     breadcrumbs: false
                 },
                 {
@@ -158,14 +158,14 @@ const application = {
                     title: <FormattedMessage id="order-details" />,
                     type: 'item',
                     route: '*order-details',
-                    url: '/apps/customer/order-details'
+                    url: '/app/customer/order-details'
                 },
                 {
                     id: 'product',
                     title: <FormattedMessage id="product" />,
                     type: 'item',
                     route: '*product',
-                    url: '/apps/customer/product',
+                    url: '/app/customer/product',
                     breadcrumbs: false
                 },
                 {

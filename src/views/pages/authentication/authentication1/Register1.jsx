@@ -100,8 +100,9 @@ const Register = () => {
                                                 color={theme.palette.secondary.main}
                                                 gutterBottom
                                                 variant={matchDownSM ? 'h3' : 'h2'}
+                                                id="register"
                                             >
-                                                Sign up
+                                                Sign Up
                                             </Typography>
                                             <Typography color="textPrimary" gutterBottom variant="h4">
                                                 Enter credentials to continue

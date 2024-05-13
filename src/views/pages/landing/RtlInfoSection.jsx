@@ -58,7 +58,7 @@ const RtlInfoSection = () => {
             />
             <HeaderAnimationImage
                 src={theme.palette.mode === 'dark' ? BgDark : BgLight}
-                alt="Berry"
+                alt="Timekeeper"
                 sx={{
                     position: 'absolute',
                     filter: 'none',

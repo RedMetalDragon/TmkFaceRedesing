@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
+//eslint-disable-next-line
 import { Box, Button, CardMedia, Container, Grid, Link, Stack, Typography } from '@mui/material';
 
 // third party
@@ -15,14 +16,14 @@ import useConfig from 'hooks/useConfig';
 // assets
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-import TechLight from 'assets/images/landing/tech-light.svg';
-import TechDark from 'assets/images/landing/tech-dark.svg';
+// import TechLight from 'assets/images/landing/tech-light.svg';
+// import TechDark from 'assets/images/landing/tech-dark.svg';
 import dashboard from 'assets/images/landing/hero-dashboard.png';
 import widget1 from 'assets/images/landing/hero-widget-1.png';
 import widget2 from 'assets/images/landing/hero-widget-2.png';
 import BgDark from 'assets/images/landing/bg-hero-block-dark.png';
 import BgLight from 'assets/images/landing/bg-hero-block-light.png';
-import { DASHBOARD_PATH } from 'config';
+//import { DASHBOARD_PATH } from 'config';
 
 // styles
 const HeaderImage = styled('img')(({ theme }) => ({
@@ -55,7 +56,7 @@ const HeaderSection = () => {
         () => (
             <HeaderAnimationImage
                 src={theme.palette.mode === 'dark' ? BgDark : BgLight}
-                alt="Berry"
+                alt="TimeKeeper"
                 sx={{
                     display: { xs: 'none', md: 'flex' },
                     position: 'absolute',
@@ -89,12 +90,12 @@ const HeaderSection = () => {
                             >
                                 <Stack spacing={1}>
                                     <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX}>
-                                        Use Berry to Power Your Next
+                                        Optimize Your Workforce Simplify Your Day!
                                     </Typography>
 
-                                    <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
-                                        React Project
-                                    </Typography>
+                                    {/* <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
+                                        Bussiness
+                                    </Typography> */}
                                 </Stack>
                             </motion.div>
                         </Grid>
@@ -110,7 +111,8 @@ const HeaderSection = () => {
                                     variant="body1"
                                     sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
                                 >
-                                    Berry is React based Dashboard template which helps you to build faster and beautiful web applications.
+                                    Improve scheduling, document signing, and PTO management. Plus, experience the power of AI for employee
+                                    recruitment and job description creation.
                                 </Typography>
                             </motion.div>
                         </Grid>
@@ -125,26 +127,26 @@ const HeaderSection = () => {
                                         <AnimateButton>
                                             <Button
                                                 component={RouterLink}
-                                                to={DASHBOARD_PATH}
+                                                to={'#'}
                                                 target="_blank"
                                                 size="large"
                                                 variant="contained"
                                                 color="secondary"
                                                 startIcon={<PlayArrowIcon />}
                                             >
-                                                Live Preview
+                                                Preview
                                             </Button>
                                         </AnimateButton>
                                     </Grid>
                                     <Grid item>
                                         <Button component={Link} href="https://links.codedthemes.com/hsqll" target="_blank" size="large">
-                                            Purchase Now
+                                            Register Now
                                         </Button>
                                     </Grid>
                                 </Grid>
                             </motion.div>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <motion.div
                                 initial={{ opacity: 0, translateY: 550 }}
                                 animate={{ opacity: 1, translateY: 0 }}
@@ -159,12 +161,12 @@ const HeaderSection = () => {
                                     />
                                 </Stack>
                             </motion.div>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={7} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Box sx={{ position: 'relative', mt: 8.75, zIndex: 9 }}>
-                        <HeaderImage src={dashboard} alt="Berry" />
+                        <HeaderImage src={dashboard} alt="Timekeeper" />
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -179,7 +181,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.2 }}
                             >
-                                <HeaderAnimationImage src={widget1} alt="Berry" />
+                                <HeaderAnimationImage src={widget1} alt="Timekeeper" />
                             </motion.div>
                         </Box>
                         <Box
@@ -197,7 +199,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.4 }}
                             >
-                                <HeaderAnimationImage src={widget2} alt="Berry" />
+                                <HeaderAnimationImage src={widget2} alt="Timekeeper" />
                             </motion.div>
                         </Box>
                     </Box>
