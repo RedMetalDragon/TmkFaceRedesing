@@ -147,61 +147,71 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                                 />
                             </Grid>
                         </Grid>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-email-register"
-                                type="email"
-                                value={values.email}
-                                name="email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{}}
-                            />
-                            {touched.email && errors.email && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {errors.email}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
-                        <FormControl
-                            fullWidth
-                            error={Boolean(touched.password && errors.password)}
-                            sx={{ ...theme.typography.customInput }}
-                        >
-                            <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-password-register"
-                                type={showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                name="password"
-                                label="Password"
-                                onBlur={handleBlur}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    changePassword(e.target.value);
-                                }}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            size="large"
-                                        >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                inputProps={{}}
-                            />
-                            {touched.password && errors.password && (
-                                <FormHelperText error id="standard-weight-helper-text-password-register">
-                                    {errors.password}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
+                        <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl
+                                    fullWidth
+                                    error={Boolean(touched.email && errors.email)}
+                                    sx={{ ...theme.typography.customInput }}
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-email-register"
+                                        type="email"
+                                        value={values.email}
+                                        name="email"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        inputProps={{}}
+                                    />
+                                    {touched.email && errors.email && (
+                                        <FormHelperText error id="standard-weight-helper-text--register">
+                                            {errors.email}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl
+                                    fullWidth
+                                    error={Boolean(touched.password && errors.password)}
+                                    sx={{ ...theme.typography.customInput }}
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-password-register"
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={values.password}
+                                        name="password"
+                                        label="Password"
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            changePassword(e.target.value);
+                                        }}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    size="large"
+                                                >
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        inputProps={{}}
+                                    />
+                                    {touched.password && errors.password && (
+                                        <FormHelperText error id="standard-weight-helper-text-password-register">
+                                            {errors.password}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                        </Grid>
 
                         {strength !== 0 && (
                             <FormControl fullWidth>

@@ -13,6 +13,7 @@ const initialState = {
         agreeOnTermsAndConditions: true
     },
     subscriptionPlan: '',
+    typeofPlan: 'monthly',
     paymentMethodId: '',
     isSubmitting: false
 };
@@ -91,9 +92,9 @@ export function saveSubscriptionPlan(plan) {
     return async () => {
         try {
             dispatch(slice.actions.startSubmitting());
-            // Replace with your backend API endpoint
-            await axios.post(`${urlPrefix}`, { plan });
             dispatch(slice.actions.setSubscriptionPlan(plan));
+            // Replace with your backend API endpoint
+            await axios.post(`/stripe/api/users/register-new-user/step-two`, { plan });
             dispatch(slice.actions.setCurrentStep(2));
             dispatch(slice.actions.stopSubmitting());
         } catch (error) {

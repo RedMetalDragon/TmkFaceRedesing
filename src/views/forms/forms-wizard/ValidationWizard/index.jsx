@@ -6,14 +6,14 @@ import { Button, Step, Stepper, StepLabel, Stack, Typography } from '@mui/materi
 
 // project imports
 //import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
 import Review from './Review';
 import MainCard from 'ui-component/cards/MainCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import RegisterForm from './RegisterForm';
 import { setCurrentStep } from 'store/slices/createAccount';
+import SubscriptionPlanForm from './SubscriptionPlanForm';
 // step options
-const steps = ['User Credentials', 'Payment details', 'Review your order'];
+const steps = ['User Credentials', 'Select Subscription', 'Review your order'];
 
 const getStepContent = (step, handleNext, handleBack, setErrorIndex, shippingData, setShippingData, paymentData, setPaymentData) => {
     switch (step) {
@@ -29,13 +29,14 @@ const getStepContent = (step, handleNext, handleBack, setErrorIndex, shippingDat
             );
         case 1:
             return (
-                <PaymentForm
-                    handleNext={handleNext}
-                    handleBack={handleBack}
-                    setErrorIndex={setErrorIndex}
-                    paymentData={paymentData}
-                    setPaymentData={setPaymentData}
-                />
+                // <PaymentForm
+                //     handleNext={handleNext}
+                //     handleBack={handleBack}
+                //     setErrorIndex={setErrorIndex}
+                //     paymentData={paymentData}
+                //     setPaymentData={setPaymentData}
+                // />
+                <SubscriptionPlanForm handleNext={handleNext} handleBack={handleBack}></SubscriptionPlanForm>
             );
         case 2:
             return <Review />;
@@ -71,7 +72,7 @@ const ValidationWizard = () => {
     };
 
     return (
-        <MainCard title="Register">
+        <MainCard title="Register" sx={{ width: '100%' }}>
             <Stepper activeStep={currentStep} sx={{ pt: 3, pb: 5 }}>
                 {steps.map((label, index) => {
                     const labelProps = {};

@@ -19,7 +19,6 @@ import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 //eslint-disable-next-line
 import StartupProjectSection from './StartupProjectSection';
-import StripePricingTable from '../stripe/StripePricingTable';
 import { Grid } from '@mui/material';
 import { Container } from '@mui/system';
 // import IncludeSection from './IncludeSection';
@@ -71,10 +70,10 @@ const Landing = () => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <StripePricingTable
+                        {/* <StripePricingTable
                             pricingTableId={import.meta.env.VITE_APP_STRIPE_PRICE_ID_TABLE}
                             publishableKey={import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY}
-                        />
+                        /> */}
                     </Grid>
                 </Container>
             </SectionWrapper>
