@@ -10,10 +10,10 @@ const initialState = {
         lastName: '',
         email: '',
         password: '',
-        agreeOnTermsAndConditions: true
+        agreeOnTerms: true,
+        subscriptionPlan: '',
+        typeofPlan: 'monthly'
     },
-    subscriptionPlan: '',
-    typeofPlan: 'monthly',
     paymentMethodId: '',
     isSubmitting: false
 };
@@ -31,7 +31,7 @@ const slice = createSlice({
             state.userDetails = { ...state.userDetails, ...action.payload };
         },
         setSubscriptionPlan(state, action) {
-            state.subscriptionPlan = action.payload;
+            state.userDetails.subscriptionPlan = action.payload;
         },
         setPaymentMethodId(state, action) {
             state.paymentMethodId = action.payload;
@@ -88,15 +88,14 @@ export function handleErrors(error) {
     };
 }
 
-export function saveSubscriptionPlan(plan) {
+export function saveSubscriptionPlan(userDetails) {
     return async () => {
         try {
             dispatch(slice.actions.startSubmitting());
-            dispatch(slice.actions.setSubscriptionPlan(plan));
             // Replace with your backend API endpoint
-            await axios.post(`/stripe/api/users/register-new-user/step-two`, { plan });
-            dispatch(slice.actions.setCurrentStep(2));
+            await axios.post(`/stripe/api/users/register-new-user/step-two`, userDetails);
             dispatch(slice.actions.stopSubmitting());
+            dispatch(slice.actions.setCurrentStep(2));
         } catch (error) {
             dispatch(slice.actions.hasError(error.message));
             dispatch(slice.actions.stopSubmitting());
@@ -120,8 +119,20 @@ export function savePaymentMethod(paymentMethodId, userDetails, subscriptionPlan
     };
 }
 
+export function setSubscriptionPlan(plan) {
+    return () => {
+        dispatch(slice.actions.setSubscriptionPlan(plan));
+    };
+}
+
 export function setCurrentStep(step) {
     return () => {
         dispatch(slice.actions.setCurrentStep(step));
+    };
+}
+
+export function setUserDetails(details) {
+    return () => {
+        dispatch(slice.actions.setUserDetails(details));
     };
 }

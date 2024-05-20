@@ -8,7 +8,7 @@ import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText,
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { saveSubscriptionPlan } from 'store/slices/createAccount';
+import { saveSubscriptionPlan, setSubscriptionPlan } from 'store/slices/createAccount';
 
 // assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
@@ -72,7 +72,7 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
         }
     };
     const dispatch = useDispatch();
-    const { isSubmitting } = useSelector((state) => state.createAccount);
+    const { isSubmitting, userDetails } = useSelector((state) => state.createAccount);
 
     // const handleSelectPlanClick = (plan) => {
 
@@ -193,9 +193,12 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
                                     <Button
                                         variant="outlined"
                                         onClick={(e) => {
+                                            console.log('plan', plan.id);
                                             e.preventDefault();
-                                            dispatch(saveSubscriptionPlan(plan));
-                                            handleNext();
+                                            dispatch(setSubscriptionPlan(plan.id));
+                                            console.log('userDetails', userDetails);
+                                            dispatch(saveSubscriptionPlan(userDetails));
+                                            //handleNext();
                                         }}
                                     >
                                         Select this
