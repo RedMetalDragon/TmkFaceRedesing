@@ -6,40 +6,25 @@ import { Button, Step, Stepper, StepLabel, Stack, Typography } from '@mui/materi
 
 // project imports
 //import AddressForm from './AddressForm';
-import Review from './Review';
+//import Review from './Review';
 import MainCard from 'ui-component/cards/MainCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import RegisterForm from './RegisterForm';
 import { setCurrentStep } from 'store/slices/createAccount';
 import SubscriptionPlanForm from './SubscriptionPlanForm';
+import { StripeWrapper } from './StripeWrapper';
 // step options
-const steps = ['User Credentials', 'Select Subscription', 'Review your order'];
+const steps = ['User Credentials', 'Select Subscription', 'Payment Details'];
 
-const getStepContent = (step, handleNext, handleBack, setErrorIndex, shippingData, setShippingData, paymentData, setPaymentData) => {
+const getStepContent = (step, handleNext, handleBack, setErrorIndex) => {
     switch (step) {
         case 0:
-            return (
-                <RegisterForm handleNext={handleNext} setErrorIndex={setErrorIndex}></RegisterForm>
-                // <AddressForm
-                //     handleNext={handleNext}
-                //     setErrorIndex={setErrorIndex}
-                //     shippingData={shippingData}
-                //     setShippingData={setShippingData}
-                // />
-            );
+            return <RegisterForm handleNext={handleNext} setErrorIndex={setErrorIndex}></RegisterForm>;
         case 1:
-            return (
-                // <PaymentForm
-                //     handleNext={handleNext}
-                //     handleBack={handleBack}
-                //     setErrorIndex={setErrorIndex}
-                //     paymentData={paymentData}
-                //     setPaymentData={setPaymentData}
-                // />
-                <SubscriptionPlanForm handleNext={handleNext} handleBack={handleBack}></SubscriptionPlanForm>
-            );
+            return <SubscriptionPlanForm handleNext={handleNext} handleBack={handleBack}></SubscriptionPlanForm>;
         case 2:
-            return <Review />;
+            return <StripeWrapper></StripeWrapper>;
+        // return <Review />;
         default:
             throw new Error('Unknown step');
     }
@@ -136,12 +121,12 @@ const ValidationWizard = () => {
                         {currentStep === steps.length - 1 && (
                             <Stack direction="row" justifyContent={currentStep !== 0 ? 'space-between' : 'flex-end'}>
                                 {currentStep !== 0 && (
-                                    <Button onClick={handleBack} sx={{ my: 3, ml: 1 }}>
+                                    <Button onClick={handleBack} sx={{ my: 3, ml: 1 }} color="secondary">
                                         Back
                                     </Button>
                                 )}
                                 <AnimateButton>
-                                    <Button variant="contained" onClick={handleNext} sx={{ my: 3, ml: 1 }}>
+                                    <Button variant="contained" onClick={handleNext} sx={{ my: 3, ml: 1 }} color="secondary">
                                         {currentStep === steps.length - 1 ? 'Place order' : 'Next'}
                                     </Button>
                                 </AnimateButton>

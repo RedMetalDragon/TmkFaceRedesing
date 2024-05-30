@@ -15,6 +15,8 @@ const initialState = {
         typeofPlan: 'monthly'
     },
     paymentMethodId: '',
+    customerId: '',
+    intentClientSecret: '',
     isSubmitting: false
 };
 
@@ -35,6 +37,12 @@ const slice = createSlice({
         },
         setPaymentMethodId(state, action) {
             state.paymentMethodId = action.payload;
+        },
+        setCustomerId(state, action) {
+            state.customerId = action.payload;
+        },
+        setSetupIntentClientSecret(state, action) {
+            state.intentClientSecret = action.payload;
         },
         setCurrentStep(state, action) {
             state.currentStep = action.payload;
@@ -93,7 +101,11 @@ export function saveSubscriptionPlan(userDetails) {
         try {
             dispatch(slice.actions.startSubmitting());
             // Replace with your backend API endpoint
-            await axios.post(`/stripe/api/users/register-new-user/step-two`, userDetails);
+            const response = await axios.post(`/stripe/api/users/register-new-user/step-two`, userDetails);
+            if (response.data.customerId && response.data.intentClientSecret) {
+                dispatch(slice.actions.setCustomerId(response.data.customerId));
+                dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
+            }
             dispatch(slice.actions.stopSubmitting());
             dispatch(slice.actions.setCurrentStep(2));
         } catch (error) {

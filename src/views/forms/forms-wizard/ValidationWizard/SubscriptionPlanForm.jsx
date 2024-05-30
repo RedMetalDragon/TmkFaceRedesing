@@ -44,7 +44,7 @@ const plans = [
         title: 'Premium',
         id: 'subscription-premium',
         description:
-            'Get access to all premium features of our HR web application. Create and manage employee profiles, track attendance, manage leaves, generate reports, and more.',
+            'Get access to all premium features. Create and manage employee profiles, track attendance, manage leaves, generate reports, and more.',
         price: 599,
         permission: [0, 1, 2, 3, 5]
     }
