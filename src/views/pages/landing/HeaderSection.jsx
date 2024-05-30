@@ -127,7 +127,7 @@ const HeaderSection = () => {
                                         <AnimateButton>
                                             <Button
                                                 component={RouterLink}
-                                                to={'/register'}
+                                                to={'/get-started'}
                                                 target="_blank"
                                                 size="large"
                                                 variant="contained"

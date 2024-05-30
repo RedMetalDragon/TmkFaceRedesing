@@ -2,11 +2,11 @@ import { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 
 // project imports
-const StripePage = Loadable(lazy(() => import('views/pages/stripe')));
-
+//const StripePage = Loadable(lazy(() => import('views/pages/stripe')));
+const GetStarted = Loadable(lazy(() => import('views/forms/forms-wizard/index')));
 const StripeRoutes = {
-    path: '/pricing',
-    element: <StripePage />
+    path: '/get-started',
+    element: <GetStarted />
 };
 
 export default StripeRoutes;

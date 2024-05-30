@@ -1,41 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'store';
 
 // material-ui
 import { Button, Step, Stepper, StepLabel, Stack, Typography } from '@mui/material';
 
 // project imports
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+//import AddressForm from './AddressForm';
+//import Review from './Review';
 import MainCard from 'ui-component/cards/MainCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-
+import RegisterForm from './RegisterForm';
+import { setCurrentStep } from 'store/slices/createAccount';
+import SubscriptionPlanForm from './SubscriptionPlanForm';
+import { StripeWrapper } from './StripeWrapper';
 // step options
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['User Credentials', 'Select Subscription', 'Payment Details'];
 
-const getStepContent = (step, handleNext, handleBack, setErrorIndex, shippingData, setShippingData, paymentData, setPaymentData) => {
+const getStepContent = (step, handleNext, handleBack, setErrorIndex) => {
     switch (step) {
         case 0:
-            return (
-                <AddressForm
-                    handleNext={handleNext}
-                    setErrorIndex={setErrorIndex}
-                    shippingData={shippingData}
-                    setShippingData={setShippingData}
-                />
-            );
+            return <RegisterForm handleNext={handleNext} setErrorIndex={setErrorIndex}></RegisterForm>;
         case 1:
-            return (
-                <PaymentForm
-                    handleNext={handleNext}
-                    handleBack={handleBack}
-                    setErrorIndex={setErrorIndex}
-                    paymentData={paymentData}
-                    setPaymentData={setPaymentData}
-                />
-            );
+            return <SubscriptionPlanForm handleNext={handleNext} handleBack={handleBack}></SubscriptionPlanForm>;
         case 2:
-            return <Review />;
+            return <StripeWrapper></StripeWrapper>;
+        // return <Review />;
         default:
             throw new Error('Unknown step');
     }
@@ -44,23 +33,32 @@ const getStepContent = (step, handleNext, handleBack, setErrorIndex, shippingDat
 // ==============================|| FORMS WIZARD - BASIC ||============================== //
 
 const ValidationWizard = () => {
-    const [activeStep, setActiveStep] = React.useState(0);
+    const dispatch = useDispatch();
+    const currentStep = useSelector((state) => state.createAccount.currentStep);
+    // const isSubmitting = useSelector((state) => state.createAccount.isSubmitting);
+    // const error = useSelector((state) => state.createAccount.error);
     const [shippingData, setShippingData] = React.useState({});
     const [paymentData, setPaymentData] = React.useState({});
     const [errorIndex, setErrorIndex] = React.useState(null);
 
+    useEffect(() => {}, []);
+
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
-        setErrorIndex(null);
+        dispatch(setCurrentStep(currentStep + 1));
     };
 
     const handleBack = () => {
-        setActiveStep(activeStep - 1);
+        dispatch(setCurrentStep(currentStep - 1));
+    };
+
+    //eslint-disable-next-line
+    const handleReset = () => {
+        dispatch(resetForm());
     };
 
     return (
-        <MainCard title="Validation">
-            <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+        <MainCard title="Register" sx={{ width: '100%' }}>
+            <Stepper activeStep={currentStep} sx={{ pt: 3, pb: 5 }}>
                 {steps.map((label, index) => {
                     const labelProps = {};
 
@@ -82,7 +80,7 @@ const ValidationWizard = () => {
                 })}
             </Stepper>
             <>
-                {activeStep === steps.length ? (
+                {currentStep === steps.length ? (
                     <>
                         <Typography variant="h5" gutterBottom>
                             Thank you for your order.
@@ -111,7 +109,7 @@ const ValidationWizard = () => {
                 ) : (
                     <>
                         {getStepContent(
-                            activeStep,
+                            currentStep,
                             handleNext,
                             handleBack,
                             setErrorIndex,
@@ -120,16 +118,16 @@ const ValidationWizard = () => {
                             paymentData,
                             setPaymentData
                         )}
-                        {activeStep === steps.length - 1 && (
-                            <Stack direction="row" justifyContent={activeStep !== 0 ? 'space-between' : 'flex-end'}>
-                                {activeStep !== 0 && (
-                                    <Button onClick={handleBack} sx={{ my: 3, ml: 1 }}>
+                        {currentStep === steps.length - 1 && (
+                            <Stack direction="row" justifyContent={currentStep !== 0 ? 'space-between' : 'flex-end'}>
+                                {currentStep !== 0 && (
+                                    <Button onClick={handleBack} sx={{ my: 3, ml: 1 }} color="secondary">
                                         Back
                                     </Button>
                                 )}
                                 <AnimateButton>
-                                    <Button variant="contained" onClick={handleNext} sx={{ my: 3, ml: 1 }}>
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                    <Button variant="contained" onClick={handleNext} sx={{ my: 3, ml: 1 }} color="secondary">
+                                        {currentStep === steps.length - 1 ? 'Place order' : 'Next'}
                                     </Button>
                                 </AnimateButton>
                             </Stack>

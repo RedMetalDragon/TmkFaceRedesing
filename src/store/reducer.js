@@ -19,6 +19,7 @@ import features from './slices/features';
 import attendance from './slices/attendance';
 import contentFeeder from './slices/contentFeeder';
 import orgSchedules from './slices/orgSchedules';
+import createAccount from './slices/createAccount';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -44,7 +45,8 @@ const reducer = combineReducers({
     features: features,
     attendance: attendance,
     orgSchedules: orgSchedules,
-    contentFeeder: contentFeeder
+    contentFeeder: contentFeeder,
+    createAccount: createAccount
 });
 
 export default reducer;
