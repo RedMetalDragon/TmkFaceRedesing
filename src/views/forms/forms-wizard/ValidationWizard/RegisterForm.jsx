@@ -36,7 +36,7 @@ import Loader from 'ui-component/Loader';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { saveUserDetails } from 'store/slices/createAccount';
+import { setUserDetails } from 'store/slices/createAccount';
 
 // ===========================|| FORM WIZARD - VALIDATION 1 ||=========================== //
 
@@ -106,7 +106,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         // Uncomment line below to make the request to backend
-                        dispatch(saveUserDetails(values));
+                        dispatch(setUserDetails(values));
                         handleNext();
                     } catch (err) {
                         console.error(err);

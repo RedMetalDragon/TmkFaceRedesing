@@ -8,7 +8,7 @@ import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText,
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { saveSubscriptionPlan, setSubscriptionPlan } from 'store/slices/createAccount';
+import { saveUserDetailsInSessionBackend, setSubscriptionPlan } from 'store/slices/createAccount';
 
 // assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
@@ -193,12 +193,10 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
                                     <Button
                                         variant="outlined"
                                         onClick={(e) => {
-                                            console.log('plan', plan.id);
                                             e.preventDefault();
                                             dispatch(setSubscriptionPlan(plan.id));
-                                            console.log('userDetails', userDetails);
-                                            dispatch(saveSubscriptionPlan(userDetails));
-                                            //handleNext();
+                                            dispatch(saveUserDetailsInSessionBackend(userDetails));
+                                            handleNext();
                                         }}
                                     >
                                         Select this

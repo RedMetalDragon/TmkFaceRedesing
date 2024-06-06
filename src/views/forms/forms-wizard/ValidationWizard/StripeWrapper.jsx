@@ -7,15 +7,14 @@ import { useSelector } from 'react-redux';
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY);
 
 const StripeWrapper = () => {
-    const { customerId, intentClientSecret } = useSelector((state) => state.createAccount);
+    const { intentClientSecret } = useSelector((state) => state.createAccount);
     const options = {
-        customerId: customerId,
         clientSecret: intentClientSecret
     };
 
-    return intentClientSecret && customerId ? (
+    return intentClientSecret ? (
         <Elements stripe={stripePromise} options={options}>
-            <StripeCheckoutForm customerId={customerId} />
+            <StripeCheckoutForm />
         </Elements>
     ) : (
         <Loader />
