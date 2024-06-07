@@ -20,7 +20,7 @@ const initialState = {
     isSubmitting: false
 };
 
-const urlPrefix = 'http://localhost:5192/api/users/register-new-user/step-one';
+const urlPrefix = 'http://localhost:5192/api/users/register-new-user/user-details';
 
 const slice = createSlice({
     name: 'createAccount',
@@ -32,9 +32,6 @@ const slice = createSlice({
         setUserDetails(state, action) {
             state.userDetails = { ...state.userDetails, ...action.payload };
         },
-        setSubscriptionPlan(state, action) {
-            state.userDetails.subscriptionPlan = action.payload;
-        },
         setPaymentMethodId(state, action) {
             state.paymentMethodId = action.payload;
         },
@@ -43,6 +40,9 @@ const slice = createSlice({
         },
         setSetupIntentClientSecret(state, action) {
             state.intentClientSecret = action.payload;
+        },
+        setSubscriptionPlan(state, action) {
+            state.userDetails.subscriptionPlan = action.payload;
         },
         setCurrentStep(state, action) {
             state.currentStep = action.payload;
@@ -61,7 +61,9 @@ const slice = createSlice({
                 lastName: '',
                 email: '',
                 password: '',
-                agreeOnTermsAndConditions: true
+                agreeOnTermsAndConditions: true,
+                subscriptionPlan: '',
+                typeofPlan: 'monthly'
             };
             state.subscriptionPlan = '';
             state.paymentMethodId = '';
@@ -73,18 +75,50 @@ const slice = createSlice({
 // Reducer
 export default slice.reducer;
 
-export function saveUserDetails(userDetails) {
+// user Enter email, name password etd
+export function setUserDetails(userDetails) {
+    return async () => {
+        try {
+            dispatch(slice.actions.setUserDetails(userDetails));
+        } catch (error) {
+            dispatch(slice.actions.stopSubmitting());
+            dispatch(slice.actions.setCurrentStep(0));
+            throw error;
+        }
+    };
+}
+
+// user select plan
+export function setUserSubscriptionPlan(plan) {
+    return async () => {
+        try {
+            dispatch(slice.actions.setSubscriptionPlan(plan));
+        } catch (error) {
+            dispatch(slice.actions.stopSubmitting());
+            dispatch(slice.actions.setCurrentStep(1));
+            throw error;
+        }
+    };
+}
+
+export function saveUserDetailsInSessionBackend(userDetails) {
     return async () => {
         try {
             dispatch(slice.actions.startSubmitting());
-            dispatch(slice.actions.setUserDetails(userDetails));
-            // Replace with your backend API endpoint
-            await axios.post('/stripe/api/users/register-new-user/step-one', userDetails);
-            //await axios.post(`${urlPrefix}`, userDetails);
+            await axios.post(`/stripe/api/users/register-new-user/user-details`, userDetails).then((response) => {
+                if (response.status === 200 && response.data.subscriptionId && response.data.clientSecret) {
+                    console.log('Payment service response status: ', response.status); //TODO Remove this line after testing
+                    dispatch(slice.actions.setSetupIntentClientSecret(response.data.clientSecret));
+                    dispatch(slice.actions.setCustomerId(response.data.customerId));
+                } else {
+                    //TODO handle error properly showing an error dialog or something
+                }
+            });
             dispatch(slice.actions.stopSubmitting());
         } catch (error) {
+            dispatch(slice.actions.hasError(error.message));
             dispatch(slice.actions.stopSubmitting());
-            throw error;
+            dispatch(slice.actions.setCurrentStep(1));
         }
     };
 }
@@ -140,11 +174,5 @@ export function setSubscriptionPlan(plan) {
 export function setCurrentStep(step) {
     return () => {
         dispatch(slice.actions.setCurrentStep(step));
-    };
-}
-
-export function setUserDetails(details) {
-    return () => {
-        dispatch(slice.actions.setUserDetails(details));
     };
 }

@@ -8,7 +8,7 @@ import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText,
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { saveSubscriptionPlan, setSubscriptionPlan } from 'store/slices/createAccount';
+//import { saveUserDetailsInSessionBackend, setSubscriptionPlan } from 'store/slices/createAccount';
 
 // assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
@@ -16,6 +16,7 @@ import TwoWheelerTwoToneIcon from '@mui/icons-material/TwoWheelerTwoTone';
 import AirportShuttleTwoToneIcon from '@mui/icons-material/AirportShuttleTwoTone';
 import DirectionsBoatTwoToneIcon from '@mui/icons-material/DirectionsBoatTwoTone';
 import Loader from 'ui-component/Loader';
+import { setPlanAndSaveUserDetails } from 'store/customThunkAction';
 
 const plans = [
     {
@@ -74,9 +75,13 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
     const dispatch = useDispatch();
     const { isSubmitting, userDetails } = useSelector((state) => state.createAccount);
 
-    // const handleSelectPlanClick = (plan) => {
-
-    // };
+    const handleSelectPlan = (planId, userDetails) => {
+        return async (e) => {
+            e.preventDefault();
+            await dispatch(setPlanAndSaveUserDetails({ planId, userDetails }));
+            handleNext();
+        };
+    };
 
     if (isSubmitting) {
         return <Loader />;
@@ -192,13 +197,8 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
                                 <Grid item xs={12}>
                                     <Button
                                         variant="outlined"
-                                        onClick={(e) => {
-                                            console.log('plan', plan.id);
-                                            e.preventDefault();
-                                            dispatch(setSubscriptionPlan(plan.id));
-                                            console.log('userDetails', userDetails);
-                                            dispatch(saveSubscriptionPlan(userDetails));
-                                            //handleNext();
+                                        onClick={async (e) => {
+                                            handleSelectPlan(plan.id, userDetails)(e);
                                         }}
                                     >
                                         Select this
