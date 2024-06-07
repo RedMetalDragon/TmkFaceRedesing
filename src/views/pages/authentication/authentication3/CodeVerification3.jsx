@@ -7,7 +7,7 @@ import { Button, Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/ma
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
-import Logo from 'ui-component/Logo';
+import PopUpLogo from 'ui-component/svgs/PopUpLogo';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import AuthCodeVerification from '../auth-forms/AuthCodeVerification';
 import AuthFooter from 'ui-component/cards/AuthFooter';
@@ -30,7 +30,7 @@ const CodeVerification = () => {
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
                                         <Link to="#" aria-label="theme-logo">
-                                            <Logo />
+                                            <PopUpLogo />
                                         </Link>
                                     </Grid>
                                     <Grid item xs={12}>

@@ -32,6 +32,7 @@
         "@mui/x-tree-view": "^6.17.0",
         "@reduxjs/toolkit": "^1.9.5",
         "@stripe/react-stripe-js": "^2.7.0",
+        "@stripe/stripe-js": "^3.4.1",
         "@tabler/icons-react": "^2.32.0",
         "@vitejs/plugin-react": "^4.1.0",
         "amazon-cognito-identity-js": "^6.3.3",
@@ -84,6 +85,7 @@
         "react-redux": "^8.1.2",
         "react-responsive-carousel": "^3.2.23",
         "react-router-dom": "^6.15.0",
+        "react-scripts": "^5.0.1",
         "react-slick": "^0.29.0",
         "react-syntax-highlighter": "^15.5.0",
         "react-timer-hook": "^3.0.7",
@@ -106,7 +108,8 @@
     "scripts": {
         "start": "vite",
         "build": "vite build --mode production",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "start:debug": "BROWSER='google-chrome' react-scripts start --remote-debugging-port=9222"
     },
     "eslintConfig": {
         "extends": [

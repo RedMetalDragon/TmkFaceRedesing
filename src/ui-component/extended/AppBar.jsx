@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { cloneElement, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -80,11 +80,14 @@ const AppBar = ({ ...others }) => {
                             {/* <Button color="inherit" component={Link} href="#">
                                 Home
                             </Button> */}
-                            <Button color="inherit" component={RouterLink} to="/login" target="_blank">
+                            {/* <Button color="inherit" component={RouterLink} to="/login" target="_blank">
                                 Dashboard
                             </Button>
                             <Button color="inherit" component={Link} href="https://codedthemes.gitbook.io/berry" target="_blank">
                                 Documentation
+                            </Button> */}
+                            <Button color="secondary" component={Link} href="/login" target="_blank" variant="contained">
+                                Log in | Sign Up
                             </Button>
                         </Stack>
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>

@@ -7,7 +7,7 @@ import { Divider, Grid, Typography, useMediaQuery } from '@mui/material';
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
-import Logo from 'ui-component/Logo';
+import PopUpLogo from 'ui-component/svgs/PopUpLogo';
 import AuthForgotPassword from '../auth-forms/AuthForgotPassword';
 import AuthFooter from 'ui-component/cards/AuthFooter';
 import useAuth from 'hooks/useAuth';
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
                                         <Link to="#" aria-label="theme-logo">
-                                            <Logo />
+                                            <PopUpLogo />
                                         </Link>
                                     </Grid>
                                     <Grid item xs={12}>
