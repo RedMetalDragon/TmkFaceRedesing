@@ -2,15 +2,19 @@ import React from 'react';
 import { Button, Stack } from '@mui/material';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+import { useDispatch, useSelector } from 'store';
+import { setCurrentStep } from 'store/slices/createAccount';
 
 const StripeCheckoutForm = () => {
     //const dispatch = useDispatch();
     const stripe = useStripe();
     const elements = useElements();
+    const currentStep = useSelector((state) => state.createAccount.currentStep);
+    const dispatch = useDispatch();
 
     const handleBack = () => {
         // TODO
-        //dispatch(setCurrentStep(currentStep - 1));
+        dispatch(setCurrentStep(currentStep - 1));
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -46,11 +50,6 @@ const StripeCheckoutForm = () => {
             </Stack>
         </form>
     );
-};
-import PropTypes from 'prop-types';
-
-StripeCheckoutForm.propTypes = {
-    customerId: PropTypes.string.isRequired
 };
 
 export default StripeCheckoutForm;
