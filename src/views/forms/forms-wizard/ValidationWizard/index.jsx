@@ -118,7 +118,7 @@ const ValidationWizard = () => {
                             paymentData,
                             setPaymentData
                         )}
-                        {currentStep === steps.length - 1 && (
+                        {/* {currentStep === steps.length - 1 && (
                             <Stack direction="row" justifyContent={currentStep !== 0 ? 'space-between' : 'flex-end'}>
                                 {currentStep !== 0 && (
                                     <Button onClick={handleBack} sx={{ my: 3, ml: 1 }} color="secondary">
@@ -131,7 +131,7 @@ const ValidationWizard = () => {
                                     </Button>
                                 </AnimateButton>
                             </Stack>
-                        )}
+                        )} */}
                     </>
                 )}
             </>
