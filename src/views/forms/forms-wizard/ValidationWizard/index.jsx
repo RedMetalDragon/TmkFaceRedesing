@@ -35,6 +35,7 @@ const getStepContent = (step, handleNext, handleBack, setErrorIndex) => {
 const ValidationWizard = () => {
     const dispatch = useDispatch();
     const currentStep = useSelector((state) => state.createAccount.currentStep);
+    const error = useSelector((state) => state.createAccount.error);
     // const isSubmitting = useSelector((state) => state.createAccount.isSubmitting);
     // const error = useSelector((state) => state.createAccount.error);
     const [shippingData, setShippingData] = React.useState({});
@@ -44,7 +45,9 @@ const ValidationWizard = () => {
     useEffect(() => {}, []);
 
     const handleNext = () => {
-        dispatch(setCurrentStep(currentStep + 1));
+        if (!error) {
+            dispatch(setCurrentStep(currentStep + 1));
+        }
     };
 
     const handleBack = () => {

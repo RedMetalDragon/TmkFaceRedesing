@@ -88,6 +88,34 @@ export function setUserDetails(userDetails) {
     };
 }
 
+export function checkUserEmail(email) {
+    return async () => {
+        try {
+            dispatch(slice.actions.startSubmitting());
+            // Replace with your backend API endpoint
+            await axios.post(`/users/validate-email`, { email_address: email }).then((response) => {
+                if (response.status !== 200) {
+                    dispatch(slice.actions.hasError('Something went wrong'));
+                    dispatch(slice.actions.stopSubmitting());
+                    throw new Error('Something went wrong $$-1');
+                } else {
+                    if (response.data.existing === true) {
+                        dispatch(slice.actions.hasError('Email already exists'));
+                        dispatch(slice.actions.stopSubmitting());
+                        throw new Error('Email already exists $$-2');
+                    } else {
+                        dispatch(slice.actions.stopSubmitting());
+                    }
+                }
+            });
+        } catch (error) {
+            dispatch(slice.actions.hasError(error.message));
+            dispatch(slice.actions.stopSubmitting());
+            console.log('Error: ', error);
+        }
+    };
+}
+
 // user select plan
 export function setUserSubscriptionPlan(plan) {
     return async () => {

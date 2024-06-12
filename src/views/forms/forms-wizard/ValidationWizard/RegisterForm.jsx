@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//eslint-disable-next-line
-import { Link, useNavigate } from 'react-router-dom';
-
-// material-ui
+import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import {
     Box,
@@ -20,44 +17,27 @@ import {
     Typography,
     useMediaQuery
 } from '@mui/material';
-
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import useAuth from 'hooks/useAuth';
-//import useScriptRef from 'hooks/useScriptRef';
+import { ValidEmailRegex } from 'utils/regex';
 import { strengthColor, strengthIndicatorNumFunc } from 'utils/password-strength';
 import { useDispatch, useSelector } from 'store';
 import Loader from 'ui-component/Loader';
-
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { setUserDetails } from 'store/slices/createAccount';
+import { setUserDetails, checkUserEmail } from 'store/slices/createAccount';
 
-// ===========================|| FORM WIZARD - VALIDATION 1 ||=========================== //
-
-//eslint-disable-next-line
 const RegisterForm = ({ handleNext, setErrorIndex }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    //eslint-disable-next-line
-    const { userDetails, isSubmitting, error } = useSelector((state) => state.createAccount);
-    //const navigate = useNavigate();
-    //const scriptedRef = useScriptRef();
-
+    const { userDetails, isSubmitting } = useSelector((state) => state.createAccount);
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const [showPassword, setShowPassword] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
-
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState();
-    //eslint-disable-next-line
-    const { register } = useAuth();
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -74,17 +54,17 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
     };
 
     useEffect(() => {
-        // Simulate three seconds loading
-        // eslint-disable-next-line no-unused-vars
         const loadingTimeout = setTimeout(() => {
             setIsLoading(false);
-        }, 3000);
+        }, 2000);
         changePassword('123456');
+        return () => clearTimeout(loadingTimeout);
     }, []);
 
     if (isSubmitting || isLoading) {
         return <Loader />;
     }
+
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -98,19 +78,23 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
             <Formik
                 initialValues={userDetails}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                    email: Yup.string()
+                        .email('Must be a valid email')
+                        .matches(ValidEmailRegex, 'Invalid email')
+                        .max(255)
+                        .required('Email is required'),
                     password: Yup.string().max(255).required('Password is required'),
                     firstName: Yup.string().max(255).required('First Name is required'),
                     lastName: Yup.string().max(255).required('Last Name is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        // Uncomment line below to make the request to backend
+                        dispatch(checkUserEmail(values.email));
                         dispatch(setUserDetails(values));
                         handleNext();
                     } catch (err) {
                         console.error(err);
-                        dispatch(hasError(err.message));
+                        dispatch(setErrorIndex(err.message));
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
                         setSubmitting(false);
