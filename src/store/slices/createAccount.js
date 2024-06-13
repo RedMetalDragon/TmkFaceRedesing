@@ -105,7 +105,7 @@ export function saveUserDetailsInSessionBackend(userDetails) {
     return async () => {
         try {
             dispatch(slice.actions.startSubmitting());
-            await axios.post(`/stripe/api/users/register-new-user/user-details`, userDetails).then((response) => {
+            await axios.post(`/gondor/users/register-new-user/user-details`, userDetails).then((response) => {
                 if (response.status === 200 && response.data.subscriptionId && response.data.clientSecret) {
                     console.log('Payment service response status: ', response.status); //TODO Remove this line after testing
                     dispatch(slice.actions.setSetupIntentClientSecret(response.data.clientSecret));
@@ -135,7 +135,7 @@ export function saveSubscriptionPlan(userDetails) {
         try {
             dispatch(slice.actions.startSubmitting());
             // Replace with your backend API endpoint
-            const response = await axios.post(`/stripe/api/users/register-new-user/step-two`, userDetails);
+            const response = await axios.post(`/gondor/api/users/register-new-user/step-two`, userDetails);
             if (response.data.customerId && response.data.intentClientSecret) {
                 dispatch(slice.actions.setCustomerId(response.data.customerId));
                 dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));

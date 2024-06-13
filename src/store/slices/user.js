@@ -451,7 +451,7 @@ export function filterProfileCards(key) {
 export function fillPersonalInfo() {
     return async (dispatch) => {
         try {
-            const response = await axios.get('/users/dashboard');
+            const response = await axios.get('/brain/users/dashboard');
             const mappedData = {
                 userFirstName: response.data.employee_fname,
                 userLastName: response.data.employee_lname,
