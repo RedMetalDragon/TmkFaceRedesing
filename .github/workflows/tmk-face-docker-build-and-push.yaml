@@ -47,7 +47,7 @@ jobs:
                     echo "Using commit SHA as tag because no version tag is present: $TAG"
                   fi
                   echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
-                  echo "${{ github.ref }}" > tmk_face_latest_image_tag.txt
+                  echo "${{ env.IMAGE_TAG }}" > ${{ github.workspace }}/tmk_face_latest_image_tag.txt
 
             - name: Bridge workflow
               if: env.proceed == 'false'
@@ -81,7 +81,7 @@ jobs:
                   build-args: |
                       VITE_TMK_GATEWAY_URL=${{ secrets.VITE_TMK_GATEWAY_URL }}
                       VITE_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_APP_STRIPE_PUBLISHABLE_KEY }}
-                      VITE_APP_STRIPE_PRICE_ID_TABLE=${{ secrets.VITE_APP_STRIPE_PRICE_ID_TABLE }}
+                      VITE_APP_BASE_NAME=${{ secrets.VITE_APP_BASE_NAME }}
                   tags: |
                       marcoguerod/tmkface-amd64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
                       marcoguerod/tmkface-arm64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
