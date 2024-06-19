@@ -81,7 +81,7 @@ jobs:
                   build-args: |
                       VITE_TMK_GATEWAY_URL=${{ secrets.VITE_TMK_GATEWAY_URL }}
                       VITE_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_APP_STRIPE_PUBLISHABLE_KEY }}
-                      VITE_APP_BASE_NAME=${{ secrets.VITE_APP_BASE_NAME }}
+                      VITE_APP_HOMEPAGE=${{ secrets.VITE_APP_HOMEPAGE }}
                   tags: |
                       marcoguerod/tmkface-amd64:${{ github.event.inputs.tag || env.IMAGE_TAG }}
                       marcoguerod/tmkface-arm64:${{ github.event.inputs.tag || env.IMAGE_TAG }}

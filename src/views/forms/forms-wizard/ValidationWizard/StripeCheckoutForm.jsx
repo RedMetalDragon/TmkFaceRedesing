@@ -17,7 +17,7 @@ const StripeCheckoutForm = () => {
         dispatch(setCurrentStep(currentStep - 1));
     };
     const handleSubmit = async (event) => {
-        const urlToReturn = import.meta.env.VITE_APP_BASE_NAME;
+        const urlToReturn = import.meta.env.VITE_APP_HOMEPAGE;
         event.preventDefault();
         if (!stripe || !elements) {
             return;
