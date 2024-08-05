@@ -10,7 +10,8 @@ export default defineConfig({
             transformMixedEsModules: true
         },
         outDir: 'dist',
-        assetsDir: 'assets'
+        assetsDir: 'assets',
+        sourcemap: true
     },
     plugins: [react(), jsconfigPaths()],
     // https://github.com/jpuri/react-draft-wysiwyg/issues/1317

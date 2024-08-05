@@ -90,8 +90,8 @@ export const JWTProvider = ({ children }) => {
         init();
     }, []);
 
-    const login = async (username, password) => {
-        const response = await axios.post('/brain/users/login', { username, password });
+    const login = async (email_address, password) => {
+        const response = await axios.post('/brain/users/login', { email_address, password });
         const { access_token, role_features, personal_data } = response.data;
         role_features.push(mockFeature);
         setSession(access_token);
