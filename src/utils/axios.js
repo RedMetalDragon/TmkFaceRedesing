@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 
-const axiosServices = axios.create({ baseURL: import.meta.env.VITE_TMK_GATEWAY_URL_DEVELOPMENT });
+const axiosServices = axios.create({ baseURL: import.meta.env.VITE_TMK_GATEWAY_URL });
 // ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
 
 axiosServices.interceptors.request.use(
