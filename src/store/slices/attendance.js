@@ -37,7 +37,7 @@ export function fetchUserAttendanceTable() {
     return async (dispatch) => {
         dispatch(fetchDataStart());
         try {
-            const response = await axios.get('/users/attendance');
+            const response = await axios.get('/brain/users/attendance');
             dispatch(fetchDataSuccess(response.data));
         } catch (error) {
             dispatch(fetchDataFailed(error));

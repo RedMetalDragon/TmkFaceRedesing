@@ -54,17 +54,17 @@ const JWTLogin = ({ loginProp, ...others }) => {
     return (
         <Formik
             initialValues={{
-                username: 'manager@gmail.com',
+                email_address: 'manager@gmail.com',
                 password: 'user_password',
                 submit: null
             }}
             validationSchema={Yup.object().shape({
-                username: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                email_address: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                 password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
-                    await login(values.username, values.password);
+                    await login(values.email_address, values.password);
 
                     if (scriptedRef.current) {
                         setStatus({ success: true });
@@ -87,7 +87,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                         <OutlinedInput
                             id="outlined-adornment-email-login"
                             type="email"
-                            value={values.email}
+                            value={values.email_address}
                             name="email"
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -95,7 +95,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                         />
                         {touched.email && errors.email && (
                             <FormHelperText error id="standard-weight-helper-text-email-login">
-                                {errors.email}
+                                {errors.email_address}
                             </FormHelperText>
                         )}
                     </FormControl>

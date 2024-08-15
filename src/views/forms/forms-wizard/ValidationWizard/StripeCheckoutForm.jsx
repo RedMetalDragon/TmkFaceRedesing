@@ -17,6 +17,7 @@ const StripeCheckoutForm = () => {
         dispatch(setCurrentStep(currentStep - 1));
     };
     const handleSubmit = async (event) => {
+        const urlToReturn = import.meta.env.VITE_APP_HOMEPAGE;
         event.preventDefault();
         if (!stripe || !elements) {
             return;
@@ -24,7 +25,7 @@ const StripeCheckoutForm = () => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'http://localhost:3000' // this needs to be the replaced
+                return_url: urlToReturn || '#' // this needs to be the replaced
             }
         });
         //TODO handle error properly showing an error dialog or something

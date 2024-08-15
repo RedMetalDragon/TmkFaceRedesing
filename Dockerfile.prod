@@ -1,4 +1,5 @@
 # Stage 1: Build the React application
+# THIS NEEDS TO BE REVISED
 FROM node:lts-alpine AS build-stage
 WORKDIR /app
 COPY package.json  yarn.lock ./
