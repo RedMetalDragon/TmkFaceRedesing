@@ -139,9 +139,9 @@ const Items = ({ title, caption, image, link }) => {
                     <Typography variant="h3" sx={{ fontWeight: 500 }}>
                         {title}
                     </Typography>
-                    <IconButton size="small">
-                        <IconLink size={18} color={theme.palette.text.primary} aria-label="page redirect to this theme page" />
-                    </IconButton>
+                    {/*<IconButton size="small">*/}
+                    {/*    <IconLink size={18} color={theme.palette.text.primary} aria-label="page redirect to this theme page" />*/}
+                    {/*</IconButton>*/}
                 </Stack>
                 <Typography variant="subtitle2" color="text.primary" sx={{ fontSize: { xs: '1rem', xl: '1.125rem' } }}>
                     {caption}
@@ -169,12 +169,12 @@ const PreBuildDashBoard = () => {
                     <Grid container spacing={1.5}>
                         <Grid item xs={12}>
                             <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                                Explore Concenputal Apps
+                                One platform for everything
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="h4" sx={{ fontWeight: 400 }} align="center">
-                                Berry has conceptul working apps like Chat, Inbox, E-commerce, Invoice, Kanban, and Calendar
+                                Merge all your HR functionalities into one seamless platform.
                             </Typography>
                         </Grid>
                     </Grid>
@@ -222,15 +222,16 @@ const PreBuildDashBoard = () => {
                                 image={theme.palette.mode === 'dark' ? SliderDark2 : SliderLight2}
                                 link="/apps/calendar"
                             />
+                            {/*<Items*/}
+                            {/*    title="Ecommerce App"*/}
+                            {/*    image={theme.palette.mode === 'dark' ? SliderDark1 : SliderLight1}*/}
+                            {/*    link="/apps/e-commerce/products"*/}
+                            {/*/>*/}
                             <Items
-                                title="Ecommerce App"
-                                image={theme.palette.mode === 'dark' ? SliderDark1 : SliderLight1}
-                                link="/apps/e-commerce/products"
-                            />
-                            <Items
-                                title="Social Profile"
+                                title="Employee Profile"
                                 image={theme.palette.mode === 'dark' ? SliderDark6 : SliderLight6}
-                                link="/apps/user/social-profile/posts"
+                                // link="/apps/user/social-profile/posts"
+                                link={""}
                             />
                         </Carousel>
                     </Box>
