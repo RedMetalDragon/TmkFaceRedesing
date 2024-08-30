@@ -105,6 +105,8 @@ export const JWTProvider = ({ children }) => {
         dispatchUserInfo(fillUserInfo(personal_data));
     };
 
+    // This is a comment for testing the git tag command
+
     const register = async (email, password, firstName, lastName) => {
         // todo: this flow need to be recode as it not verified
         const id = chance.bb_pin();
