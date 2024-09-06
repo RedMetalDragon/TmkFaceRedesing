@@ -31,10 +31,10 @@ const PeopleSection = () => {
                 <Grid item xs={12} sx={{ textAlign: 'center' }}>
                     <Stack spacing={1.25} alignItems="center">
                         <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                            Testaments
+                            Customer reviews
                         </Typography>
                         <Typography variant="h4" sx={{ fontWeight: 400 }} align="center">
-                            We are so grateful for your positive review and appreciate your support of our product
+                            {/*We are so grateful for your positive review and appreciate your support of our product*/}
                         </Typography>
                     </Stack>
                 </Grid>

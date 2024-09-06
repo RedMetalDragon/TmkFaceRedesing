@@ -1,6 +1,6 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Box, Badge, CardMedia, Container, Link, Stack, Typography } from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import {Box, Badge, CardMedia, Container, Link, Stack, Typography, Button} from '@mui/material';
 
 // third-party
 import Slider from 'react-slick';
@@ -40,12 +40,12 @@ export const frameworks = [
         logo: DotNet,
         link: 'https://links.codedthemes.com/wkQEu'
     },
-    {
-        title: 'Shopify',
-        logo: Shopify,
-        link: '/',
-        isUpcoming: true
-    },
+    // {
+    //     title: 'Shopify',
+    //     logo: Shopify,
+    //     link: '/',
+    //     isUpcoming: true
+    // },
     {
         title: 'Vuetify 3',
         logo: Vue,
@@ -78,8 +78,8 @@ const FrameworkSection = () => {
         className: 'center',
         infinite: true,
         centerPadding: '60px',
-        slidesToShow: 7,
-        slidesToScroll: 7,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         speed: 500,
         swipeToSlide: true,
         responsive: [
@@ -120,16 +120,18 @@ const FrameworkSection = () => {
 
     return (
         <>
-            <Container sx={{ mb: 6 }}>
+            <Container sx={{mb: 6}}>
                 <Stack spacing={0.25} alignItems="center">
-                    <Typography variant="h2" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                        Berry is now available in multiple frameworks*
+                    <Typography variant="h2" align="center" sx={{fontSize: {xs: '1.5rem', sm: '2.125rem'}}}>
+                        100+ Available Integrations.
+                        Checkout it out below.{' '}
                     </Typography>
-                    <Typography variant="body2" align="center" sx={{ pt: 1 }}>
-                        Each framework is sold separately on different platforms. Click to{' '}
-                        <Link href="https://codedthemes.gitbook.io/berry/berry-eco-system" target="_blank" underline="hover">
-                            learn more.
-                        </Link>
+                    <Typography variant="body2" align="center" sx={{pt: 1}}>
+                        Don't see what you need? We can create custom integrations tailored to your specific
+                        requirements."
+                        {/*<Link href="https://codedthemes.gitbook.io/berry/berry-eco-system" target="_blank" underline="hover">*/}
+                        {/*    learn more.*/}
+                        {/*</Link>*/}
                     </Typography>
                 </Stack>
             </Container>
@@ -140,19 +142,19 @@ const FrameworkSection = () => {
                         textAlign: 'center'
                     },
                     '.slick-track': {
-                        display: { xs: 'flex', xl: 'inherit' }
+                        display: {xs: 'flex', xl: 'inherit'}
                     },
-                    '& .slick-dots': {
-                        position: 'initial',
-                        mt: 4,
-                        '& li button:before': {
-                            fontSize: '0.75rem'
-                        },
-                        '& li.slick-active button:before': {
-                            opacity: 1,
-                            color: 'primary.main'
-                        }
-                    }
+                    // '& .slick-dots': {
+                    //     position: 'initial',
+                    //     mt: 4,
+                    //     '& li button:before': {
+                    //         fontSize: '0.75rem'
+                    //     },
+                    //     '& li.slick-active button:before': {
+                    //         opacity: 1,
+                    //         color: 'primary.main'
+                    //     }
+                    // }
                 }}
             >
                 <Slider {...settings}>
@@ -211,10 +213,11 @@ const FrameworkSection = () => {
                                     }}
                                 >
                                     <Stack spacing={2} alignItems="center">
-                                        <Stack sx={{ width: 'auto', height: 48 }} alignItems="center" justifyContent="center">
-                                            <CardMedia alt={item.title} src={item.logo} component="img" />
+                                        <Stack sx={{width: 'auto', height: 48}} alignItems="center"
+                                               justifyContent="center">
+                                            <CardMedia alt={item.title} src={item.logo} component="img"/>
                                         </Stack>
-                                        <Typography variant="h4" sx={{ width: 'max-content' }}>
+                                        <Typography variant="h4" sx={{width: 'max-content'}}>
                                             {item.title}
                                         </Typography>
                                     </Stack>
@@ -223,6 +226,11 @@ const FrameworkSection = () => {
                         </Badge>
                     ))}
                 </Slider>
+            </Box>
+            <Box sx={{display: 'flex', justifyContent:'center', pt:'3.5rem'}}>
+                <Button color="secondary" href="#" target="_blank" variant="contained">
+                    View all integrations
+                </Button>
             </Box>
         </>
     );

@@ -77,43 +77,43 @@ const FeatureSection = () => (
                 <Grid container justifyContent="center" spacing={5} sx={{ '&> .MuiGrid-root > div': { height: '100%' } }}>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Beautiful User Interface"
-                            caption="Timekeeper can improve the productivity and save time by providing a clear and intuitive layout, and consistent look and feel."
+                            title="AI Driven Employee Recruitment"
+                            caption="Streamline recruitment with AI tools that help identify and attract top talent."
                             image={Offer1}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Time and Cost Savings"
-                            caption="Timekeeper can save employees time and effort by providing a responsive user interface, allowing them to focus on the job solely."
+                            title="AI Powered Job Posting Creation"
+                            caption="Generate compelling and accurate job descriptions tailored to your needs."
                             image={Offer2}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Reduce Complexity"
-                            caption="Timekeeper simplifies HR department work with easy and flexibles options."
+                            title="Document Mgmt & E-Signatures"
+                            caption="Securely store and manage documents, and simplify workflows with e-signatures capabilities."
                             image={Offer3}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Improved Scalability"
-                            caption="Timkeeeper uses scalable technologies and resources to ensure that your HR department get what they needs at a click of distance as the bussiness needs evolve."
+                            title="Effortless Attendance Tracking"
+                            caption="Simplify clocks-ins, clock-outs, and monitor employee hours with precision."
                             image={Offer4}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title=" Well-Documented and Supported"
-                            caption="With a range of resources including user guides, tutorials, and FAQs to help users understand and effectively use Timekeeper."
+                            title="Comprehensive PTO Mgmt."
+                            caption="Easily manage paid time off request, approvals, and balances."
                             image={Offer5}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Performance Centric"
-                            caption="Timekeeper is a performance-centric web application designed to deliver optimal performance for all your employees."
+                            title="Flexible Payroll Integrations"
+                            caption="Integrate seamlessly with your existing payroll systems."
                             image={Offer6}
                         />
                     </Grid>
