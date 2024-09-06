@@ -21,13 +21,17 @@ const accountReducer = (state = initialState, action) => {
             };
         }
         case LOGIN: {
-            const { features, personalData } = action.payload;
             return {
                 ...state,
                 isLoggedIn: true,
                 isInitialized: true,
-                features: features,
-                personalData: personalData
+            };
+        }
+        case SET_USER_FEATURES: {
+            const { features } = action.payload;
+            return {
+                ...state,
+                features: features
             };
         }
         case LOGOUT: {

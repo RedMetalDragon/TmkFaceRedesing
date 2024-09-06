@@ -91,18 +91,37 @@ export const JWTProvider = ({ children }) => {
     }, []);
 
     const login = async (email_address, password) => {
-        const response = await axios.post('/brain/users/login', { email_address, password });
-        const { access_token, role_features, personal_data } = response.data;
-        role_features.push(mockFeature);
-        setSession(access_token);
-        dispatch({
-            type: LOGIN,
-            payload: {
-                isLoggedIn: true,
-                features: role_features
-            }
-        });
-        dispatchUserInfo(fillUserInfo(personal_data));
+        try {
+            const [responseLogin, responsePlans] = await Promise.all([
+                axios.post('/brain/users/login', { email_address, password }),
+                axios.get('/brain/plans')
+            ]);
+            const { access_token } = responseLogin.data;
+            const { features } = responsePlans.data;
+            features.push(mockFeature);
+            setSession(access_token);
+            dispatch({
+                type: LOGIN,
+                payload: {
+                    isLoggedIn: true
+                }
+            });
+            dispatch({
+                type: SET_USER_FEATURES,
+                payload: {
+                    features: features
+                }
+            });
+        } catch (error) {
+            console.error('Login error:', error);
+            // Handle the error appropriately
+        }
+        try {
+            dispatchUserInfo(fillUserInfo(personal_data));
+        } catch (error) {
+            console.error('Error filling user info:', error);
+            // Handle the error appropriately
+        }
     };
 
     const register = async (email, password, firstName, lastName) => {
