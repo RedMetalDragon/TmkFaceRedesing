@@ -1,5 +1,5 @@
 // action - state management
-import { LOGIN, LOGOUT, REGISTER } from './actions';
+import { LOGIN, LOGOUT, REGISTER, SET_USER_FEATURES } from './actions';
 
 // ==============================|| ACCOUNT REDUCER ||============================== //
 
