@@ -35,10 +35,10 @@ const OfferCard = ({ title, caption, image, bgcolor = 'tmkPurple' }) => {
                         <CardMedia component="img" src={image} alt="Beautiful User Interface" />
                     </Avatar>
                     <Stack spacing={2}>
-                        <Typography variant="h3" sx={{ fontWeight: 500 }}>
+                        <Typography variant="h3" sx={{ fontWeight: 500 }} color="white">
                             {title}
                         </Typography>
-                        <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+                        <Typography variant="body2" sx={{ fontSize: '1rem' }} color="white">
                             {caption}
                         </Typography>
                     </Stack>

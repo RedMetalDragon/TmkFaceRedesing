@@ -1,6 +1,6 @@
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {Box, Badge, CardMedia, Container, Link, Stack, Typography, Button} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Box, Badge, CardMedia, Container, Link, Stack, Typography, Button } from '@mui/material';
 
 // third-party
 import Slider from 'react-slick';
@@ -120,15 +120,13 @@ const FrameworkSection = () => {
 
     return (
         <>
-            <Container sx={{mb: 6}}>
+            <Container sx={{ mb: 6 }}>
                 <Stack spacing={0.25} alignItems="center">
-                    <Typography variant="h2" align="center" sx={{fontSize: {xs: '1.5rem', sm: '2.125rem'}}}>
-                        100+ Available Integrations.
-                        Checkout it out below.{' '}
+                    <Typography variant="h2" color="white" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
+                        100+ Available Integrations. <br></br>Checkout it out below.{' '}
                     </Typography>
-                    <Typography variant="body2" align="center" sx={{pt: 1}}>
-                        Don't see what you need? We can create custom integrations tailored to your specific
-                        requirements."
+                    <Typography variant="body2" align="center" sx={{ pt: 1 }} color="white">
+                        Don't see what you need? We can create custom integrations tailored to your specific requirements."
                         {/*<Link href="https://codedthemes.gitbook.io/berry/berry-eco-system" target="_blank" underline="hover">*/}
                         {/*    learn more.*/}
                         {/*</Link>*/}
@@ -142,8 +140,8 @@ const FrameworkSection = () => {
                         textAlign: 'center'
                     },
                     '.slick-track': {
-                        display: {xs: 'flex', xl: 'inherit'}
-                    },
+                        display: { xs: 'flex', xl: 'inherit' }
+                    }
                     // '& .slick-dots': {
                     //     position: 'initial',
                     //     mt: 4,
@@ -213,11 +211,10 @@ const FrameworkSection = () => {
                                     }}
                                 >
                                     <Stack spacing={2} alignItems="center">
-                                        <Stack sx={{width: 'auto', height: 48}} alignItems="center"
-                                               justifyContent="center">
-                                            <CardMedia alt={item.title} src={item.logo} component="img"/>
+                                        <Stack sx={{ width: 'auto', height: 48 }} alignItems="center" justifyContent="center">
+                                            <CardMedia alt={item.title} src={item.logo} component="img" />
                                         </Stack>
-                                        <Typography variant="h4" sx={{width: 'max-content'}}>
+                                        <Typography variant="h4" sx={{ width: 'max-content' }}>
                                             {item.title}
                                         </Typography>
                                     </Stack>
@@ -227,8 +224,19 @@ const FrameworkSection = () => {
                     ))}
                 </Slider>
             </Box>
-            <Box sx={{display: 'flex', justifyContent:'center', pt:'3.5rem'}}>
-                <Button color="secondary" href="#" target="_blank" variant="contained">
+            <Box sx={{ display: 'flex', justifyContent: 'center', pt: '3.5rem' }}>
+                <Button
+                    sx={{
+                        backgroundColor: 'white',
+                        color: 'secondary.main',
+                        '&:hover': {
+                            backgroundColor: 'grey.400'
+                        }
+                    }}
+                    href="#"
+                    target="_blank"
+                    variant="contained"
+                >
                     View all integrations
                 </Button>
             </Box>
