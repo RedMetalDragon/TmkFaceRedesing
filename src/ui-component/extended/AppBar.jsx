@@ -74,6 +74,12 @@ const AppBar = ({ ...others }) => {
                             <HomepageLogo />
                         </Typography>
                         <Stack direction="row" sx={{ display: { xs: 'none', sm: 'block' } }} spacing={{ xs: 1.5, md: 2.5 }}>
+                            <Button color="inherit" component={Link} href="/">
+                                Home
+                            </Button>
+                            <Button color="inherit" component={Link} href="/services">
+                                Services
+                            </Button>
                             <Button color="inherit" component={Link} href="/pricing">
                                 Pricing
                             </Button>

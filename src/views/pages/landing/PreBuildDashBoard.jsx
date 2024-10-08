@@ -231,7 +231,7 @@ const PreBuildDashBoard = () => {
                                 title="Employee Profile"
                                 image={theme.palette.mode === 'dark' ? SliderDark6 : SliderLight6}
                                 // link="/apps/user/social-profile/posts"
-                                link={""}
+                                link={"#"}
                             />
                         </Carousel>
                     </Box>
