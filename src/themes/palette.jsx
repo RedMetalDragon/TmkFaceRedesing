@@ -110,6 +110,7 @@ const Palette = (navType, presetColor) => {
                 tmkBlue: 'linear-gradient(180deg, #88B2FF 0%, #4F8EFF 59.14%)',
                 tmkOrange: 'linear-gradient(180deg, #FFB45B 0%, #F7941F 56.8%)',
                 tmkPurple: 'linear-gradient(180deg, #9A6BFC 0%, #6C30ED 59.77%)',
+                tmkPurpleDark: '#6c30ed',
                 tmkPink: 'linear-gradient(180deg, #FE7196 0%, #FE4A79 57.3%)',
                 tmkYellow: 'linear-gradient(180deg, #FFF15C 0%, #ECD809 64.43%)'
             }
