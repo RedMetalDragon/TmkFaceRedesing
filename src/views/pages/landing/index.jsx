@@ -95,14 +95,14 @@ const Landing = () => {
             {/*</SectionWrapper>*/}
 
             {/* 5. people section */}
-            <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default', py: 2 }}>
+            {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default', py: 2 }}>
                 <PeopleSection />
-            </SectionWrapper>
+            </SectionWrapper> */}
 
             {/* 6. startup section */}
-            <SectionWrapper sx={{ py: 0 }}>
+            {/* <SectionWrapper sx={{ py: 0 }}>
                 <StartupProjectSection />
-            </SectionWrapper>
+            </SectionWrapper> */}
 
             {/* 7. include section */}
             {/*<SectionWrapper sx={{bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default'}}>*/}

@@ -15,7 +15,6 @@ import Django from 'assets/images/landing/frameworks/django.svg';
 import Codeigniter from 'assets/images/landing/frameworks/codeigniter.svg';
 import DotNet from 'assets/images/landing/frameworks/dot-net.svg';
 import Flask from 'assets/images/landing/frameworks/flask.svg';
-import Shopify from 'assets/images/landing/frameworks/shopify.svg';
 import FullStack from 'assets/images/landing/frameworks/full-stack.svg';
 import Vue from 'assets/images/landing/frameworks/vue.svg';
 
@@ -126,7 +125,7 @@ const FrameworkSection = () => {
                         100+ Available Integrations. <br></br>Checkout it out below.{' '}
                     </Typography>
                     <Typography variant="body2" align="center" sx={{ pt: 1 }} color="white">
-                        Don't see what you need? We can create custom integrations tailored to your specific requirements."
+                        Don&apos;t see what you need? We can create custom integrations tailored to your specific requirements.
                         {/*<Link href="https://codedthemes.gitbook.io/berry/berry-eco-system" target="_blank" underline="hover">*/}
                         {/*    learn more.*/}
                         {/*</Link>*/}
