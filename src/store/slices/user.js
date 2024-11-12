@@ -8,13 +8,12 @@ import { dispatch } from '../index';
 // ----------------------------------------------------------------------
 
 const initialState = {
-    error: null,
-    userFirstName: '',
-    userLastName: '',
+    employeeId: null,
+    firstName: '',
+    middleName: '',
+    lastName: '',
     birthday: '',
-    gender: '',
-    email: 'mgr@gmail.com',
-    companyEmailAdress: '',
+    emailAddress: '',
     address1: '',
     address2: '',
     city: '',
@@ -26,12 +25,16 @@ const initialState = {
     division: '',
     department: '',
     jobTitle: '',
-    managerFirstName: '',
-    managerLastName: '',
+    manager: {},
+    // Other existing properties
+    userFirstName: '',
+    userLastName: '',
+    gender: '',
+    companyEmailAdress: '',
     displayName: '',
     photoURL: '',
     cover: '',
-    phone: '786-322-1234',
+    phone: '',
     location: '',
     about: '',
     usersS1: [],
@@ -55,7 +58,7 @@ const slice = createSlice({
             state.error = action.payload;
         },
 
-        fillPersonalInfo(state, action) {
+        fillUserData(state, action) {
             state.userFirstName = action.payload.first_name ? action.payload.first_name : state.userFirstName;
             state.userLastName = action.payload.last_name ? action.payload.last_name : state.userLastName;
             state.birthday = action.payload.birthday ? action.payload.birthday : state.birthday;
@@ -448,35 +451,10 @@ export function filterProfileCards(key) {
     };
 }
 
-export function fillPersonalInfo() {
+export function fillUserInfo(personalData) {
     return async (dispatch) => {
         try {
-            const response = await axios.get('/brain/users/dashboard');
-            const mappedData = {
-                userFirstName: response.data.employee_fname,
-                userLastName: response.data.employee_lname,
-                userMiddleName: response.data.employee_lname,
-                email: response.data.email,
-                displayName: response.data.displayName,
-                photoURL: response.data.photoURL,
-                cover: response.data.cover,
-                phone: response.data.phone,
-                location: response.data.location,
-                about: response.data.about,
-                address: response.data.address,
-                zipCode: response.data.zipCode
-            };
-            dispatch(slice.actions.fillPersonalInfo(mappedData));
-        } catch (error) {
-            dispatch(slice.actions.hasError(error));
-        }
-    };
-}
-
-export function fillUserInfo(personaData) {
-    return async (dispatch) => {
-        try {
-            dispatch(slice.actions.fillPersonalInfo(personaData));
+            dispatch(slice.actions.fillUserData(personalData));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }

@@ -21,15 +21,16 @@ import { useSelector } from 'store';
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-    const userName = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user);
     useEffect(() => {
+        console.log(user);
         setLoading(false);
-    }, []);
+    }, [user]);
 
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item sm={12} xs={12} md={12} lg={12}>
-                <GreetingCard userName={userName.userFirstName} />
+                <GreetingCard userName={user.userFirstName} />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
                 <CarouselCard isLoading={isLoading}></CarouselCard>

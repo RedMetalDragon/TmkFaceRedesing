@@ -15,7 +15,6 @@ import Settings from './Settings';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useEffect } from 'react';
-import { fillPersonalInfo } from 'store/slices/user';
 import { useDispatch } from 'store';
 
 // assets
@@ -82,7 +81,6 @@ const Profile1 = () => {
         setValue(newValue);
     };
     useEffect(() => {
-        dispatch(fillPersonalInfo());
     }, [dispatch]);
 
     return (
