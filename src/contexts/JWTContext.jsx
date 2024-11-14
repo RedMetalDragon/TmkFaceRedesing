@@ -10,7 +10,6 @@ import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 import { useDispatch } from 'store';
 import { fillUserInfo } from 'store/slices/user';
-
 // project imports
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
@@ -91,18 +90,29 @@ export const JWTProvider = ({ children }) => {
     }, []);
 
     const login = async (email_address, password) => {
-        const response = await axios.post('/brain/users/login', { email_address, password });
-        const { access_token, role_features, personal_data } = response.data;
-        role_features.push(mockFeature);
-        setSession(access_token);
-        dispatch({
-            type: LOGIN,
-            payload: {
-                isLoggedIn: true,
-                features: role_features
+        try {
+            const responseLogin = await axios.post('/brain/users/login', { email_address, password });
+            if (responseLogin.status === 200) {
+                const { access_token } = responseLogin.data;
+                var role_features = [];
+                role_features.push(mockFeature);
+                setSession(access_token);
+                dispatch({
+                    type: LOGIN,
+                    payload: {
+                        isLoggedIn: true,
+                        features: role_features
+                    }
+                });
+                // TODO the param should be passed from the response
+                // login instead of hardcoded MANDATORY
+                await getEmployeeData('6');
+            } else {
+                console.error('Login failed with status:', response.status);
             }
-        });
-        dispatchUserInfo(fillUserInfo(personal_data));
+        } catch (error) {
+            console.error('Login error:', error);
+        }
     };
 
     const register = async (email, password, firstName, lastName) => {
@@ -152,6 +162,19 @@ export const JWTProvider = ({ children }) => {
         console.log(route);
         return true;
         //return state.features.some((feature) => route.includes(feature.route));
+    };
+
+    const getEmployeeData = async (employeeId) => {
+        try {
+            console.log(employeeId);
+            const response = await axios.get(`/brain/users/${employeeId}`);
+            const employeeData = response.data;
+            if (response.status === 200) {
+                fillUserInfo(dispatchUserInfo, employeeData);
+            }
+        } catch (error) {
+            console.error('Get employee data error:', error);
+        }
     };
 
     return (

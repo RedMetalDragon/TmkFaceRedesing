@@ -1,4 +1,4 @@
-const featureFilterEnabled = true;
+const featureFilterEnabled = false;
 const themeCustomizationEnabled = false;
 const searchSectionEanbled = false;
 

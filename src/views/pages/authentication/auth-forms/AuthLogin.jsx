@@ -43,6 +43,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
     const [checked, setChecked] = React.useState(true);
 
     const [showPassword, setShowPassword] = React.useState(false);
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -54,9 +55,9 @@ const JWTLogin = ({ loginProp, ...others }) => {
     return (
         <Formik
             initialValues={{
-                email_address: 'manager@gmail.com',
-                password: 'user_password',
-                submit: null
+                email_address: '',
+                password: '',
+                submit: false
             }}
             validationSchema={Yup.object().shape({
                 email_address: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
@@ -64,6 +65,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
+                    setSubmitting(true);
                     await login(values.email_address, values.password);
 
                     if (scriptedRef.current) {
@@ -87,13 +89,13 @@ const JWTLogin = ({ loginProp, ...others }) => {
                         <OutlinedInput
                             id="outlined-adornment-email-login"
                             type="email"
-                            value={values.email_address}
-                            name="email"
+                            name="email_address"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             inputProps={{}}
+                            value={values.email_address}
                         />
-                        {touched.email && errors.email && (
+                        {touched.email_address && errors.email_address && (
                             <FormHelperText error id="standard-weight-helper-text-email-login">
                                 {errors.email_address}
                             </FormHelperText>
