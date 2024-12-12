@@ -26,7 +26,7 @@ const initialState = {
 const ConfigContext = createContext(initialState);
 
 function ConfigProvider({ children }) {
-    const [config, setConfig] = useLocalStorage('berry-config', {
+    const [config, setConfig] = useLocalStorage('tmk-config', {
         layout: initialState.layout,
         drawerType: initialState.drawerType,
         fontFamily: initialState.fontFamily,

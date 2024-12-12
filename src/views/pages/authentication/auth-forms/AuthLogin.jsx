@@ -43,6 +43,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
     const [checked, setChecked] = React.useState(true);
 
     const [showPassword, setShowPassword] = React.useState(false);
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -54,17 +55,18 @@ const JWTLogin = ({ loginProp, ...others }) => {
     return (
         <Formik
             initialValues={{
-                username: 'manager@gmail.com',
-                password: 'user_password',
-                submit: null
+                email_address: '',
+                password: '',
+                submit: false
             }}
             validationSchema={Yup.object().shape({
-                username: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                email_address: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                 password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
-                    await login(values.username, values.password);
+                    setSubmitting(true);
+                    await login(values.email_address, values.password);
 
                     if (scriptedRef.current) {
                         setStatus({ success: true });
@@ -87,15 +89,15 @@ const JWTLogin = ({ loginProp, ...others }) => {
                         <OutlinedInput
                             id="outlined-adornment-email-login"
                             type="email"
-                            value={values.email}
-                            name="email"
+                            name="email_address"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             inputProps={{}}
+                            value={values.email_address}
                         />
-                        {touched.email && errors.email && (
+                        {touched.email_address && errors.email_address && (
                             <FormHelperText error id="standard-weight-helper-text-email-login">
-                                {errors.email}
+                                {errors.email_address}
                             </FormHelperText>
                         )}
                     </FormControl>

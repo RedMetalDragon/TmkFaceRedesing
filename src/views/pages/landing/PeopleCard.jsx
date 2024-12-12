@@ -54,7 +54,7 @@ const PeopleCard = ({ id, name, image, tag, content, view }) => {
                         </Typography>
                     </Stack>
                 </Stack>
-                <Typography variant="body1">{content}</Typography>
+                <Typography variant="body1" sx={{maxHeight: '3.25rem', overflowY: 'auto'}}>{content}</Typography>
             </Stack>
         </SubCard>
     );
