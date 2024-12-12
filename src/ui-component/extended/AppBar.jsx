@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { cloneElement, useState } from 'react';
 // import { Link as RouterLink } from 'react-router-dom';
 
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -27,8 +28,9 @@ import {
 import HomepageLogo from 'ui-component/svgs/HomepageLogo';
 
 // assets
-import { IconDashboard, IconHome2 } from '@tabler/icons-react';
+//import { IconHome2 } from '@tabler/icons-react';
 import MenuIcon from '@mui/icons-material/Menu';
+import LoginIcon from '@mui/icons-material/Login';
 
 // elevation scroll
 function ElevationScroll({ children, window }) {
@@ -103,22 +105,24 @@ const AppBar = ({ ...others }) => {
                                         onKeyDown={drawerToggler(false)}
                                     >
                                         <List>
-                                            <Link style={{ textDecoration: 'none' }} href="#" target="_blank">
+                                            <Link style={{ textDecoration: 'none' }} href="/login">
                                                 <ListItemButton component="a">
                                                     <ListItemIcon>
-                                                        <IconHome2 />
+                                                        <LoginIcon />
                                                     </ListItemIcon>
-                                                    <ListItemText primary="Home" />
+                                                    <ListItemText primary="Login/SignUp" />
                                                 </ListItemButton>
                                             </Link>
-                                            <Link style={{ textDecoration: 'none' }} href="/login" target="_blank">
+                                            {/* Mobile menu in the header */}
+                                            {/* 
+                                                <Link style={{ textDecoration: 'none' }} href="/login" target="_blank">
                                                 <ListItemButton component="a">
                                                     <ListItemIcon>
                                                         <IconDashboard />
                                                     </ListItemIcon>
                                                     <ListItemText primary="Dashboard" />
                                                 </ListItemButton>
-                                            </Link>
+                                            </Link> */}
                                         </List>
                                     </Box>
                                 )}
