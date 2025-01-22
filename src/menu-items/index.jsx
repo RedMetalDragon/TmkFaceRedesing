@@ -1,5 +1,6 @@
 import dashboard from './dashboard';
 import application from './application';
+import admin from './admin';
 // import forms from './forms';
 // import elements from './elements';
 // import utilities from './utilities';
@@ -17,7 +18,7 @@ import application from './application';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, application] // forms, elements, utilities, other, pages, samplePage]
+    items: [dashboard, application, admin] // forms, elements, utilities, other, pages, samplePage]
     //items: [dashboard, application, forms, elements, samplePage, pages, utilities, support, other]
 };
 
