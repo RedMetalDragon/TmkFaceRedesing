@@ -81,8 +81,7 @@ const Profile1 = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    useEffect(() => {
-    }, [dispatch]);
+    useEffect(() => {}, [dispatch]);
 
     return (
         <MainCard>

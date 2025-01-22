@@ -61,11 +61,11 @@ export const JWTProvider = ({ children }) => {
     useEffect(() => {
         const init = async () => {
             try {
-                const serviceToken = window.localStorage.getItem('serviceToken');
+                const serviceToken = window.localStorage.getItem('access_token');
                 if (serviceToken && verifyToken(serviceToken)) {
                     setSession(serviceToken);
-                    const response = await axios.get('/api/account/me');
-                    const { user } = response.data;
+                    //const response = await axios.get('/api/account/me');
+                    const user  = null;
                     dispatch({
                         type: LOGIN,
                         payload: {
