@@ -39,6 +39,7 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons-react';
 import useConfig from 'hooks/useConfig';
+import { MoreVert } from '@mui/icons-material';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -100,11 +101,13 @@ const ProfileSection = () => {
                     alignItems: 'center',
                     borderRadius: '27px',
                     transition: 'all .2s ease-in-out',
-                    borderColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
-                    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
+                    borderColor:
+                        theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.customBackground.tmkWhiteBackground,
+                    backgroundColor:
+                        theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.customBackground.tmkWhiteBackground,
                     '&[aria-controls="menu-list-grow"], &:hover': {
                         borderColor: theme.palette.primary.main,
-                        background: `${theme.palette.primary.main}!important`,
+                        background: `${theme.palette.secondary.dark}!important`,
                         color: theme.palette.primary.light,
                         '& svg': {
                             stroke: theme.palette.primary.light
@@ -129,13 +132,13 @@ const ProfileSection = () => {
                         alt="user-account"
                     />
                 }
-                label={<IconSettings stroke={1.5} size="24px" color={theme.palette.primary.main} />}
+                label={<MoreVert stroke={1.5} size="24px" color={theme.palette.primary.main} />}
                 variant="outlined"
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                color="primary"
+                color="secondary"
             />
 
             <Popper

@@ -101,7 +101,7 @@ const NotificationSection = () => {
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
                         transition: 'all .2s ease-in-out',
-                        background: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.secondary.light,
+                        background: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.customBackground.tmkWhiteBackground,
                         color: theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.secondary.dark,
                         '&[aria-controls="menu-list-grow"],&:hover': {
                             background: theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.secondary.dark,
