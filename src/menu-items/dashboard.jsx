@@ -26,16 +26,16 @@ const dashboard = {
             route: '/dashboard',
             icon: icons.IconDashboard,
             breadcrumbs: false
-        },
-        {
-            id: 'analytics',
-            title: <FormattedMessage id="analytics" />,
-            type: 'item',
-            route: '/dashboard',
-            url: '/app/dashboard-analytics',
-            icon: icons.IconDeviceAnalytics,
-            breadcrumbs: false
         }
+        // {
+        //     id: 'analytics',
+        //     title: <FormattedMessage id="analytics" />,
+        //     type: 'item',
+        //     route: '/dashboard',
+        //     url: '/app/dashboard-analytics',
+        //     icon: icons.IconDeviceAnalytics,
+        //     breadcrumbs: false
+        // }
     ]
 };
 

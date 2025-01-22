@@ -16,6 +16,7 @@ import { gridSpacing } from 'store/constant';
 import CarouselCard from './CarouselCard';
 import GreetingCard from './GreetingCard';
 import { useSelector } from 'store';
+import AttendanceCard from './AttendanceCard';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -36,16 +37,17 @@ const Dashboard = () => {
                 <CarouselCard isLoading={isLoading}></CarouselCard>
                 {/* <EarningCard isLoading={isLoading} /> */}
             </Grid>
-            {/* <Grid item xs={12}>
+
+            <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12} md={8}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
+                    <Grid item xs={12} md={12}>
+                        <AttendanceCard isLoading={isLoading} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <PopularCard isLoading={isLoading} />
-                    </Grid>
+                    {/*<Grid item xs={12} md={4}>*/}
+                    {/*    <PopularCard isLoading={isLoading} />*/}
+                    {/*</Grid>*/}
                 </Grid>
-            </Grid> */}
+            </Grid>
         </Grid>
     );
 };

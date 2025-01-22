@@ -17,14 +17,14 @@ import Offer4 from 'assets/images/landing/offer/offer-4.png';
 import Offer5 from 'assets/images/landing/offer/offer-5.png';
 import Offer6 from 'assets/images/landing/offer/offer-6.png';
 
-const OfferCard = ({ title, caption, image }) => {
+const OfferCard = ({ title, caption, image, bgcolor = 'tmkPurple' }) => {
     const theme = useTheme();
     const AvaterSx = { background: 'transparent', color: theme.palette.secondary.main, width: 56, height: 56 };
     return (
         <FadeInWhenVisible>
             <SubCard
                 sx={{
-                    bgcolor: theme.palette.mode === 'dark' ? 'dark.800' : 'grey.100',
+                    background: theme.palette.customBackground[bgcolor],
                     borderColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.divider,
                     '&:hover': { boxShadow: 'none' },
                     height: '100%'
@@ -35,10 +35,10 @@ const OfferCard = ({ title, caption, image }) => {
                         <CardMedia component="img" src={image} alt="Beautiful User Interface" />
                     </Avatar>
                     <Stack spacing={2}>
-                        <Typography variant="h3" sx={{ fontWeight: 500 }}>
+                        <Typography variant="h3" sx={{ fontWeight: 500 }} color="white">
                             {title}
                         </Typography>
-                        <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+                        <Typography variant="body2" sx={{ fontSize: '1rem' }} color="white">
                             {caption}
                         </Typography>
                     </Stack>
@@ -51,7 +51,8 @@ const OfferCard = ({ title, caption, image }) => {
 OfferCard.propTypes = {
     title: PropTypes.string,
     caption: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    bgcolor: PropTypes.string
 };
 // =============================|| LANDING - FEATURE PAGE ||============================= //
 
@@ -80,6 +81,7 @@ const FeatureSection = () => (
                             title="AI Driven Employee Recruitment"
                             caption="Streamline recruitment with AI tools that help identify and attract top talent."
                             image={Offer1}
+                            bgcolor="tmkGreen"
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
@@ -87,6 +89,7 @@ const FeatureSection = () => (
                             title="AI Powered Job Posting Creation"
                             caption="Generate compelling and accurate job descriptions tailored to your needs."
                             image={Offer2}
+                            bgcolor="tmkPink"
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
@@ -94,6 +97,7 @@ const FeatureSection = () => (
                             title="Document Mgmt & E-Signatures"
                             caption="Securely store and manage documents, and simplify workflows with e-signatures capabilities."
                             image={Offer3}
+                            bgcolor="tmkYellow"
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
@@ -101,6 +105,7 @@ const FeatureSection = () => (
                             title="Effortless Attendance Tracking"
                             caption="Simplify clocks-ins, clock-outs, and monitor employee hours with precision."
                             image={Offer4}
+                            bgcolor="tmkOrange"
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
@@ -108,6 +113,7 @@ const FeatureSection = () => (
                             title="Comprehensive PTO Mgmt."
                             caption="Easily manage paid time off request, approvals, and balances."
                             image={Offer5}
+                            bgcolor="tmkBlue"
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
@@ -115,6 +121,7 @@ const FeatureSection = () => (
                             title="Flexible Payroll Integrations"
                             caption="Integrate seamlessly with your existing payroll systems."
                             image={Offer6}
+                            bgcolor="tmkPurple"
                         />
                     </Grid>
                 </Grid>

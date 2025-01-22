@@ -61,11 +61,11 @@ export const JWTProvider = ({ children }) => {
     useEffect(() => {
         const init = async () => {
             try {
-                const serviceToken = window.localStorage.getItem('serviceToken');
+                const serviceToken = window.localStorage.getItem('access_token');
                 if (serviceToken && verifyToken(serviceToken)) {
                     setSession(serviceToken);
-                    const response = await axios.get('/api/account/me');
-                    const { user } = response.data;
+                    //const response = await axios.get('/api/account/me');
+                    const user  = null;
                     dispatch({
                         type: LOGIN,
                         payload: {
@@ -114,6 +114,8 @@ export const JWTProvider = ({ children }) => {
             console.error('Login error:', error);
         }
     };
+
+    // This is a comment for testing the git tag command
 
     const register = async (email, password, firstName, lastName) => {
         // todo: this flow need to be recode as it not verified
