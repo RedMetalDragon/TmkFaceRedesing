@@ -82,7 +82,7 @@ const CarouselCard = () => {
                                 maxHeight: '200px',
                                 margin: '5px',
                                 fontWeight: 500,
-                                color: theme.palette.mode === 'dark' ? theme.palette.text.secondary : theme.palette.secondary[200],
+                                color: theme.palette.text.primary,
                                 overflow: 'hidden'
                                 // textOverflow: 'ellipsis'
                             }}

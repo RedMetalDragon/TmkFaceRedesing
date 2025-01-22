@@ -6,12 +6,8 @@ import { Avatar, Box, useMediaQuery } from '@mui/material';
 import LAYOUT_CONST from 'constant';
 import useConfig from 'hooks/useConfig';
 import LogoSection from '../LogoSection';
-import SearchSection from './SearchSection';
 import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
-import FullScreenSection from './FullScreenSection';
-import LocalizationSection from './LocalizationSection';
-import MegaMenuSection from './MegaMenuSection';
 import NotificationSection from './NotificationSection';
 
 import { useDispatch, useSelector } from 'store';
@@ -55,7 +51,7 @@ const Header = () => {
                             ...theme.typography.mediumAvatar,
                             overflow: 'hidden',
                             transition: 'all .2s ease-in-out',
-                            background: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.secondary.light,
+                            background: theme.palette.customBackground.tmkWhiteBackground,
                             color: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,
                             '&:hover': {
                                 background: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,

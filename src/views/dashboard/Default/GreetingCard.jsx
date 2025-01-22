@@ -28,6 +28,8 @@ const GreetingCard = ({ userName }) => {
     const todayDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const currentHour = new Date().getHours();
     const minHeight = '44px';
+    const buttonBackgroundColor = theme.palette.customBackground.tmkPurple;
+    console.log('buttonBackgroundColor', buttonBackgroundColor);
     let greeting;
 
     if (currentHour < 12) {
@@ -65,10 +67,7 @@ const GreetingCard = ({ userName }) => {
                             >
                                 <EventNoteIcon fontSize="inherit" />
                             </Avatar>
-                            <Typography
-                                variant="h5"
-                                sx={{ color: theme.palette.mode === 'dark' ? theme.palette.text.secondary : theme.palette.secondary[200] }}
-                            >
+                            <Typography variant="h5" sx={{ color: theme.palette.text.primary }}>
                                 <FormattedMessage id={`greeting-${greeting}`} />
                                 {userName}
                             </Typography>
@@ -90,7 +89,14 @@ const GreetingCard = ({ userName }) => {
                                 minHeight: minHeight
                             }}
                         >
-                            <Button variant="contained">Punch In</Button>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    background: `${theme.palette.customBackground.tmkOrange}`
+                                }}
+                            >
+                                Punch In
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -95,7 +95,7 @@ const Palette = (navType, presetColor) => {
                 900: colors.darkPaper
             },
             text: {
-                primary: navType === 'dark' ? colors.darkTextPrimary : colors.grey700,
+                primary: navType === 'dark' ? colors.darkTextPrimary : 'rgba(0, 0, 0, 0.87)',
                 secondary: navType === 'dark' ? colors.darkTextSecondary : colors.grey500,
                 dark: navType === 'dark' ? colors.darkTextPrimary : colors.grey900,
                 hint: colors.grey100
@@ -114,6 +114,18 @@ const Palette = (navType, presetColor) => {
                 tmkPink: 'linear-gradient(180deg, #FE7196 0%, #FE4A79 57.3%)',
                 tmkYellow: 'linear-gradient(180deg, #FFF15C 0%, #ECD809 64.43%)',
                 tmkWhiteBackground: '#ffffff'
+            },
+            solids: {
+                tmkGreen: '#30FFBE',
+                tmkBlue: '#88B2FF',
+                tmkOrange: '#FFB45B',
+                tmkPurple: '#9A6BFC',
+                tmkPink: '#FE7196',
+                tmkYellow: '#FFF15C',
+                tmkWhite: '#ffffff',
+                tmkOrangeLigth: '#FBE9E7',
+                tmkGreenLigth: '#B9F6CA',
+                tmkPurpleLigth: '#EDE7F6'
             }
         }
     });
