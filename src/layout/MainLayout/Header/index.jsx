@@ -6,7 +6,7 @@ import { Avatar, Box, useMediaQuery } from '@mui/material';
 import LAYOUT_CONST from 'constant';
 import useConfig from 'hooks/useConfig';
 import LogoSection from '../LogoSection';
-import MobileSection from './MobileSection';
+//import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 
@@ -93,9 +93,9 @@ const Header = () => {
             <ProfileSection />
 
             {/* mobile header */}
-            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            {/* <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                 <MobileSection />
-            </Box>
+            </Box> */}
         </>
     );
 };
