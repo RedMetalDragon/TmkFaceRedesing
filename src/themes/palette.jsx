@@ -95,7 +95,7 @@ const Palette = (navType, presetColor) => {
                 900: colors.darkPaper
             },
             text: {
-                primary: navType === 'dark' ? colors.darkTextPrimary : colors.grey700,
+                primary: navType === 'dark' ? colors.darkTextPrimary : 'rgba(0, 0, 0, 0.87)',
                 secondary: navType === 'dark' ? colors.darkTextSecondary : colors.grey500,
                 dark: navType === 'dark' ? colors.darkTextPrimary : colors.grey900,
                 hint: colors.grey100
@@ -104,6 +104,28 @@ const Palette = (navType, presetColor) => {
             background: {
                 paper: navType === 'dark' ? colors.darkLevel2 : colors.paper,
                 default: navType === 'dark' ? colors.darkPaper : colors.paper
+            },
+            customBackground: {
+                tmkGreen: 'linear-gradient(179.28deg, #30FFBE 0.62%, #00DF99 52.37%)',
+                tmkBlue: 'linear-gradient(180deg, #88B2FF 0%, #4F8EFF 59.14%)',
+                tmkOrange: 'linear-gradient(180deg, #FFB45B 0%, #F7941F 56.8%)',
+                tmkPurple: 'linear-gradient(180deg, #9A6BFC 0%, #6C30ED 59.77%)',
+                tmkPurpleDark: '#6c30ed',
+                tmkPink: 'linear-gradient(180deg, #FE7196 0%, #FE4A79 57.3%)',
+                tmkYellow: 'linear-gradient(180deg, #FFF15C 0%, #ECD809 64.43%)',
+                tmkWhiteBackground: '#ffffff'
+            },
+            solids: {
+                tmkGreen: '#30FFBE',
+                tmkBlue: '#88B2FF',
+                tmkOrange: '#FFB45B',
+                tmkPurple: '#9A6BFC',
+                tmkPink: '#FE7196',
+                tmkYellow: '#FFF15C',
+                tmkWhite: '#ffffff',
+                tmkOrangeLigth: '#FBE9E7',
+                tmkGreenLigth: '#B9F6CA',
+                tmkPurpleLigth: '#EDE7F6'
             }
         }
     });
