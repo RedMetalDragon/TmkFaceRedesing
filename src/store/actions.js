@@ -2,6 +2,8 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER = 'REGISTER';
+export const REMAINLOGGEDIN = 'REMAINLOGGEDIN';
+
 export const FIREBASE_STATE_CHANGED = 'FIREBASE_STATE_CHANGED';
 
 // action - punch in/out

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -23,9 +22,10 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - GREETING CARD ||============================== //
 
-const GreetingCard = ({ userName, setModalOpen }) => {
+const GreetingCard = ({ setModalOpen }) => {
     const theme = useTheme();
     const punchInOut = useSelector((state) => state.punchInOut);
+    const user = useSelector((state) => state.user);
     const openModal = () => {
         setModalOpen(true);
     };
@@ -73,7 +73,7 @@ const GreetingCard = ({ userName, setModalOpen }) => {
                             </Avatar>
                             <Typography variant="h5" sx={{ color: theme.palette.text.primary }}>
                                 <FormattedMessage id={`greeting-${greeting}`} />
-                                {userName}
+                                {user.firstName} {user.lastName}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -99,7 +99,7 @@ const GreetingCard = ({ userName, setModalOpen }) => {
                                     background:
                                         punchInOut.punchActionToPerform === PUNCH_IN
                                             ? theme.palette.customBackground.tmkOrange
-                                            : theme.palette.customBackground.tmkRedLigth
+                                            : theme.palette.customBackground.tmkPurpleDark
                                 }}
                                 onClick={() => openModal()}
                             >

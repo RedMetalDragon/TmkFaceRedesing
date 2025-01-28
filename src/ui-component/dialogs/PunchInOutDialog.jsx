@@ -49,7 +49,7 @@ const PunchInOutDialog = ({ open, handleClose, handleOK, action }) => {
                     }}
                     sx={{
                         background:
-                            action === PUNCH_IN ? theme.palette.customBackground.tmkOrange : theme.palette.customBackground.tmkRedLigth
+                            action === PUNCH_IN ? theme.palette.customBackground.tmkOrange : theme.palette.customBackground.tmkPurpleDark
                     }}
                 >
                     {action === PUNCH_IN ? 'Punch In' : 'Punch Out'}

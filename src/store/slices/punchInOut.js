@@ -33,7 +33,7 @@ export const performPunchIn = () => async (dispatch, getState) => {
         const state = getState();
         //eslint-disable-next-line
         const employeeId = state.user.employeeId;
-        const currentDateTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+        const currentDateTime = new Date().toISOString();
         const response = await axios.post(`/brain/users/${employeeId}/login`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchIn());
@@ -50,14 +50,13 @@ export const performPunchOut = () => async (dispatch, getState) => {
         const state = getState();
         //eslint-disable-next-line
         const employeeId = state.user.employeeId;
-        const currentDateTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+        const currentDateTime = new Date().toISOString();
         const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchOut());
         } else {
             throw new Error('Failed to punch out');
         }
-        dispatch(slice.actions.punchOut());
     } catch (error) {
         dispatch(slice.actions.setError(error));
     }
@@ -69,8 +68,22 @@ export const setInitialAction = () => async (dispatch, getState) => {
     //const state = getState();
     // if the user is already punched in, set the action to punch out
 
-    // TODO: remove line below to the proper implementation
-    dispatch(slice.actions.punchOut());
+    // TODO: remove lines below to the proper implementation
+    const state = getState();
+    //eslint-disable-next-line
+    try {
+        const employeeId = state.user.employeeId;
+        const currentDateTime = new Date().toISOString();
+        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
+        if (response.status === 200) {
+            dispatch(slice.actions.punchOut());
+        } else {
+            // if the user is not punched in, set the action to punch in
+            dispatch(slice.actions.punchOut());
+        }
+    } catch (error) {
+        dispatch(slice.actions.punchOut());
+    }
 };
 
 export default slice.reducer;

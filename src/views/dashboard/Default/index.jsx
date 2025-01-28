@@ -28,7 +28,6 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState(true);
     const [openPunchInOutDialog, setOpenPunchInOutDialog] = useState(false);
-    const user = useSelector((state) => state.user);
     const action = useSelector((state) => state.punchInOut.punchActionToPerform);
 
     const handleClosePunchInOutDialog = () => {
@@ -45,15 +44,14 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        console.log(user);
-        setLoading(false);
         dispatch(setInitialAction());
-    }, [user, dispatch]);
+        setLoading(false);
+    }, [dispatch]);
 
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item sm={12} xs={12} md={12} lg={12}>
-                <GreetingCard userName={user.userFirstName} setModalOpen={setOpenPunchInOutDialog} />
+                <GreetingCard setModalOpen={setOpenPunchInOutDialog} />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
                 <CarouselCard isLoading={isLoading}></CarouselCard>
