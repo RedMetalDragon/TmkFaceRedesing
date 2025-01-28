@@ -17,6 +17,8 @@
     "style": "Estilo",
     "time-management": "Manejo",
     "clockInOut": "Entrada | Salida",
+    "punchIn": "Entrada",
+    "punchOut": "Salida",
     "payroll": "Pagos",
     "admin": "Administracion",
     "settings": "Configuración",

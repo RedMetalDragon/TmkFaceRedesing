@@ -1,16 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Grid, Typography } from '@mui/material';
 import { Button } from '@mui/material';
+import { useSelector } from 'store';
+import { PUNCH_IN } from 'store/actions';
+import { FormattedMessage } from 'react-intl';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-
 // assets
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import { FormattedMessage } from 'react-intl';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -22,14 +22,18 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - GREETING CARD ||============================== //
 
-const GreetingCard = ({ userName }) => {
+const GreetingCard = ({ setModalOpen }) => {
     const theme = useTheme();
+    const punchInOut = useSelector((state) => state.punchInOut);
+    const user = useSelector((state) => state.user);
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
     //eslint-disable-next-line
     const todayDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const currentHour = new Date().getHours();
     const minHeight = '44px';
-    const buttonBackgroundColor = theme.palette.customBackground.tmkPurple;
-    console.log('buttonBackgroundColor', buttonBackgroundColor);
     let greeting;
 
     if (currentHour < 12) {
@@ -69,7 +73,7 @@ const GreetingCard = ({ userName }) => {
                             </Avatar>
                             <Typography variant="h5" sx={{ color: theme.palette.text.primary }}>
                                 <FormattedMessage id={`greeting-${greeting}`} />
-                                {userName}
+                                {user.firstName} {user.lastName}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -92,10 +96,18 @@ const GreetingCard = ({ userName }) => {
                             <Button
                                 variant="contained"
                                 sx={{
-                                    background: `${theme.palette.customBackground.tmkOrange}`
+                                    background:
+                                        punchInOut.punchActionToPerform === PUNCH_IN
+                                            ? theme.palette.customBackground.tmkOrange
+                                            : theme.palette.customBackground.tmkPurpleDark
                                 }}
+                                onClick={() => openModal()}
                             >
-                                Punch In
+                                {punchInOut.punchActionToPerform === PUNCH_IN ? (
+                                    <FormattedMessage id="punchIn" />
+                                ) : (
+                                    <FormattedMessage id="punchOut" />
+                                )}
                             </Button>
                         </Grid>
                     </Grid>
@@ -105,6 +117,7 @@ const GreetingCard = ({ userName }) => {
     );
 };
 GreetingCard.propTypes = {
-    userName: PropTypes.string
+    userName: PropTypes.string,
+    setModalOpen: PropTypes.func
 };
 export default GreetingCard;

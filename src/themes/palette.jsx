@@ -113,7 +113,8 @@ const Palette = (navType, presetColor) => {
                 tmkPurpleDark: '#6c30ed',
                 tmkPink: 'linear-gradient(180deg, #FE7196 0%, #FE4A79 57.3%)',
                 tmkYellow: 'linear-gradient(180deg, #FFF15C 0%, #ECD809 64.43%)',
-                tmkWhiteBackground: '#ffffff'
+                tmkWhiteBackground: '#ffffff',
+                tmkRedLigth: '#F9EBEA'
             },
             solids: {
                 tmkGreen: '#30FFBE',
@@ -125,7 +126,9 @@ const Palette = (navType, presetColor) => {
                 tmkWhite: '#ffffff',
                 tmkOrangeLigth: '#FBE9E7',
                 tmkGreenLigth: '#B9F6CA',
-                tmkPurpleLigth: '#EDE7F6'
+                tmkPurpleLigth: '#EDE7F6',
+                tmkPinkLigth: '#FCE4EC',
+                tmkRedLigth: '#F9EBEA'
             }
         }
     });

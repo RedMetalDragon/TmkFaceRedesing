@@ -1,22 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'utils/axios';
+import { PUNCH_IN, PUNCH_OUT } from 'store/actions';
 
 const initialState = {
-    punchIn: null,
-    punchOut: null,
+    punchActionToPerform: null,
     autoPunchOutAt: null,
     error: null
 };
 
-const punchInOutSlice = createSlice({
+const slice = createSlice({
     name: 'punchInOut',
     initialState,
     reducers: {
+        // eslint-disable-next-line no-unused-vars
         punchIn(state, action) {
-            state.punchIn = action.payload.punchIn;
-            state.autoPunchOutAt = action.payload.autoPunchOutAt;
+            state.punchActionToPerform = PUNCH_OUT;
         },
+        // eslint-disable-next-line no-unused-vars
         punchOut(state, action) {
-            state.punchOut = action.payload.punchOut;
+            state.punchActionToPerform = PUNCH_IN;
         },
         setError(state, action) {
             state.error = action.payload;
@@ -24,6 +26,64 @@ const punchInOutSlice = createSlice({
     }
 });
 
-export const { punchIn, punchOut, setError } = punchInOutSlice.actions;
+export const { punchIn, punchOut, setError } = slice.actions;
 
-export default punchInOutSlice.reducer;
+export const performPunchIn = () => async (dispatch, getState) => {
+    try {
+        const state = getState();
+        //eslint-disable-next-line
+        const employeeId = state.user.employeeId;
+        const currentDateTime = new Date().toISOString();
+        const response = await axios.post(`/brain/users/${employeeId}/login`, { timestamp: currentDateTime.toString() });
+        if (response.status === 200) {
+            dispatch(slice.actions.punchIn());
+        } else {
+            throw new Error('Failed to punch in');
+        }
+    } catch (error) {
+        dispatch(slice.actions.setError(error));
+    }
+};
+
+export const performPunchOut = () => async (dispatch, getState) => {
+    try {
+        const state = getState();
+        //eslint-disable-next-line
+        const employeeId = state.user.employeeId;
+        const currentDateTime = new Date().toISOString();
+        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
+        if (response.status === 200) {
+            dispatch(slice.actions.punchOut());
+        } else {
+            throw new Error('Failed to punch out');
+        }
+    } catch (error) {
+        dispatch(slice.actions.setError(error));
+    }
+};
+
+//eslint-disable-next-line
+export const setInitialAction = () => async (dispatch, getState) => {
+    // read the user current state
+    //const state = getState();
+    // if the user is already punched in, set the action to punch out
+
+    // TODO: remove lines below to the proper implementation
+    const state = getState();
+    //eslint-disable-next-line
+    try {
+        const employeeId = state.user.employeeId;
+        const currentDateTime = new Date().toISOString();
+        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
+        if (response.status === 200) {
+            dispatch(slice.actions.punchOut());
+        } else {
+            // if the user is not punched in, set the action to punch in
+            dispatch(slice.actions.punchOut());
+        }
+    } catch (error) {
+        dispatch(slice.actions.punchOut());
+    }
+};
+
+export default slice.reducer;
