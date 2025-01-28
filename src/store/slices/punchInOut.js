@@ -33,7 +33,8 @@ export const performPunchIn = () => async (dispatch, getState) => {
         const state = getState();
         //eslint-disable-next-line
         const employeeId = state.user.employeeId;
-        const response = await axios.post(`/brain/users/${employeeId}/login`);
+        const currentDateTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+        const response = await axios.post(`/brain/users/${employeeId}/login`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchIn());
         } else {
@@ -49,7 +50,8 @@ export const performPunchOut = () => async (dispatch, getState) => {
         const state = getState();
         //eslint-disable-next-line
         const employeeId = state.user.employeeId;
-        const response = await axios.post(`/brain/users/${employeeId}/logout`);
+        const currentDateTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchOut());
         } else {

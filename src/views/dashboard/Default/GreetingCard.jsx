@@ -5,7 +5,7 @@ import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Grid, Typography } from '@mui/material';
 import { Button } from '@mui/material';
 import { useSelector } from 'store';
-import { PUNCH_IN} from 'store/actions';
+import { PUNCH_IN } from 'store/actions';
 import { FormattedMessage } from 'react-intl';
 
 // project imports
