@@ -30,7 +30,7 @@ const reducer = combineReducers({
         {
             key: 'cart',
             storage,
-            keyPrefix: 'berry-'
+            keyPrefix: 'tmk-'
         },
         cartReducer
     ),
@@ -41,14 +41,28 @@ const reducer = combineReducers({
     chat: chatReducer,
     calendar: calendarReducer,
     mail: mailReducer,
-    user: userReducer,
+    user: persistReducer(
+        {
+            key: 'user',
+            storage,
+            keyPrefix: 'tmk-'
+        },
+        userReducer
+    ),
     menu: menuReducer,
     features: features,
     attendance: attendance,
     orgSchedules: orgSchedules,
     contentFeeder: contentFeeder,
     createAccount: createAccount,
-    punchInOut: punchInOut
+    punchInOut: persistReducer(
+        {
+            key: 'punchInOut',
+            storage,
+            keyPrefix: 'tmk-'
+        },
+        punchInOut
+    )
 });
 
 export default reducer;
