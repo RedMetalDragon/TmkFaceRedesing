@@ -125,7 +125,9 @@ const Palette = (navType, presetColor) => {
                 tmkWhite: '#ffffff',
                 tmkOrangeLigth: '#FBE9E7',
                 tmkGreenLigth: '#B9F6CA',
-                tmkPurpleLigth: '#EDE7F6'
+                tmkPurpleLigth: '#EDE7F6',
+                tmkPinkLigth: '#FCE4EC',
+                tmkRedLigth: '#F9EBEA'
             }
         }
     });

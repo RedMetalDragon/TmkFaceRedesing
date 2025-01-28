@@ -65,7 +65,7 @@ export const JWTProvider = ({ children }) => {
                 if (serviceToken && verifyToken(serviceToken)) {
                     setSession(serviceToken);
                     //const response = await axios.get('/api/account/me');
-                    const user  = null;
+                    const user = null;
                     dispatch({
                         type: LOGIN,
                         payload: {
@@ -168,7 +168,6 @@ export const JWTProvider = ({ children }) => {
 
     const getEmployeeData = async (employeeId) => {
         try {
-            console.log(employeeId);
             const response = await axios.get(`/brain/users/${employeeId}`);
             const employeeData = response.data;
             if (response.status === 200) {
