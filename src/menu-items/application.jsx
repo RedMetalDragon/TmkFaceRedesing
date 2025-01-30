@@ -134,7 +134,7 @@ const application = {
                     title: <FormattedMessage id="clockInOut" />,
                     type: 'item',
                     route: '/punch-in-out',
-                    url: '/app/user/500-in-work'
+                    url: '/app/user/punch-in-out'
                 },
                 {
                     id: 'attendance',
