@@ -31,6 +31,10 @@ export const { punchIn, punchOut, setError } = slice.actions;
 export const performPunchIn = () => async (dispatch, getState) => {
     try {
         const state = getState();
+        if (state.punchInOut.error !== null) {
+            console.log('Error:', state.punchInOut.error);
+            return;
+        }
         //eslint-disable-next-line
         const employeeId = state.user.employeeId;
         const currentDateTime = new Date().toISOString();
@@ -41,7 +45,7 @@ export const performPunchIn = () => async (dispatch, getState) => {
             throw new Error('Failed to punch in');
         }
     } catch (error) {
-        dispatch(slice.actions.setError(error));
+        dispatch(slice.actions.setError({ message: error.message }));
     }
 };
 
@@ -58,16 +62,12 @@ export const performPunchOut = () => async (dispatch, getState) => {
             throw new Error('Failed to punch out');
         }
     } catch (error) {
-        dispatch(slice.actions.setError(error));
+        dispatch(slice.actions.setError({ message: error.message }));
     }
 };
 
 //eslint-disable-next-line
 export const setInitialAction = () => async (dispatch, getState) => {
-    // read the user current state
-    //const state = getState();
-    // if the user is already punched in, set the action to punch out
-    // TODO: remove lines below to the proper implementation
     const state = getState();
     if (state.punchInOut.punchActionToPerform !== null) {
         return;
@@ -75,16 +75,21 @@ export const setInitialAction = () => async (dispatch, getState) => {
     //eslint-disable-next-line
     try {
         const employeeId = state.user.employeeId;
-        const currentDateTime = new Date().toISOString();
-        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
-        if (response.status === 200) {
-            dispatch(slice.actions.punchOut());
+        const response = await axios.get(`/brain/users/${employeeId}/punch-status`);
+        if (response.status === 200 && response.data.status) {
+            if (response.data.status === PUNCH_IN) {
+                // last action made by user was punch in
+                dispatch(slice.actions.punchIn());
+            } else {
+                // last action made by user was punch out, so set the action to punch in
+                dispatch(slice.actions.punchOut());
+            }
         } else {
-            // if the user is not punched in, set the action to punch in
-            dispatch(slice.actions.punchOut());
+            // user has not made any action yet, so set the action to punch in
+            throw new Error('No punch status found');
         }
     } catch (error) {
-        dispatch(slice.actions.punchOut());
+        dispatch(slice.actions.setError({ message: 'Failed to fetch punch status' }));
     }
 };
 
