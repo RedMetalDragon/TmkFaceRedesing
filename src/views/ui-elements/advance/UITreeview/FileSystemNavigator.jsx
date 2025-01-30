@@ -18,7 +18,7 @@ export default function FileSystemNavigator() {
                 <TreeItem nodeId="10" label="OSS" />
                 <TreeItem nodeId="6" label="Material-UI">
                     <TreeItem nodeId="7" label="src">
-                        <TreeItem nodeId="8" label="index.js" />
+                        <TreeItem nodeId="8" label="index.jsx" />
                         <TreeItem nodeId="9" label="tree-view.js" />
                     </TreeItem>
                 </TreeItem>

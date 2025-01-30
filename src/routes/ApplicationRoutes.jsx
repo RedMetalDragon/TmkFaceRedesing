@@ -8,6 +8,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
 const AppUserAccountProfile1 = Loadable(lazy(() => import('views/application/users/account-profile/Profile1')));
 const AppUserSchedule = Loadable(lazy(() => import('views/application/users/schedule')));
+const AppPunchInOut = Loadable(lazy(() => import('views/application/users/punch-in-out')));
 
 const ApplicationRoutes = {
     path: '/app',
@@ -32,6 +33,10 @@ const ApplicationRoutes = {
         {
             path: '/app/user/schedule-attendance',
             element: <AppUserSchedule />
+        },
+        {
+            path: '/app/user/punch-in-out',
+            element: <AppPunchInOut />
         }
     ]
 };

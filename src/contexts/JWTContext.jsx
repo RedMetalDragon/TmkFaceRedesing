@@ -27,7 +27,8 @@ const mockFeature = {
 const initialState = {
     isLoggedIn: false,
     isInitialized: false,
-    features: []
+    features: [],
+    user_id: null
 };
 
 const verifyToken = (serviceToken) => {
@@ -64,13 +65,11 @@ export const JWTProvider = ({ children }) => {
                 const serviceToken = window.localStorage.getItem('access_token');
                 if (serviceToken && verifyToken(serviceToken)) {
                     setSession(serviceToken);
-                    //const response = await axios.get('/api/account/me');
-                    const user  = null;
                     dispatch({
                         type: LOGIN,
                         payload: {
-                            isLoggedIn: true,
-                            user
+                            ...state,
+                            isLoggedIn: true
                         }
                     });
                 } else {
@@ -101,12 +100,11 @@ export const JWTProvider = ({ children }) => {
                     type: LOGIN,
                     payload: {
                         isLoggedIn: true,
-                        features: role_features
+                        features: role_features,
+                        user_id: responseLogin.data.user_id
                     }
                 });
-                // TODO the param should be passed from the response
-                // login instead of hardcoded MANDATORY
-                await getEmployeeData('6');
+                dispatchUserInfo(fillUserInfo(responseLogin.data.user_id));
             } else {
                 console.error('Login failed with status:', response.status);
             }
@@ -164,19 +162,6 @@ export const JWTProvider = ({ children }) => {
         console.log(route);
         return true;
         //return state.features.some((feature) => route.includes(feature.route));
-    };
-
-    const getEmployeeData = async (employeeId) => {
-        try {
-            console.log(employeeId);
-            const response = await axios.get(`/brain/users/${employeeId}`);
-            const employeeData = response.data;
-            if (response.status === 200) {
-                fillUserInfo(dispatchUserInfo, employeeData);
-            }
-        } catch (error) {
-            console.error('Get employee data error:', error);
-        }
     };
 
     return (
