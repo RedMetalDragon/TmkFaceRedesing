@@ -82,7 +82,7 @@ jobs:
                       VITE_TMK_GATEWAY_URL=${{ secrets.VITE_TMK_GATEWAY_URL }}
                       VITE_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_APP_STRIPE_PUBLISHABLE_KEY }}
                       VITE_APP_HOMEPAGE=${{ secrets.VITE_APP_HOMEPAGE }}
-                      VITE_APP_VERSION=${{ github.event.inputs.tag || env.IMAGE_TAG }} # Pass the tag version as a build argument
+                      VITE_APP_VERSION=${{ github.event.inputs.tag || env.IMAGE_TAG }}
                   tags: |
                       marcoguerod/tmkface:${{ github.event.inputs.tag || env.IMAGE_TAG }}
 

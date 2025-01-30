@@ -67,9 +67,11 @@ export const setInitialAction = () => async (dispatch, getState) => {
     // read the user current state
     //const state = getState();
     // if the user is already punched in, set the action to punch out
-
     // TODO: remove lines below to the proper implementation
     const state = getState();
+    if (state.punchInOut.punchActionToPerform !== null) {
+        return;
+    }
     //eslint-disable-next-line
     try {
         const employeeId = state.user.employeeId;
