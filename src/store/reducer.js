@@ -21,6 +21,7 @@ import contentFeeder from './slices/contentFeeder';
 import orgSchedules from './slices/orgSchedules';
 import createAccount from './slices/createAccount';
 import punchInOut from './slices/punchInOut';
+import documents from './slices/documents';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -48,6 +49,14 @@ const reducer = combineReducers({
             keyPrefix: 'tmk-'
         },
         userReducer
+    ),
+    documents: persistReducer(
+        {
+            key: 'documents',
+            storage,
+            keyPrefix: 'tmk-'
+        },
+        documents
     ),
     menu: menuReducer,
     features: features,
