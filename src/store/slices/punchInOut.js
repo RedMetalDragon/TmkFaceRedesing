@@ -36,9 +36,9 @@ export const performPunchIn = () => async (dispatch, getState) => {
             return;
         }
         //eslint-disable-next-line
-        const employeeId = state.user.employeeId;
+        const user_id = state.user.user_id;
         const currentDateTime = new Date().toISOString();
-        const response = await axios.post(`/brain/users/${employeeId}/login`, { timestamp: currentDateTime.toString() });
+        const response = await axios.post(`/brain/users/${user_id}/login`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchIn());
         } else {
@@ -53,9 +53,9 @@ export const performPunchOut = () => async (dispatch, getState) => {
     try {
         const state = getState();
         //eslint-disable-next-line
-        const employeeId = state.user.employeeId;
+        const user_id = state.user.user_id;
         const currentDateTime = new Date().toISOString();
-        const response = await axios.post(`/brain/users/${employeeId}/logout`, { timestamp: currentDateTime.toString() });
+        const response = await axios.post(`/brain/users/${user_id}/logout`, { timestamp: currentDateTime.toString() });
         if (response.status === 200) {
             dispatch(slice.actions.punchOut());
         } else {
@@ -74,10 +74,10 @@ export const setInitialAction = () => async (dispatch, getState) => {
     }
     //eslint-disable-next-line
     try {
-        const employeeId = state.user.employeeId;
-        const response = await axios.get(`/brain/users/${employeeId}/punch-status`);
-        if (response.status === 200 && response.data.status) {
-            if (response.data.status === PUNCH_IN) {
+        const user_id = state.user.user_id;
+        const response = await axios.get(`/brain/users/${user_id}/punch-status`);
+        if (response.status === 200 && response.data.lastAction) {
+            if (response.data.lastAction === PUNCH_IN) {
                 // last action made by user was punch in
                 dispatch(slice.actions.punchIn());
             } else {

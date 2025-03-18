@@ -7,7 +7,7 @@ import axios from 'utils/axios';
 // ----------------------------------------------------------------------
 
 const initialState = {
-    employeeId: null,
+    user_id: null,
     firstName: '',
     middleName: '',
     lastName: '',
@@ -53,6 +53,10 @@ const slice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        setUserId(state, action) {
+            state.user_id = action.payload;
+        },
+
         // HAS ERROR
         hasError(state, action) {
             state.error = action.payload;
@@ -69,7 +73,6 @@ const slice = createSlice({
                 address_1,
                 address_2,
                 city,
-                state: userState,
                 zip_code,
                 country,
                 joining_date,
@@ -81,7 +84,7 @@ const slice = createSlice({
                 manager
             } = action.payload;
 
-            state.employeeId = employee_id;
+            state.user_id = employee_id;
             state.firstName = first_name;
             state.middleName = middle_name;
             state.lastName = last_name;
@@ -90,7 +93,6 @@ const slice = createSlice({
             state.address1 = address_1;
             state.address2 = address_2;
             state.city = city;
-            state.state = userState;
             state.zipCode = zip_code;
             state.country = country;
             state.joiningDate = joining_date;
@@ -104,18 +106,30 @@ const slice = createSlice({
     }
 });
 
-export const { hasError, fillUserData } = slice.actions;
+export const { hasError, fillUserData, setUserId } = slice.actions;
 
 // ----------------------------------------------------------------------
 
-export const fillUserInfo = (employeeId) => async (dispatch) => {
-    const response = await axios.get(`/brain/users/${employeeId}`);
+export const fillUserInfo = (user_id) => async (dispatch) => {
+    const response = await axios.get(`/brain/users/${user_id}`);
     const employeeData = response.data;
     try {
         if (response.status === 200) {
             dispatch(fillUserData(employeeData));
         } else {
             throw new Error('Failed to get employee data');
+        }
+    } catch (error) {
+        dispatch(hasError(error));
+    }
+};
+
+export const fillUserId = (user_id) => async (dispatch) => {
+    try {
+        if (user_id) {
+            dispatch(setUserId(user_id));
+        } else {
+            throw new Error('Invalid user ID');
         }
     } catch (error) {
         dispatch(hasError(error));

@@ -42,14 +42,7 @@ const reducer = combineReducers({
     chat: chatReducer,
     calendar: calendarReducer,
     mail: mailReducer,
-    user: persistReducer(
-        {
-            key: 'user',
-            storage,
-            keyPrefix: 'tmk-'
-        },
-        userReducer
-    ),
+    user: userReducer,
     documents: persistReducer(
         {
             key: 'documents',
@@ -64,14 +57,7 @@ const reducer = combineReducers({
     orgSchedules: orgSchedules,
     contentFeeder: contentFeeder,
     createAccount: createAccount,
-    punchInOut: persistReducer(
-        {
-            key: 'punchInOut',
-            storage,
-            keyPrefix: 'tmk-'
-        },
-        punchInOut
-    )
+    punchInOut: punchInOut
 });
 
 export default reducer;
