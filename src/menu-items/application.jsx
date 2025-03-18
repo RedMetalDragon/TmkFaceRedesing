@@ -12,7 +12,8 @@ import {
     IconCalendar,
     IconNfc,
     IconFolder,
-    IconReportMoney
+    IconReportMoney,
+    IconFileText,
 } from '@tabler/icons-react';
 
 // constant
@@ -209,10 +210,46 @@ const application = {
         {
             id: 'documents',
             title: <FormattedMessage id="documents" />,
-            type: 'item',
+            type: 'collapse',
             route: '/documents',
-            url: '/app/user/documents',
-            icon: icons.IconFolder
+            icon: icons.IconFolder,
+            children: [
+                {
+                    id: 'all-files',
+                    title: <FormattedMessage id="all-files" />,
+                    type: 'item',
+                    route: '/all-files',
+                    url: '/app/user/documents/all-files'
+                },
+                {
+                    id: 'shared-with-my',
+                    title: <FormattedMessage id="shared-with-my" />,
+                    type: 'item',
+                    route: '/shared-with-my',
+                    url: '/app/user/documents/shared-with-my'
+                },
+                {
+                    id: 'recent',
+                    title: <FormattedMessage id="recent" />,
+                    type: 'item',
+                    route: '/recent',
+                    url: '/app/user/documents/recent'
+                },
+                {
+                    id: 'starred',
+                    title: <FormattedMessage id="starred" />,
+                    type: 'item',
+                    route: '/starred',
+                    url: '/app/user/documents/starred'
+                },
+                {
+                    id: 'trash',
+                    title: <FormattedMessage id="trash" />,
+                    type: 'item',
+                    route: '/trash',
+                    url: '/app/user/documents/trash'
+                }
+            ]
         }
         // {
         //     id: 'chat',

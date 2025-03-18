@@ -36,7 +36,7 @@ const PunchInOutDialog = ({ open, handleClose, handleOK, action }) => {
                     onClick={handleClose}
                     color="secondary"
                 >
-                    Cancel
+                    <Typography variant="button">Cancel</Typography>
                 </Button>
                 <Button
                     variant="contained"
