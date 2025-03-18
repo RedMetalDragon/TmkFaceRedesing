@@ -13,6 +13,7 @@ import { fillUserId, fillUserInfo } from 'store/slices/user';
 // project imports
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
+import axiosServices from 'utils/axios';
 
 const chance = new Chance();
 
@@ -144,6 +145,7 @@ export const JWTProvider = ({ children }) => {
     };
 
     const logout = () => {
+        axiosServices.post('/mordor/logout');
         setSession(null);
         dispatch({ type: LOGOUT });
     };

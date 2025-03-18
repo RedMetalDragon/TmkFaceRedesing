@@ -31,8 +31,7 @@ const accountReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isInitialized: true,
-                isLoggedIn: false,
-                user: null
+                isLoggedIn: false
             };
         }
         default: {
