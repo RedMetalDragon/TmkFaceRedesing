@@ -1,45 +1,61 @@
-import { useDispatch } from 'store';
 import { useEffect, useState } from 'react';
-import { gridSpacing } from 'store/constant';
-import { Grid } from '@mui/material';
+import { Box, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { useSelector } from 'store';
 import DirectoryTree from '../DirectoryTree';
-import { FormattedMessage } from 'react-intl';
-import { Button } from 'react-bootstrap';
-import ControlledTreeView from 'views/ui-elements/advance/UITreeview/ControlledTreeView';
-import SubCard from 'ui-component/cards/SubCard';
-import { useTheme } from '@mui/material/styles';
-
-// sampleTreeData.js
+import FilesList from '../FilesList';
+import PathBreadcrumb from '../PathBreadcrumb';
+import ActionButtons from '../ActionButtons';
+import MainCard from 'ui-component/cards/MainCard';
+import MobileFileView from '../MobileFileView';
 
 const AllFiles = () => {
     const [isLoading, setLoading] = useState(true);
-    const treeDirectoryData = useSelector((state) => state.documents).treeDirectoryData;
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const treeDirectoryData = useSelector((state) => state.documents.treeDirectoryData);
 
     useEffect(() => {
         setLoading(false);
     }, []);
 
     return (
-        <Grid container spacing={gridSpacing} sx={{ p: 2.5 }}>
-            {/** */}
-            <Grid item sm={12} xs={12} md={12} lg={12}></Grid>
-            {/** */}
-            <Grid container spacing={gridSpacing}>
-                <Grid item sm={3} xs={3} md={4} lg={4} alignItems={'center'}>
-                    {/* <Button variant="primary" style={{ backgroundColor: theme.palette.solids.tmkBlue }}>
-                        <FormattedMessage id="expand-directory-all"></FormattedMessage>
-                    </Button> */}
-                </Grid>
-                <Grid item sm={9} xs={9} md={8} lg={8}>
-                    {/**OFFSET */}
-                </Grid>
-                <Grid item sm={3} xs={3} md={4} lg={4} alignContent={'center'}>
-                    <SubCard title="">{<DirectoryTree treeDirectoryData={treeDirectoryData} />}</SubCard>
-                </Grid>
-            </Grid>
-        </Grid>
+        <>
+            <Box sx={{ mb: 2 }}>
+                <ActionButtons />
+            </Box>
+            <MainCard>
+                <Box sx={{ height: 'calc(100vh - 200px)', display: 'flex', flexDirection: 'column' }}>
+                    {/* Path breadcrumb */}
+                    <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
+                        <PathBreadcrumb />
+                    </Box>
+
+                    {/* Main content area */}
+                    {isMobile ? (
+                        // Mobile view
+                        <Box sx={{ flex: 1, p: 2, overflow: 'hidden' }}>
+                            <Paper elevation={1} sx={{ height: '100%', overflow: 'hidden', p: 2 }}>
+                                <MobileFileView />
+                            </Paper>
+                        </Box>
+                    ) : (
+                        // Desktop view with split panels
+                        <Box sx={{ flex: 1, display: 'flex', gap: 2, p: 2, overflow: 'hidden' }}>
+                            {/* Left sidebar with folder tree */}
+                            <Paper elevation={1} sx={{ width: 280, overflow: 'hidden', p: 2 }}>
+                                <DirectoryTree treeDirectoryData={treeDirectoryData} />
+                            </Paper>
+
+                            {/* Right content area with files list */}
+                            <Paper elevation={1} sx={{ flex: 1, overflow: 'hidden', p: 2 }}>
+                                <FilesList />
+                            </Paper>
+                        </Box>
+                    )}
+                </Box>
+            </MainCard>
+        </>
     );
 };
+
 export default AllFiles;
