@@ -39,6 +39,14 @@ const slice = createSlice({
         },
         setBillingCycle(state, action) {
             state.billingCycle = action.payload;
+            // If there's a selected plan, find its equivalent in the new billing cycle
+            if (state.selectedPlan && state.availablePlans) {
+                const newPlans = action.payload === 'Monthly' ? state.availablePlans.monthlyPlans : state.availablePlans.yearlyPlans;
+                const equivalentPlan = newPlans?.find(plan => plan.subscriptionName === state.selectedPlan.subscriptionName);
+                if (equivalentPlan) {
+                    state.selectedPlan = equivalentPlan;
+                }
+            }
         },
         setUserDetails(state, action) {
             state.userDetails = { ...state.userDetails, ...action.payload };
@@ -92,14 +100,6 @@ const slice = createSlice({
             state.error = action.payload;
             state.loadingPlans = false;
             state.isSubmitting = false;
-        },
-        setBillingCycle(state, action) {
-            if (state.billingCycle === 'Monthly') {
-                state.billingCycle = 'Yearly'
-            }
-            else {
-                state.billingCycle = 'Monthly'
-            }
         }
     }
 });
@@ -125,7 +125,6 @@ export function getPlansAvailables() {
         try {
             dispatch(slice.actions.startLoadingPlans());
             const response = await axios.get('/gondor/plans');
-            console.log('Plans response:', response); // For debugging
             dispatch(slice.actions.setAvailablePlans(response.data));
             return response.data;
         } catch (error) {
@@ -137,16 +136,42 @@ export function getPlansAvailables() {
 }
 
 export function switchBillingCycle() {
-    return async (dispatch) => {
+    return (dispatch, getState) => {
         try {
-            dispatch(slice.actions.setBillingCycle());
-        }
-        catch (error) {
-            console.error('Error fetching plans:', error);
-            dispatch(slice.actions.setError(error.response?.data?.message || error.message));
+            const state = getState();
+            const { billingCycle, availablePlans, selectedPlan } = state.createAccount;
+            
+            // Toggle billing cycle
+            const newBillingCycle = billingCycle === 'Monthly' ? 'Yearly' : 'Monthly';
+            dispatch(slice.actions.setBillingCycle(newBillingCycle));
+
+            // If there's a selected plan, find its equivalent in the new billing cycle
+            if (selectedPlan && availablePlans) {
+                const newPlans = newBillingCycle === 'Monthly' ? availablePlans.monthlyPlans : availablePlans.yearlyPlans;
+                const equivalentPlan = newPlans?.find(plan => plan.subscriptionName === selectedPlan.subscriptionName);
+                if (equivalentPlan) {
+                    dispatch(slice.actions.setSelectedPlan(equivalentPlan));
+                }
+            }
+        } catch (error) {
+            console.error('Error switching billing cycle:', error);
+            dispatch(slice.actions.setError(error.message));
             throw error;
         }
-    }
+    };
+}
+
+// Action creator for updating selected plan
+export function updateSelectedPlan(plan) {
+    return (dispatch) => {
+        try {
+            dispatch(slice.actions.setSelectedPlan(plan));
+        } catch (error) {
+            console.error('Error updating selected plan:', error);
+            dispatch(slice.actions.setError(error.message));
+            throw error;
+        }
+    };
 }
 
 // user select plan

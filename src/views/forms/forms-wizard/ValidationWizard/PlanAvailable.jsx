@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'store';
 import { currencySymbol } from 'utils/helperFunctions';
 
 // Import slice actions
-import { setBillingCycle, setSelectedPlan, getPlansAvailables } from 'store/slices/createAccount';
+import { setBillingCycle, setSelectedPlan, getPlansAvailables, switchBillingCycle } from 'store/slices/createAccount';
 
 // assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
@@ -131,8 +131,7 @@ PlanCard.propTypes = {
 const PlanAvailable = ({ handleNext, handleBack }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const [billingCycle, setBillingCycleState] = React.useState('Monthly');
-    const { selectedPlan, isSubmitting, availablePlans, error, loadingPlans } = useSelector((state) => state.createAccount);
+    const { selectedPlan, isSubmitting, availablePlans, error, loadingPlans, billingCycle } = useSelector((state) => state.createAccount);
 
     useEffect(() => {
         const loadPlans = async () => {
@@ -147,8 +146,16 @@ const PlanAvailable = ({ handleNext, handleBack }) => {
 
     const handleChangeBillingCycle = (event, newBillingCycle) => {
         if (newBillingCycle !== null) {
-            setBillingCycleState(newBillingCycle);
             dispatch(setBillingCycle(newBillingCycle));
+            
+            // If there's a selected plan, find its equivalent in the new billing cycle and select it
+            if (selectedPlan) {
+                const newPlans = newBillingCycle === 'Monthly' ? availablePlans?.monthlyPlans : availablePlans?.yearlyPlans;
+                const equivalentPlan = newPlans?.find(plan => plan.subscriptionName === selectedPlan.subscriptionName);
+                if (equivalentPlan) {
+                    dispatch(setSelectedPlan(equivalentPlan));
+                }
+            }
         }
     };
 

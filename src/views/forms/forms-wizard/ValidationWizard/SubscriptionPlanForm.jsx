@@ -23,7 +23,7 @@ import {
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { getPlansAvailables } from 'store/slices/createAccount';
+import { getPlansAvailables, switchBillingCycle, updateSelectedPlan } from 'store/slices/createAccount';
 import Loader from 'ui-component/Loader';
 
 // assets
@@ -262,8 +262,8 @@ PlanCard.propTypes = {
 const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const [billingCycle, setBillingCycle] = React.useState('Monthly');
-    const { selectedPlan, isSubmitting, availablePlans, loadingPlans, error } = useSelector((state) => state.createAccount);
+
+    const { selectedPlan, isSubmitting, availablePlans, loadingPlans, error, billingCycle } = useSelector((state) => state.createAccount);
 
     useEffect(() => {
         const loadPlans = async () => {
@@ -278,12 +278,12 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
 
     const handleChangeBillingCycle = (event, newBillingCycle) => {
         if (newBillingCycle !== null) {
-            setBillingCycle(newBillingCycle);
+            dispatch(switchBillingCycle());
         }
     };
 
     const handleSelectPlan = (plan) => {
-        dispatch({ type: 'createAccount/setSelectedPlan', payload: plan });
+        dispatch(updateSelectedPlan(plan));
     };
 
     const handleConfirm = () => {
