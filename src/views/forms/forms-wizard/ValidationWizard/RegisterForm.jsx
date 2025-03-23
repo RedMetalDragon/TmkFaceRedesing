@@ -95,6 +95,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 </Grid>
             </Grid>
 
+            {/**TODO: Agree on terms and conditions should be validated also */}
             <Formik
                 initialValues={userDetails}
                 validationSchema={Yup.object().shape({

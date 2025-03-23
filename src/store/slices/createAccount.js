@@ -10,14 +10,16 @@ const initialState = {
         lastName: '',
         email: '',
         password: '',
-        agreeOnTerms: true,
-        subscriptionPlan: '',
-        typeofPlan: 'monthly'
+        agreeOnTerms: true
     },
+    selectedPlan: null,
+    availablePlans: null,
+    billingCycle: 'Monthly',
     paymentMethodId: '',
     customerId: '',
     intentClientSecret: '',
-    isSubmitting: false
+    isSubmitting: false,
+    loadingPlans: false
 };
 
 const urlPrefix = 'http://localhost:5192/api/users/register-new-user/user-details';
@@ -28,6 +30,15 @@ const slice = createSlice({
     reducers: {
         hasError(state, action) {
             state.error = action.payload;
+        },
+        setSelectedPlan(state, action) {
+            state.selectedPlan = action.payload;
+        },
+        setAvaliablesPlans(state, action) {
+            state.availablePlans = action.payload;
+        },
+        setBillingCycle(state, action) {
+            state.billingCycle = action.payload;
         },
         setUserDetails(state, action) {
             state.userDetails = { ...state.userDetails, ...action.payload };
@@ -68,6 +79,27 @@ const slice = createSlice({
             state.subscriptionPlan = '';
             state.paymentMethodId = '';
             state.isSubmitting = false;
+        },
+        startLoadingPlans(state) {
+            state.loadingPlans = true;
+            state.error = null;
+        },
+        setAvailablePlans(state, action) {
+            state.availablePlans = action.payload;
+            state.loadingPlans = false;
+        },
+        setError(state, action) {
+            state.error = action.payload;
+            state.loadingPlans = false;
+            state.isSubmitting = false;
+        },
+        setBillingCycle(state, action) {
+            if (state.billingCycle === 'Monthly') {
+                state.billingCycle = 'Yearly'
+            }
+            else {
+                state.billingCycle = 'Monthly'
+            }
         }
     }
 });
@@ -86,6 +118,35 @@ export function setUserDetails(userDetails) {
             throw error;
         }
     };
+}
+
+export function getPlansAvailables() {
+    return async (dispatch) => {
+        try {
+            dispatch(slice.actions.startLoadingPlans());
+            const response = await axios.get('/gondor/plans');
+            console.log('Plans response:', response); // For debugging
+            dispatch(slice.actions.setAvailablePlans(response.data));
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching plans:', error);
+            dispatch(slice.actions.setError(error.response?.data?.message || error.message));
+            throw error;
+        }
+    };
+}
+
+export function switchBillingCycle() {
+    return async (dispatch) => {
+        try {
+            dispatch(slice.actions.setBillingCycle());
+        }
+        catch (error) {
+            console.error('Error fetching plans:', error);
+            dispatch(slice.actions.setError(error.response?.data?.message || error.message));
+            throw error;
+        }
+    }
 }
 
 // user select plan

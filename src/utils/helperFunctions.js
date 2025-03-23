@@ -13,4 +13,22 @@ function formatTime(timeString) {
     return `${formattedHours}:${minutes} ${formattedPeriod}`;
 }
 
-export { formatTime };
+function currencySymbol(currency) {
+    switch (currency) {
+        case 'usd':
+            return '$';
+        case 'eur':
+            return '€';
+        case 'gbp':
+            return '£';
+        case 'jpy':
+            return '¥';
+        case 'aud':
+            return 'A$';
+        case 'cad':
+            return 'C$';
+        default:
+            return currency.toUpperCase();
+    }
+}
+export { formatTime, currencySymbol };
