@@ -18,7 +18,8 @@ import {
     OutlinedInput,
     TextField,
     Typography,
-    useMediaQuery
+    useMediaQuery,
+    CircularProgress
 } from '@mui/material';
 
 // third party
@@ -36,7 +37,8 @@ import Loader from 'ui-component/Loader';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { setUserDetails } from 'store/slices/createAccount';
+import { setUserDetails, resetForm } from 'store/slices/createAccount';
+import OtpVerification from './OtpVerification';
 
 // ===========================|| FORM WIZARD - VALIDATION 1 ||=========================== //
 
@@ -56,6 +58,8 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState();
+    const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+    const [isSubmittingForm, setIsSubmittingForm] = useState(false);
     //eslint-disable-next-line
     const { register } = useAuth();
 
@@ -82,6 +86,24 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
         changePassword('123456');
     }, []);
 
+    const handleVerificationSuccess = () => {
+        setVerificationModalOpen(false);
+        // Here you would typically make an API call to confirm verification
+        // For now, we'll just proceed to the next step
+        handleNext();
+    };
+
+    const handleCloseVerification = () => {
+        setVerificationModalOpen(false);
+        // Reset the form when closing the verification modal
+        dispatch(resetForm());
+    };
+
+    const handleResendCode = () => {
+        // Mock resend functionality
+        console.log('Resending verification code...');
+    };
+
     if (isSubmitting || isLoading) {
         return <Loader />;
     }
@@ -106,11 +128,16 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        // Uncomment line below to make the request to backend
+                        setIsSubmittingForm(true);
+                        // Mock API delay
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        
                         dispatch(setUserDetails(values));
-                        handleNext();
+                        setIsSubmittingForm(false);
+                        setVerificationModalOpen(true);
                     } catch (err) {
                         console.error(err);
+                        setIsSubmittingForm(false);
                         dispatch(hasError(err.message));
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
@@ -119,183 +146,196 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 }}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit}>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="First Name"
-                                    margin="normal"
-                                    name="firstName"
-                                    type="text"
-                                    value={values.firstName}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    sx={{ ...theme.typography.customInput }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Last Name"
-                                    margin="normal"
-                                    name="lastName"
-                                    type="text"
-                                    value={values.lastName}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    sx={{ ...theme.typography.customInput }}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl
-                                    fullWidth
-                                    error={Boolean(touched.email && errors.email)}
-                                    sx={{ ...theme.typography.customInput }}
-                                >
-                                    <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-email-register"
-                                        type="email"
-                                        value={values.email}
-                                        name="email"
+                    <>
+                        <form noValidate onSubmit={handleSubmit}>
+                            <Grid container spacing={matchDownSM ? 0 : 2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        fullWidth
+                                        label="First Name"
+                                        margin="normal"
+                                        name="firstName"
+                                        type="text"
+                                        value={values.firstName}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        inputProps={{}}
+                                        sx={{ ...theme.typography.customInput }}
                                     />
-                                    {touched.email && errors.email && (
-                                        <FormHelperText error id="standard-weight-helper-text--register">
-                                            {errors.email}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl
-                                    fullWidth
-                                    error={Boolean(touched.password && errors.password)}
-                                    sx={{ ...theme.typography.customInput }}
-                                >
-                                    <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password-register"
-                                        type={showPassword ? 'text' : 'password'}
-                                        value={values.password}
-                                        name="password"
-                                        label="Password"
-                                        onBlur={handleBlur}
-                                        onChange={(e) => {
-                                            handleChange(e);
-                                            changePassword(e.target.value);
-                                        }}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                    size="large"
-                                                >
-                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        inputProps={{}}
-                                    />
-                                    {touched.password && errors.password && (
-                                        <FormHelperText error id="standard-weight-helper-text-password-register">
-                                            {errors.password}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-
-                        {strength !== 0 && (
-                            <FormControl fullWidth>
-                                <Box sx={{ mb: 2 }}>
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Box
-                                                style={{ backgroundColor: level?.color }}
-                                                sx={{ width: 85, height: 8, borderRadius: '7px' }}
-                                            />
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level?.label}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </FormControl>
-                        )}
-
-                        <Grid container alignItems="center" justifyContent="space-between">
-                            <Grid item>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={checked}
-                                            onChange={(event) => setChecked(event.target.checked)}
-                                            name="checked"
-                                            color="primary"
-                                        />
-                                    }
-                                    label={
-                                        <Typography variant="subtitle1">
-                                            Agree with &nbsp;
-                                            <Typography variant="subtitle1" component={Link} to="#">
-                                                Terms & Condition.
-                                            </Typography>
-                                        </Typography>
-                                    }
-                                />
-                            </Grid>
-                        </Grid>
-                        {errors.submit && (
-                            <Box sx={{ mt: 3 }}>
-                                <FormHelperText error>{errors.submit}</FormHelperText>
-                            </Box>
-                        )}
-
-                        <Grid
-                            container
-                            spacing={2}
-                            sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-                            display={'flex'}
-                        >
-                            <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                sx={{
-                                    flexDirection: 'row',
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                    alignItems: 'flex-end',
-                                    justifySelf: 'flex-end'
-                                }}
-                            >
-                                <AnimateButton>
-                                    <Button
-                                        disableElevation
-                                        disabled={isSubmitting}
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
                                         fullWidth
-                                        size="medium"
-                                        type="submit"
-                                        variant="contained"
-                                        color="secondary"
-                                    >
-                                        Next
-                                    </Button>
-                                </AnimateButton>
+                                        label="Last Name"
+                                        margin="normal"
+                                        name="lastName"
+                                        type="text"
+                                        value={values.lastName}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        sx={{ ...theme.typography.customInput }}
+                                    />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </form>
+                            <Grid container spacing={matchDownSM ? 0 : 2}>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl
+                                        fullWidth
+                                        error={Boolean(touched.email && errors.email)}
+                                        sx={{ ...theme.typography.customInput }}
+                                    >
+                                        <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-email-register"
+                                            type="email"
+                                            value={values.email}
+                                            name="email"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            inputProps={{}}
+                                        />
+                                        {touched.email && errors.email && (
+                                            <FormHelperText error id="standard-weight-helper-text--register">
+                                                {errors.email}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl
+                                        fullWidth
+                                        error={Boolean(touched.password && errors.password)}
+                                        sx={{ ...theme.typography.customInput }}
+                                    >
+                                        <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password-register"
+                                            type={showPassword ? 'text' : 'password'}
+                                            value={values.password}
+                                            name="password"
+                                            label="Password"
+                                            onBlur={handleBlur}
+                                            onChange={(e) => {
+                                                handleChange(e);
+                                                changePassword(e.target.value);
+                                            }}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                        size="large"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            inputProps={{}}
+                                        />
+                                        {touched.password && errors.password && (
+                                            <FormHelperText error id="standard-weight-helper-text-password-register">
+                                                {errors.password}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+
+                            {strength !== 0 && (
+                                <FormControl fullWidth>
+                                    <Box sx={{ mb: 2 }}>
+                                        <Grid container spacing={2} alignItems="center">
+                                            <Grid item>
+                                                <Box
+                                                    style={{ backgroundColor: level?.color }}
+                                                    sx={{ width: 85, height: 8, borderRadius: '7px' }}
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography variant="subtitle1" fontSize="0.75rem">
+                                                    {level?.label}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </FormControl>
+                            )}
+
+                            <Grid container alignItems="center" justifyContent="space-between">
+                                <Grid item>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={checked}
+                                                onChange={(event) => setChecked(event.target.checked)}
+                                                name="checked"
+                                                color="primary"
+                                            />
+                                        }
+                                        label={
+                                            <Typography variant="subtitle1">
+                                                Agree with &nbsp;
+                                                <Typography variant="subtitle1" component={Link} to="#">
+                                                    Terms & Condition.
+                                                </Typography>
+                                            </Typography>
+                                        }
+                                    />
+                                </Grid>
+                            </Grid>
+                            {errors.submit && (
+                                <Box sx={{ mt: 3 }}>
+                                    <FormHelperText error>{errors.submit}</FormHelperText>
+                                </Box>
+                            )}
+
+                            <Grid
+                                container
+                                spacing={2}
+                                sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+                                display={'flex'}
+                            >
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    sx={{
+                                        flexDirection: 'row',
+                                        display: 'flex',
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'flex-end',
+                                        justifySelf: 'flex-end'
+                                    }}
+                                >
+                                    <AnimateButton>
+                                        <Button
+                                            disableElevation
+                                            disabled={isSubmitting || isSubmittingForm}
+                                            fullWidth
+                                            size="medium"
+                                            type="submit"
+                                            variant="contained"
+                                            color="secondary"
+                                        >
+                                            {isSubmittingForm ? (
+                                                <CircularProgress size={24} color="inherit" />
+                                            ) : (
+                                                'Next'
+                                            )}
+                                        </Button>
+                                    </AnimateButton>
+                                </Grid>
+                            </Grid>
+                        </form>
+                        <OtpVerification
+                            open={verificationModalOpen}
+                            onClose={handleCloseVerification}
+                            onVerify={handleVerificationSuccess}
+                            onResend={handleResendCode}
+                            email={values.email}
+                        />
+                    </>
                 )}
             </Formik>
         </>

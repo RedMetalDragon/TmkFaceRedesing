@@ -140,7 +140,7 @@ export function switchBillingCycle() {
         try {
             const state = getState();
             const { billingCycle, availablePlans, selectedPlan } = state.createAccount;
-            
+
             // Toggle billing cycle
             const newBillingCycle = billingCycle === 'Monthly' ? 'Yearly' : 'Monthly';
             dispatch(slice.actions.setBillingCycle(newBillingCycle));
@@ -254,6 +254,12 @@ export function savePaymentMethod(paymentMethodId, userDetails, subscriptionPlan
 export function setSubscriptionPlan(plan) {
     return () => {
         dispatch(slice.actions.setSubscriptionPlan(plan));
+    };
+}
+
+export function resetForm() {
+    return () => {
+        dispatch(slice.actions.resetForm());
     };
 }
 
