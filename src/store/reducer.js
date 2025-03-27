@@ -21,6 +21,7 @@ import contentFeeder from './slices/contentFeeder';
 import orgSchedules from './slices/orgSchedules';
 import createAccount from './slices/createAccount';
 import punchInOut from './slices/punchInOut';
+import documents from './slices/documents';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -41,13 +42,14 @@ const reducer = combineReducers({
     chat: chatReducer,
     calendar: calendarReducer,
     mail: mailReducer,
-    user: persistReducer(
+    user: userReducer,
+    documents: persistReducer(
         {
-            key: 'user',
+            key: 'documents',
             storage,
             keyPrefix: 'tmk-'
         },
-        userReducer
+        documents
     ),
     menu: menuReducer,
     features: features,
@@ -55,14 +57,7 @@ const reducer = combineReducers({
     orgSchedules: orgSchedules,
     contentFeeder: contentFeeder,
     createAccount: createAccount,
-    punchInOut: persistReducer(
-        {
-            key: 'punchInOut',
-            storage,
-            keyPrefix: 'tmk-'
-        },
-        punchInOut
-    )
+    punchInOut: punchInOut
 });
 
 export default reducer;

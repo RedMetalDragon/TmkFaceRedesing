@@ -35,7 +35,6 @@ const Dashboard = () => {
     };
 
     const performAction = () => {
-        console.log('performing action');
         if (action === PUNCH_IN) {
             dispatch(performPunchIn());
         } else {

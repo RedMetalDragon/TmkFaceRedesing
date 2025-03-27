@@ -9,10 +9,11 @@ import jwtDecode from 'jwt-decode';
 import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 import { useDispatch } from 'store';
-import { fillUserInfo } from 'store/slices/user';
+import { fillUserId, fillUserInfo } from 'store/slices/user';
 // project imports
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
+import axiosServices from 'utils/axios';
 
 const chance = new Chance();
 
@@ -90,7 +91,7 @@ export const JWTProvider = ({ children }) => {
 
     const login = async (email_address, password) => {
         try {
-            const responseLogin = await axios.post('/brain/users/login', { email_address, password });
+            const responseLogin = await axios.post('/mordor/login', { email_address, password });
             if (responseLogin.status === 200) {
                 const { access_token } = responseLogin.data;
                 var role_features = [];
@@ -100,10 +101,10 @@ export const JWTProvider = ({ children }) => {
                     type: LOGIN,
                     payload: {
                         isLoggedIn: true,
-                        features: role_features,
-                        user_id: responseLogin.data.user_id
+                        features: role_features
                     }
                 });
+                dispatchUserInfo(fillUserId(responseLogin.data.user_id));
                 dispatchUserInfo(fillUserInfo(responseLogin.data.user_id));
             } else {
                 console.error('Login failed with status:', response.status);
@@ -144,6 +145,7 @@ export const JWTProvider = ({ children }) => {
     };
 
     const logout = () => {
+        axiosServices.post('/mordor/logout');
         setSession(null);
         dispatch({ type: LOGOUT });
     };
