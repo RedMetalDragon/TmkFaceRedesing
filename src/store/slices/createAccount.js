@@ -190,6 +190,7 @@ export function setUserSubscriptionPlan(plan) {
 export function saveUserDetailsInSessionBackend(userDetails) {
     return async () => {
         try {
+            console.log("SHOULD BE REMOVED ====> saveUserDetailsInSessionBackend");
             dispatch(slice.actions.startSubmitting());
             await axios.post(`/gondor/users/register-new-user/user-details`, userDetails).then((response) => {
                 if (response.status === 200 && response.data.subscriptionId && response.data.clientSecret) {
@@ -219,6 +220,7 @@ export function handleErrors(error) {
 export function saveSubscriptionPlan(userDetails) {
     return async () => {
         try {
+            console.log("SHOULD BE REMOVED ====> saveSubscriptionPlan");
             dispatch(slice.actions.startSubmitting());
             // Replace with your backend API endpoint
             const response = await axios.post(`/gondor/api/users/register-new-user/step-two`, userDetails);
@@ -266,5 +268,26 @@ export function resetForm() {
 export function setCurrentStep(step) {
     return () => {
         dispatch(slice.actions.setCurrentStep(step));
+    };
+}
+
+export function getCheckoutSession() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(slice.actions.startSubmitting());
+            const state = getState();
+            const { selectedPlan, userDetails } = state.createAccount;
+            const response = await axios.post('/gondor/checkout/create-checkout-session-for-subscription', {
+                PriceId: selectedPlan?.priceId,
+                Email: userDetails.email
+            });
+            if (response.status === 200) {
+               dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
+            }
+            dispatch(slice.actions.stopSubmitting());
+        } catch (error) {
+            dispatch(slice.actions.hasError(error.message));
+            dispatch(slice.actions.stopSubmitting());
+        }
     };
 }

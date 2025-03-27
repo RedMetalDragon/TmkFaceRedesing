@@ -31,4 +31,18 @@ function currencySymbol(currency) {
             return currency.toUpperCase();
     }
 }
-export { formatTime, currencySymbol };
+
+function getBaseUrl() {
+    const currentUrl = window.location.href;
+    return currentUrl.split('/')[0] + '//' + currentUrl.split('/')[2];
+}
+
+function getSuccessUrl() {
+    return `${getBaseUrl()}/payment/success`;
+}
+
+function getErrorUrl() {
+    return `${getBaseUrl()}/payment/error`;
+}
+
+export { formatTime, currencySymbol, getSuccessUrl, getErrorUrl };
