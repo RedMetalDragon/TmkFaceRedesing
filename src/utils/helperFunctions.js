@@ -13,4 +13,36 @@ function formatTime(timeString) {
     return `${formattedHours}:${minutes} ${formattedPeriod}`;
 }
 
-export { formatTime };
+function currencySymbol(currency) {
+    switch (currency) {
+        case 'usd':
+            return '$';
+        case 'eur':
+            return '€';
+        case 'gbp':
+            return '£';
+        case 'jpy':
+            return '¥';
+        case 'aud':
+            return 'A$';
+        case 'cad':
+            return 'C$';
+        default:
+            return currency.toUpperCase();
+    }
+}
+
+function getBaseUrl() {
+    const currentUrl = window.location.href;
+    return currentUrl.split('/')[0] + '//' + currentUrl.split('/')[2];
+}
+
+function getSuccessUrl() {
+    return `${getBaseUrl()}/payment/success`;
+}
+
+function getErrorUrl() {
+    return `${getBaseUrl()}/payment/error`;
+}
+
+export { formatTime, currencySymbol, getSuccessUrl, getErrorUrl };
