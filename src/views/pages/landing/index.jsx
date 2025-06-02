@@ -24,11 +24,10 @@ import StartupProjectSection from './StartupProjectSection';
 import { Container } from '@mui/system';
 //import IncludeSection from './IncludeSection';
 import FrameworkSection from './FrameworkSection';
-import { useEffect } from 'react';
 // import IncludeSection from './IncludeSection';
 // import RtlInfoSection from './RtlInfoSection';
 
-// custom stlye
+// custom style
 const HeaderWrapper = styled('div')(({ theme }) => ({
     overflowX: 'hidden',
     overflowY: 'clip',
