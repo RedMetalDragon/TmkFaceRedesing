@@ -1,6 +1,7 @@
 import React from 'react';
 import MainLayout from 'layout/MainLayout';
 import AuthGuard from 'utils/route-guard/AuthGuard';
+import ErrorBoundary from './ErrorBoundary';
 import Loadable from 'ui-component/Loadable';
 import { lazy } from 'react';
 
@@ -18,6 +19,7 @@ const ApplicationRoutes = {
             <MainLayout />
         </AuthGuard>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
         {
             path: '/app/dashboard-default',
