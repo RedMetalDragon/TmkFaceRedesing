@@ -45,4 +45,10 @@ function getErrorUrl() {
     return `${getBaseUrl()}/payment/error`;
 }
 
-export { formatTime, currencySymbol, getSuccessUrl, getErrorUrl };
+function countryToFlag(isoCode) {
+    return typeof String.fromCodePoint !== 'undefined'
+        ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+        : isoCode;
+}
+
+export { formatTime, currencySymbol, getSuccessUrl, getErrorUrl, countryToFlag };
