@@ -22,6 +22,7 @@ import orgSchedules from './slices/orgSchedules';
 import createAccount from './slices/createAccount';
 import punchInOut from './slices/punchInOut';
 import documents from './slices/documents';
+import onBoardCompanyRegistration from './slices/onBoardCompanyRegistration';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -43,6 +44,7 @@ const reducer = combineReducers({
     calendar: calendarReducer,
     mail: mailReducer,
     user: userReducer,
+    onBoardCompanyRegistration: onBoardCompanyRegistration,
     documents: persistReducer(
         {
             key: 'documents',
