@@ -12,7 +12,7 @@ const validationSchema = yup.object({
     phone: yup.string().required('Phone number is required')
 });
 
-const PrimaryAdminForm = ({ primaryAdmin, setPrimaryAdmin, handleNext, setErrorIndex }) => {
+const PrimaryAdminForm = ({ primaryAdmin, setPrimaryAdmin, handleNext, handleBack, setErrorIndex }) => {
     const formik = useFormik({
         initialValues: {
             firstName: primaryAdmin.firstName || '',
@@ -96,10 +96,15 @@ const PrimaryAdminForm = ({ primaryAdmin, setPrimaryAdmin, handleNext, setErrorI
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Stack direction="row" justifyContent="flex-end">
+                        <Stack direction="row" justifyContent="space-between" spacing={2}>
                             <AnimateButton>
-                                <Button variant="contained" sx={{ my: 3, ml: 1 }} type="submit" onClick={() => setErrorIndex(0)}>
-                                    Next
+                                <Button variant="outlined" onClick={handleBack} sx={{ my: 3 }}>
+                                    Back
+                                </Button>
+                            </AnimateButton>
+                            <AnimateButton>
+                                <Button variant="contained" sx={{ my: 3 }} type="submit" onClick={() => setErrorIndex(0)}>
+                                    Continue
                                 </Button>
                             </AnimateButton>
                         </Stack>
@@ -114,6 +119,7 @@ PrimaryAdminForm.propTypes = {
     primaryAdmin: PropTypes.object,
     setPrimaryAdmin: PropTypes.func,
     handleNext: PropTypes.func,
+    handleBack: PropTypes.func,
     setErrorIndex: PropTypes.func
 };
 
@@ -130,5 +136,6 @@ export default PrimaryAdminForm;
 //   primaryAdmin={primaryAdmin}
 //   setPrimaryAdmin={(info) => dispatch(setPrimaryAdmin(info))}
 //   handleNext={...}
+//   handleBack={...}
 //   setErrorIndex={...}
 // />

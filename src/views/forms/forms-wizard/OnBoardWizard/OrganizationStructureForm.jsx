@@ -10,7 +10,7 @@ const validationSchema = yup.object({
     department: yup.string().required('Department name is required')
 });
 
-const OrganizationStructureForm = ({ departments, setDepartments, handleNext, setErrorIndex }) => {
+const OrganizationStructureForm = ({ departments, setDepartments, handleNext, handleBack, setErrorIndex }) => {
     const [localDepartments, setLocalDepartments] = useState(departments || []);
     const formik = useFormik({
         initialValues: {
@@ -77,10 +77,15 @@ const OrganizationStructureForm = ({ departments, setDepartments, handleNext, se
                     </ListItem>
                 ))}
             </List>
-            <Stack direction="row" justifyContent="flex-end">
+            <Stack direction="row" justifyContent="space-between" spacing={2}>
                 <AnimateButton>
-                    <Button variant="contained" sx={{ my: 3, ml: 1 }} onClick={() => { setErrorIndex(0); handleNextStep(); }}>
-                        Next
+                    <Button variant="outlined" onClick={handleBack} sx={{ my: 3 }}>
+                        Back
+                    </Button>
+                </AnimateButton>
+                <AnimateButton>
+                    <Button variant="contained" sx={{ my: 3 }} onClick={() => { setErrorIndex(0); handleNextStep(); }}>
+                        Continue
                     </Button>
                 </AnimateButton>
             </Stack>
@@ -92,6 +97,7 @@ OrganizationStructureForm.propTypes = {
     departments: PropTypes.array,
     setDepartments: PropTypes.func,
     handleNext: PropTypes.func,
+    handleBack: PropTypes.func,
     setErrorIndex: PropTypes.func
 };
 

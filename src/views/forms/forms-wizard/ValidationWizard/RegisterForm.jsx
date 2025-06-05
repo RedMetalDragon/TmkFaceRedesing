@@ -130,8 +130,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                     try {
                         setIsSubmittingForm(true);
                         // Mock API delay
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-                        
+                        await new Promise((resolve) => setTimeout(resolve, 1500));
                         dispatch(setUserDetails(values));
                         setIsSubmittingForm(false);
                         setVerificationModalOpen(true);
@@ -318,11 +317,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                                             variant="contained"
                                             color="secondary"
                                         >
-                                            {isSubmittingForm ? (
-                                                <CircularProgress size={24} color="inherit" />
-                                            ) : (
-                                                'Next'
-                                            )}
+                                            {isSubmittingForm ? <CircularProgress size={24} color="inherit" /> : 'Next'}
                                         </Button>
                                     </AnimateButton>
                                 </Grid>

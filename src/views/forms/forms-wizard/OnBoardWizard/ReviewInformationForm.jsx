@@ -46,11 +46,16 @@ const ReviewInformationForm = ({ companyInfo, departments, primaryAdmin, policy,
                 control={<Checkbox checked={verified} onChange={handleCheckbox} color="primary" />}
                 label="I have reviewed and confirm that the above information is correct."
             />
-            <Stack direction="row" justifyContent="flex-end">
+            <Stack direction="row" justifyContent="space-between" spacing={2}>
+                <AnimateButton>
+                    <Button variant="outlined" sx={{ my: 3 }} onClick={() => handleBack()}>
+                        Back
+                    </Button>
+                </AnimateButton>
                 <AnimateButton>
                     <Button
                         variant="contained"
-                        sx={{ my: 3, ml: 1 }}
+                        sx={{ my: 3 }}
                         onClick={() => {
                             setErrorIndex(0);
                             handleNext();

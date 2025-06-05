@@ -9,15 +9,15 @@ import {
     setPolicy,
     setVerified
 } from 'store/slices/onBoardCompanyRegistration';
-import CompanyAddressForm from './CompanyAddressForm';
+import CompanyInfoForm from './CompanyInfoForm';
 import OrganizationStructureForm from './OrganizationStructureForm';
 import PrimaryAdminForm from './PrimaryAdminForm';
 import HRPoliciesForm from './HRPoliciesForm';
 import ReviewInformationForm from './ReviewInformationForm';
 import { Box, Step, StepLabel, Stepper, Paper, Button, Grid } from '@mui/material';
 import HeaderForm from './HeaderForm';
-import { useTheme } from '@emotion/react';
 import MainCard from 'ui-component/cards/MainCard';
+import { useTheme } from '@mui/material';
 
 // Step options for the onboarding wizard
 const steps = ['Company Info', 'Departments', 'Primary Admin', 'HR Policies', 'Review'];
@@ -45,7 +45,8 @@ const steps = ['Company Info', 'Departments', 'Primary Admin', 'HR Policies', 'R
 const industries = [
     { value: 'tech', label: 'Technology' },
     { value: 'finance', label: 'Finance' },
-    { value: 'health', label: 'Healthcare' }
+    { value: 'health', label: 'Healthcare' },
+    { value: 'other', label: 'Other' }
 ];
 const workingHoursOptions = [
     { value: '9-5', label: '9am - 5pm' },
@@ -61,14 +62,15 @@ const ptoOptions = [
 ];
 
 const OnBoardWizard = () => {
-    const theme = useTheme();
     const dispatch = useDispatch();
+    const theme = useTheme();
     const { currentStep, companyInfo, departments, primaryAdmin, policy, verified } = useSelector(
         (state) => state.onBoardCompanyRegistration
     );
     const [errorIndex, setErrorIndex] = useState(-1);
 
     const handleNext = () => {
+        console.log('Current Step:', currentStep);
         if (currentStep < steps.length - 1) {
             dispatch(setCurrentStep(currentStep + 1));
         } else {
@@ -91,51 +93,104 @@ const OnBoardWizard = () => {
                 sx={{ width: '100%', maxWidth: 1200, margin: '0 auto', p: 3, textAlign: 'center' }}
             >
                 <Paper sx={{ p: 3, maxWidth: 700, margin: '0 auto' }}>
-                    <Stepper activeStep={currentStep} alternativeLabel sx={{ mb: 3 }}>
+                    <Stepper
+                        activeStep={currentStep}
+                        alternativeLabel
+                        // sx={{
+                        //     mb: 3,
+                        //     p: 3,
+                        //     bgcolor: theme.palette.primary.light,
+                        //     borderRadius: 2,
+                        //     '& .MuiStepLabel-label': {
+                        //         color: theme.palette.primary.dark,
+                        //         fontWeight: 500,
+                        //         marginTop: 1
+                        //     },
+                        //     '& .MuiStepLabel-label.Mui-active': {
+                        //         color: theme.palette.primary.darker,
+                        //         fontWeight: 700
+                        //     },
+                        //     '& .MuiStepIcon-root': {
+                        //         color: theme.palette.primary.main,
+                        //         '&.Mui-active': {
+                        //             color: theme.palette.primary.darker
+                        //         }
+                        //     }
+                        // }}
+                    >
                         {steps.map((label) => (
                             <Step key={label}>
-                                <StepLabel error={errorIndex === currentStep}>{label}</StepLabel>
+                                <StepLabel
+                                    error={errorIndex === currentStep}
+                                    sx={{
+                                        '& .MuiStepLabel-iconContainer': {
+                                            '& .MuiSvgIcon-root': {
+                                                fontSize: '2rem'
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {label}
+                                </StepLabel>
                             </Step>
                         ))}
                     </Stepper>
-                    <Box>
-                        {currentStep === 0 && (
-                            <CompanyAddressForm
+                    {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+                            <Button disabled={currentStep === 0} onClick={handleBack} variant="outlined">Back</Button>
+                        </Box>
+                    */}
+                </Paper>
+                <Grid container spacing={1}>
+                    {currentStep === 0 && (
+                        <Grid item xs={12}>
+                            <CompanyInfoForm
                                 companyInfo={companyInfo}
                                 setCompanyInfo={(info) => dispatch(setCompanyInfo(info))}
                                 handleNext={handleNext}
+                                handleBack={handleBack}
                                 setErrorIndex={setErrorIndex}
                                 industries={industries}
                             />
-                        )}
-                        {currentStep === 1 && (
+                        </Grid>
+                    )}
+                    {currentStep === 1 && (
+                        <Grid item xs={12}>
                             <OrganizationStructureForm
                                 departments={departments}
                                 setDepartments={(depts) => dispatch(setDepartments(depts))}
                                 handleNext={handleNext}
+                                handleBack={handleBack}
                                 setErrorIndex={setErrorIndex}
                             />
-                        )}
-                        {currentStep === 2 && (
+                        </Grid>
+                    )}
+                    {currentStep === 2 && (
+                        <Grid item xs={12}>
                             <PrimaryAdminForm
                                 primaryAdmin={primaryAdmin}
                                 setPrimaryAdmin={(info) => dispatch(setPrimaryAdmin(info))}
                                 handleNext={handleNext}
+                                handleBack={handleBack}
                                 setErrorIndex={setErrorIndex}
                             />
-                        )}
-                        {currentStep === 3 && (
+                        </Grid>
+                    )}
+                    {currentStep === 3 && (
+                        <Grid item xs={12}>
                             <HRPoliciesForm
                                 policy={policy}
                                 setPolicy={(info) => dispatch(setPolicy(info))}
                                 handleNext={handleNext}
+                                handleBack={handleBack}
                                 setErrorIndex={setErrorIndex}
                                 workingHoursOptions={workingHoursOptions}
                                 probationOptions={probationOptions}
                                 ptoOptions={ptoOptions}
                             />
-                        )}
-                        {currentStep === 4 && (
+                        </Grid>
+                    )}
+                    {currentStep === 4 && (
+                        <Grid item xs={12}>
                             <ReviewInformationForm
                                 companyInfo={companyInfo}
                                 departments={departments}
@@ -144,15 +199,12 @@ const OnBoardWizard = () => {
                                 verified={verified}
                                 setVerified={(val) => dispatch(setVerified(val))}
                                 handleNext={handleNext}
+                                handleBack={handleBack}
                                 setErrorIndex={setErrorIndex}
                             />
-                        )}
-                    </Box>
-                    {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-                            <Button disabled={currentStep === 0} onClick={handleBack} variant="outlined">Back</Button>
-                        </Box>
-                    */}
-                </Paper>
+                        </Grid>
+                    )}
+                </Grid>
             </MainCard>
         </>
     );

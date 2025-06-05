@@ -46,9 +46,12 @@ const HRPoliciesForm = ({ policy, setPolicy, handleNext, setErrorIndex, workingH
                             fullWidth
                         >
                             <MenuItem value="">Select Working Hours</MenuItem>
-                            {workingHoursOptions && workingHoursOptions.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-                            ))}
+                            {workingHoursOptions &&
+                                workingHoursOptions.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -64,9 +67,12 @@ const HRPoliciesForm = ({ policy, setPolicy, handleNext, setErrorIndex, workingH
                             fullWidth
                         >
                             <MenuItem value="">Select Probation Period</MenuItem>
-                            {probationOptions && probationOptions.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-                            ))}
+                            {probationOptions &&
+                                probationOptions.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -82,9 +88,12 @@ const HRPoliciesForm = ({ policy, setPolicy, handleNext, setErrorIndex, workingH
                             fullWidth
                         >
                             <MenuItem value="">Select PTO Policy</MenuItem>
-                            {ptoOptions && ptoOptions.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-                            ))}
+                            {ptoOptions &&
+                                ptoOptions.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -102,10 +111,15 @@ const HRPoliciesForm = ({ policy, setPolicy, handleNext, setErrorIndex, workingH
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Stack direction="row" justifyContent="flex-end">
+                        <Stack direction="row" justifyContent="space-between" spacing={2}>
                             <AnimateButton>
-                                <Button variant="contained" sx={{ my: 3, ml: 1 }} type="submit" onClick={() => setErrorIndex(0)}>
-                                    Next
+                                <Button variant="outlined" sx={{ my: 3 }} onClick={() => handleBack()}>
+                                    Back
+                                </Button>
+                            </AnimateButton>
+                            <AnimateButton>
+                                <Button variant="contained" sx={{ my: 3 }} type="submit" onClick={() => setErrorIndex(0)}>
+                                    Continue
                                 </Button>
                             </AnimateButton>
                         </Stack>
