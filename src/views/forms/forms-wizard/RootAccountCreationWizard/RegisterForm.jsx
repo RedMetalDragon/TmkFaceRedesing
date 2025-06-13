@@ -29,6 +29,7 @@ import { Formik } from 'formik';
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import useAuth from 'hooks/useAuth';
+import { requestEmailVerificationCode} from 'store/slices/createAccount';
 //import useScriptRef from 'hooks/useScriptRef';
 import { strengthColor, strengthIndicatorNumFunc } from 'utils/password-strength';
 import { useDispatch, useSelector } from 'store';
@@ -83,7 +84,6 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
         const loadingTimeout = setTimeout(() => {
             setIsLoading(false);
         }, 3000);
-        changePassword('123456');
     }, []);
 
     const handleVerificationSuccess = () => {
@@ -129,10 +129,10 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         setIsSubmittingForm(true);
-                        // Mock API delay
                         await new Promise((resolve) => setTimeout(resolve, 1500));
                         dispatch(setUserDetails(values));
                         setIsSubmittingForm(false);
+                        dispatch(requestEmailVerificationCode());
                         setVerificationModalOpen(true);
                     } catch (err) {
                         console.error(err);

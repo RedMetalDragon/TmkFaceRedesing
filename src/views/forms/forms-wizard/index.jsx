@@ -2,7 +2,7 @@
 import { Grid, Typography } from '@mui/material';
 // import { useTheme } from '@mui/material/styles';
 // project imports
-import ValidationWizard from './ValidationWizard';
+import RootAccountCreationWizard from './RootAccountCreationWizard';
 import { gridSpacing } from 'store/constant';
 import RegisterFormLogo from 'ui-component/svgs/RegisterFormLogo';
 
@@ -29,7 +29,7 @@ const FormsWizard = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12} md={9} lg={7}>
-                <ValidationWizard />
+                <RootAccountCreationWizard />
             </Grid>
         </Grid>
     );

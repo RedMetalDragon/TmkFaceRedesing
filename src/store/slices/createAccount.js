@@ -291,3 +291,25 @@ export function getCheckoutSession() {
         }
     };
 }
+
+export function requestEmailVerificationCode() {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(slice.actions.startSubmitting());
+            const state = getState();
+            const { userDetails } = state.createAccount;
+            const response = await axios.post('core/account-verification', {
+                email: userDetails.email,
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName
+            });
+            if (response.status === 200) {
+                // Handle success response if needed
+            }
+            dispatch(slice.actions.stopSubmitting());
+        } catch (error) {
+            dispatch(slice.actions.hasError(error.message));
+            dispatch(slice.actions.stopSubmitting());
+        }
+    };
+}
