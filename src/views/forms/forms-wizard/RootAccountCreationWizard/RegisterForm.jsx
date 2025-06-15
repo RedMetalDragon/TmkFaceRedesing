@@ -124,7 +124,19 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required'),
                     firstName: Yup.string().max(255).required('First Name is required'),
-                    lastName: Yup.string().max(255).required('Last Name is required')
+                    lastName: Yup.string().max(255).required('Last Name is required'),
+                    dateOfBirth: Yup.date()
+                        .required('Date of Birth is required')
+                        .test('age', 'You must be at least 18 years old', function (value) {
+                            const today = new Date();
+                            const birthDate = new Date(value);
+                            let age = today.getFullYear() - birthDate.getFullYear();
+                            const m = today.getMonth() - birthDate.getMonth();
+                            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                                age--;
+                            }
+                            return age >= 18;
+                        })
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -171,6 +183,20 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                                         value={values.lastName}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        sx={{ ...theme.typography.customInput }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        fullWidth
+                                        label="Date of Birth"
+                                        margin="normal"
+                                        name="dateOfBirth"
+                                        type="date"
+                                        value={values.dateOfBirth}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        InputLabelProps={{ shrink: true }}
                                         sx={{ ...theme.typography.customInput }}
                                     />
                                 </Grid>

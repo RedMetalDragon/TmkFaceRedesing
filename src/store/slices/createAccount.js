@@ -10,7 +10,8 @@ const initialState = {
         lastName: '',
         email: '',
         password: '',
-        agreeOnTerms: true
+        agreeOnTerms: true,
+        dateOfBirth: ''
     },
     selectedPlan: null,
     availablePlans: null,
@@ -82,7 +83,8 @@ const slice = createSlice({
                 password: '',
                 agreeOnTermsAndConditions: true,
                 subscriptionPlan: '',
-                typeofPlan: 'monthly'
+                typeofPlan: 'monthly',
+                dateOfBirth: ''
             };
             state.subscriptionPlan = '';
             state.paymentMethodId = '';
