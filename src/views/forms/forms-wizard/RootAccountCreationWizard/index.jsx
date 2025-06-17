@@ -29,7 +29,7 @@ const getStepContent = (step, handleNext, handleBack, setErrorIndex) => {
 
 // ==============================|| FORMS WIZARD - VALIDATION ||============================== //
 
-const ValidationWizard = () => {
+const RootAccountCreationWizard = () => {
     const dispatch = useDispatch();
     const { currentStep } = useSelector((state) => state.createAccount);
     const [errorIndex, setErrorIndex] = React.useState(null);
@@ -75,4 +75,4 @@ const ValidationWizard = () => {
     );
 };
 
-export default ValidationWizard;
+export default RootAccountCreationWizard;

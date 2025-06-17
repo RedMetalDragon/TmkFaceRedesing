@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import OtpInput from './OtpInput';
+import axios from 'utils/axios';
 
 const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
     const [verificationCode, setVerificationCode] = useState('');
@@ -30,18 +31,29 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
             setError('Please enter a 6-digit code');
             return;
         }
-
         setIsSubmitting(true);
-        
         // Mock API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Mock verification
-        if (verificationCode === '111111') {
-            onVerify();
-        } else {
-            setError('Invalid verification code');
-            setIsSubmitting(false);
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        try {
+            axios
+                .post('/core/account-verification/verify', {
+                    email: email,
+                    code: verificationCode
+                })
+                .then((resp) => {
+                    if (resp.status === 200) {
+                        setVerificationCode('');
+                        setError('');
+                        onVerify();
+                    }
+                })
+                .catch((err) => {
+                    console.error('Error resending verification code:', err);
+                    setError('Failed to resend verification code. Please try again later.');
+                });
+        } catch (err) {
+            console.error('Error resending verification code:', err);
+            setError('Failed to resend verification code. Please try again later.');
         }
     };
 
@@ -50,10 +62,9 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
         // Clear the verification code immediately
         setVerificationCode('');
         setError('');
-        
+
         // Mock API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         setIsResending(false);
         if (onResend) onResend();
     };
@@ -76,13 +87,7 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
     }, [open]);
 
     return (
-        <Dialog 
-            open={open} 
-            onClose={handleClose}
-            fullScreen={fullScreen}
-            maxWidth="sm"
-            fullWidth
-        >
+        <Dialog open={open} onClose={handleClose} fullScreen={fullScreen} maxWidth="sm" fullWidth>
             <DialogTitle sx={{ m: 0, p: 2, pr: 6 }}>
                 Email Verification
                 <IconButton
@@ -101,13 +106,13 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
             <DialogContent>
                 <Box sx={{ mt: 2, textAlign: 'center' }}>
                     <Typography variant="body1" gutterBottom>
-                        An email to verify your account has been sent to <strong>{email}</strong>. 
-                        Enter the six digit code to verify your email.
+                        An email to verify your account has been sent to <strong>{email}</strong>. Enter the six digit code to verify your
+                        email.
                     </Typography>
                     <Box sx={{ my: 4 }}>
                         <OtpInput
                             value={verificationCode}
-                            onChange={value => {
+                            onChange={(value) => {
                                 setVerificationCode(value);
                                 setError('');
                             }}
@@ -119,7 +124,7 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
                         )}
                     </Box>
                     <Typography variant="body2" color="textSecondary">
-                        Didn't receive the email?{' '}
+                        Didn&apos;t receive the email?{' '}
                         <Link
                             component="button"
                             variant="body2"
@@ -133,13 +138,7 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
                 </Box>
             </DialogContent>
             <DialogActions sx={{ p: 3, justifyContent: 'center' }}>
-                <Button
-                    onClick={handleVerify}
-                    variant="contained"
-                    color="secondary"
-                    disabled={isSubmitting}
-                    sx={{ minWidth: 100 }}
-                >
+                <Button onClick={handleVerify} variant="contained" color="secondary" disabled={isSubmitting} sx={{ minWidth: 100 }}>
                     {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Verify'}
                 </Button>
             </DialogActions>
