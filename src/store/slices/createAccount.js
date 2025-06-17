@@ -307,11 +307,15 @@ export function requestEmailVerificationCode() {
             });
             if (response.status === 200) {
                 // Handle success response if needed
+                dispatch(slice.actions.stopSubmitting());
+                return response; // Return success response
             }
             dispatch(slice.actions.stopSubmitting());
+            return response;
         } catch (error) {
-            dispatch(slice.actions.hasError(error.message));
+            dispatch(slice.actions.hasError(error.response?.data?.message || error.message));
             dispatch(slice.actions.stopSubmitting());
+            throw error; // Re-throw the error so the component can catch it
         }
     };
 }

@@ -44,6 +44,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { setUserDetails, resetForm } from 'store/slices/createAccount';
 import OtpVerification from './OtpVerification';
+import ErrorDialog from './ErrorDialog';
 
 // ===========================|| FORM WIZARD - VALIDATION 1 ||=========================== //
 
@@ -67,6 +68,8 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState();
     const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+    const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+    const [errorDetails, setErrorDetails] = useState({ title: '', message: '', code: '' });
     const [isSubmittingForm, setIsSubmittingForm] = useState(false);
     const [submissionAttempted, setSubmissionAttempted] = useState(false);
     //eslint-disable-next-line
@@ -94,14 +97,6 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
             setPasswordMismatch(confirmPassword !== value);
         }
     };
-
-    const handleConfirmPasswordChange = (event) => {
-        const value = event.target.value;
-        setConfirmPassword(value);
-        // We'll check against Formik values in the form itself
-        // since they're not available here at the component level
-    };
-
     useEffect(() => {
         // Simulate three seconds loading
         // eslint-disable-next-line no-unused-vars
@@ -120,19 +115,42 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
         }
     }, [isSubmitting, error, dispatch, submissionAttempted]);
 
+    // Show error dialog when Redux store has an error
+    useEffect(() => {
+        if (error && !errorDialogOpen && !isSubmitting) {
+            // Extract error details from the Redux store error
+            let errorMessage = 'An error occurred while sending the verification email.';
+            let errorCode = '';
+
+            if (error === 'Network Error') {
+                errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+                errorCode = 'NETWORK_ERROR';
+            } else if (error.includes('503')) {
+                errorMessage = 'The verification service is currently unavailable.';
+                errorCode = '503';
+            } else if (error.includes('429')) {
+                errorMessage = 'Too many requests. Please try again later.';
+                errorCode = '429';
+            }
+
+            setErrorDetails({
+                title: 'Verification Email Error',
+                message: errorMessage,
+                code: errorCode
+            });
+            setErrorDialogOpen(true);
+        }
+    }, [error, errorDialogOpen, isSubmitting]);
+
     const handleVerificationSuccess = () => {
-        // TODO: Implement verification success logic
         setVerificationModalOpen(false);
         setSubmissionAttempted(false);
-        // Here you would typically make an API call to confirm verification
-        // For now, we'll just proceed to the next step
         handleNext();
     };
 
     const handleCloseVerification = () => {
         setVerificationModalOpen(false);
         setSubmissionAttempted(false);
-        // Reset the form when closing the verification modal
         dispatch(resetForm());
     };
 
@@ -140,6 +158,30 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
         // TODO: Implement resend code functionality
         // Mock resend functionality
         console.log('Resending verification code...');
+    };
+
+    const handleErrorDialogClose = () => {
+        setErrorDialogOpen(false);
+        // Clear the error in Redux store
+        dispatch(resetForm());
+    };
+
+    const handleErrorDialogRetry = async () => {
+        setErrorDialogOpen(false);
+        setIsSubmittingForm(true);
+
+        try {
+            // Reset any existing errors in Redux store
+            dispatch(resetForm());
+            // Re-attempt verification code request
+            await dispatch(requestEmailVerificationCode());
+            setSubmissionAttempted(true);
+        } catch (apiError) {
+            console.error('Retry API error:', apiError);
+            // Error will be handled by Redux and shown via useEffect
+        } finally {
+            setIsSubmittingForm(false);
+        }
     };
 
     if (isSubmitting || isLoading) {
@@ -185,12 +227,46 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                             return;
                         }
 
-                        setSubmissionAttempted(true);
                         setIsSubmittingForm(true);
-                        await new Promise((resolve) => setTimeout(resolve, 1500));
+                        await new Promise((resolve) => setTimeout(resolve, 500));
                         dispatch(setUserDetails(values));
-                        setIsSubmittingForm(false);
-                        dispatch(requestEmailVerificationCode());
+                        // Only set submissionAttempted after the API call succeeds
+                        try {
+                            await dispatch(requestEmailVerificationCode());
+                            setSubmissionAttempted(true);
+                        } catch (apiError) {
+                            console.error('API error:', apiError);
+
+                            // Show error dialog with appropriate message
+                            let errorMessage = 'An error occurred while sending the verification email.';
+                            let errorCode = '';
+
+                            if (apiError.response) {
+                                // Server responded with error
+                                errorCode = `${apiError.response.status}`;
+
+                                if (apiError.response.status === 503) {
+                                    errorMessage = 'The verification service is currently unavailable.';
+                                } else if (apiError.response.status === 429) {
+                                    errorMessage = 'Too many requests. Please try again later.';
+                                } else if (apiError.response.data && apiError.response.data.message) {
+                                    errorMessage = apiError.response.data.message;
+                                }
+                            } else if (apiError.request) {
+                                // Request made but no response received
+                                errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+                                errorCode = 'NETWORK_ERROR';
+                            }
+
+                            setErrorDetails({
+                                title: 'Verification Email Error',
+                                message: errorMessage,
+                                code: errorCode
+                            });
+                            setErrorDialogOpen(true);
+                        } finally {
+                            setIsSubmittingForm(false);
+                        }
                     } catch (err) {
                         console.error(err);
                         setSubmissionAttempted(false);
@@ -421,11 +497,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                                 </Box>
                             )}
 
-                            {error && submissionAttempted && (
-                                <Box sx={{ mt: 3 }}>
-                                    <FormHelperText error>Upps that was embarrassing, please try again later</FormHelperText>
-                                </Box>
-                            )}
+                            {/* Error is now displayed in a modal dialog */}
 
                             <Grid
                                 container
@@ -467,6 +539,14 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                             onVerify={handleVerificationSuccess}
                             onResend={handleResendCode}
                             email={values.email}
+                        />
+                        <ErrorDialog
+                            open={errorDialogOpen}
+                            onClose={handleErrorDialogClose}
+                            onRetry={handleErrorDialogRetry}
+                            title={errorDetails.title}
+                            message={errorDetails.message}
+                            errorCode={errorDetails.code}
                         />
                     </>
                 )}
