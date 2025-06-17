@@ -6,10 +6,10 @@ import Customization from 'layout/Customization';
 //import RtlInfoSection from 'ui-component/extended/RtlInfoSection';
 import AppBar from 'ui-component/extended/AppBar';
 import HeaderSection from './HeaderSection';
-import CardSection from './CardSection';
+//import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
 //import IncludeSection from './IncludeSection';
-import { Typography } from '@mui/material';
+//import { Typography } from '@mui/material';
 //eslint-disable-next-line
 import PeopleSection from './PeopleSection';
 //eslint-disable-next-line
@@ -20,14 +20,14 @@ import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 //eslint-disable-next-line
 import StartupProjectSection from './StartupProjectSection';
-import { Grid } from '@mui/material';
+//import { Grid } from '@mui/material';
 import { Container } from '@mui/system';
-import IncludeSection from './IncludeSection';
+//import IncludeSection from './IncludeSection';
 import FrameworkSection from './FrameworkSection';
 // import IncludeSection from './IncludeSection';
 // import RtlInfoSection from './RtlInfoSection';
 
-// custom stlye
+// custom style
 const HeaderWrapper = styled('div')(({ theme }) => ({
     overflowX: 'hidden',
     overflowY: 'clip',
@@ -47,6 +47,17 @@ const SectionWrapper = styled('div')({
 
 const Landing = () => {
     const theme = useTheme();
+
+    // useEffect(() => {
+    //     // request to open a SSE connection
+    //     const eventSource = new EventSource('http://localhost:5158/sse/open-stream');
+    //     eventSource.onmessage = (event) => {
+    //         console.log('event', event);
+    //     };
+    //     eventSource.onerror = (error) => {
+    //         console.log('error', error);
+    //     };
+    // }, []);
 
     return (
         <>

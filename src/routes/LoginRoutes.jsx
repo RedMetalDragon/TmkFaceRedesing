@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import GuestGuard from 'utils/route-guard/GuestGuard';
 import MinimalLayout from 'layout/MinimalLayout';
+import ErrorBoundary from './ErrorBoundary';
 import NavMotion from 'layout/NavMotion';
 import Loadable from 'ui-component/Loadable';
 
@@ -24,6 +25,7 @@ const LoginRoutes = {
             </GuestGuard>
         </NavMotion>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
         {
             path: '/',

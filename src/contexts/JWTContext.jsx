@@ -9,10 +9,11 @@ import jwtDecode from 'jwt-decode';
 import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 import { useDispatch } from 'store';
-import { fillUserInfo } from 'store/slices/user';
+import { fillUserId, fillUserInfo } from 'store/slices/user';
 // project imports
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
+import axiosServices from 'utils/axios';
 
 const chance = new Chance();
 
@@ -27,7 +28,8 @@ const mockFeature = {
 const initialState = {
     isLoggedIn: false,
     isInitialized: false,
-    features: []
+    features: [],
+    user_id: null
 };
 
 const verifyToken = (serviceToken) => {
@@ -64,13 +66,11 @@ export const JWTProvider = ({ children }) => {
                 const serviceToken = window.localStorage.getItem('access_token');
                 if (serviceToken && verifyToken(serviceToken)) {
                     setSession(serviceToken);
-                    //const response = await axios.get('/api/account/me');
-                    const user  = null;
                     dispatch({
                         type: LOGIN,
                         payload: {
-                            isLoggedIn: true,
-                            user
+                            ...state,
+                            isLoggedIn: true
                         }
                     });
                 } else {
@@ -91,7 +91,7 @@ export const JWTProvider = ({ children }) => {
 
     const login = async (email_address, password) => {
         try {
-            const responseLogin = await axios.post('/brain/users/login', { email_address, password });
+            const responseLogin = await axios.post('/mordor/login', { email_address, password });
             if (responseLogin.status === 200) {
                 const { access_token } = responseLogin.data;
                 var role_features = [];
@@ -104,9 +104,8 @@ export const JWTProvider = ({ children }) => {
                         features: role_features
                     }
                 });
-                // TODO the param should be passed from the response
-                // login instead of hardcoded MANDATORY
-                await getEmployeeData('6');
+                dispatchUserInfo(fillUserId(responseLogin.data.user_id));
+                dispatchUserInfo(fillUserInfo(responseLogin.data.user_id));
             } else {
                 console.error('Login failed with status:', response.status);
             }
@@ -146,6 +145,7 @@ export const JWTProvider = ({ children }) => {
     };
 
     const logout = () => {
+        axiosServices.post('/mordor/logout');
         setSession(null);
         dispatch({ type: LOGOUT });
     };
@@ -164,19 +164,6 @@ export const JWTProvider = ({ children }) => {
         console.log(route);
         return true;
         //return state.features.some((feature) => route.includes(feature.route));
-    };
-
-    const getEmployeeData = async (employeeId) => {
-        try {
-            console.log(employeeId);
-            const response = await axios.get(`/brain/users/${employeeId}`);
-            const employeeData = response.data;
-            if (response.status === 200) {
-                fillUserInfo(dispatchUserInfo, employeeData);
-            }
-        } catch (error) {
-            console.error('Get employee data error:', error);
-        }
     };
 
     return (

@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 // project imports
 import MainLayout from 'layout/MainLayout';
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary from './ErrorBoundary'; // This import already exists
 import Loadable from 'ui-component/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
@@ -157,6 +157,7 @@ const MainRoutes = {
             <MainLayout />
         </AuthGuard>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
         {
             path: '/widget/statistics',
