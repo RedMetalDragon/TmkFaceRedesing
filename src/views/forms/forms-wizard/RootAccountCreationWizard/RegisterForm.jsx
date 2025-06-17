@@ -61,6 +61,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
     const [level, setLevel] = React.useState();
     const [verificationModalOpen, setVerificationModalOpen] = useState(false);
     const [isSubmittingForm, setIsSubmittingForm] = useState(false);
+    const [submissionAttempted, setSubmissionAttempted] = useState(false);
     //eslint-disable-next-line
     const { register } = useAuth();
 
@@ -86,8 +87,19 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
         }, 3000);
     }, []);
 
+    useEffect(() => {
+        if (submissionAttempted && !isSubmitting) {
+            if (!error) {
+                setVerificationModalOpen(true);
+            } else {
+                setIsSubmittingForm(false); // Reset button loading state on API error
+            }
+        }
+    }, [isSubmitting, error, dispatch, submissionAttempted]);
+
     const handleVerificationSuccess = () => {
         setVerificationModalOpen(false);
+        setSubmissionAttempted(false);
         // Here you would typically make an API call to confirm verification
         // For now, we'll just proceed to the next step
         handleNext();
@@ -95,6 +107,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
 
     const handleCloseVerification = () => {
         setVerificationModalOpen(false);
+        setSubmissionAttempted(false);
         // Reset the form when closing the verification modal
         dispatch(resetForm());
     };
@@ -140,16 +153,17 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
+                        setSubmissionAttempted(true);
                         setIsSubmittingForm(true);
                         await new Promise((resolve) => setTimeout(resolve, 1500));
                         dispatch(setUserDetails(values));
                         setIsSubmittingForm(false);
                         dispatch(requestEmailVerificationCode());
-                        setVerificationModalOpen(true);
                     } catch (err) {
                         console.error(err);
+                        setSubmissionAttempted(false);
                         setIsSubmittingForm(false);
-                        dispatch(hasError(err.message));
+                        // dispatch(hasError(err.message)); // Removed this line
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
                         setSubmitting(false);
@@ -312,6 +326,12 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                             {errors.submit && (
                                 <Box sx={{ mt: 3 }}>
                                     <FormHelperText error>{errors.submit}</FormHelperText>
+                                </Box>
+                            )}
+
+                            {error && submissionAttempted && (
+                                <Box sx={{ mt: 3 }}>
+                                    <FormHelperText error>Upps that was embarrassing, please try again later</FormHelperText>
                                 </Box>
                             )}
 
