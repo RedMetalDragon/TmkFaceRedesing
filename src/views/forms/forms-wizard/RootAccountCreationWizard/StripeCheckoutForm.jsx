@@ -5,6 +5,7 @@ import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 import { useDispatch, useSelector } from 'store';
 import { setCurrentStep } from 'store/slices/createAccount';
 import { getSuccessUrl, getErrorUrl } from 'utils/helperFunctions';
+import { useState } from 'react';
 
 const StripeCheckoutForm = () => {
     //const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const StripeCheckoutForm = () => {
                     {'Back'}
                 </Button>
                 <AnimateButton>
-                    <Button variant="contained" onClick={handleSubmit} sx={{ my: 3, ml: 1 }} color="secondary">
+                    <Button variant="contained" onClick={handleSubmit} sx={{ my: 3, ml: 1 }} color="secondary" disabled={!stripe || loading}>
                         {'Make Payment'}
                     </Button>
                 </AnimateButton>

@@ -43,7 +43,7 @@ const slice = createSlice({
             // If there's a selected plan, find its equivalent in the new billing cycle
             if (state.selectedPlan && state.availablePlans) {
                 const newPlans = action.payload === 'Monthly' ? state.availablePlans.monthlyPlans : state.availablePlans.yearlyPlans;
-                const equivalentPlan = newPlans?.find(plan => plan.subscriptionName === state.selectedPlan.subscriptionName);
+                const equivalentPlan = newPlans?.find((plan) => plan.subscriptionName === state.selectedPlan.subscriptionName);
                 if (equivalentPlan) {
                     state.selectedPlan = equivalentPlan;
                 }
@@ -150,7 +150,7 @@ export function switchBillingCycle() {
             // If there's a selected plan, find its equivalent in the new billing cycle
             if (selectedPlan && availablePlans) {
                 const newPlans = newBillingCycle === 'Monthly' ? availablePlans.monthlyPlans : availablePlans.yearlyPlans;
-                const equivalentPlan = newPlans?.find(plan => plan.subscriptionName === selectedPlan.subscriptionName);
+                const equivalentPlan = newPlans?.find((plan) => plan.subscriptionName === selectedPlan.subscriptionName);
                 if (equivalentPlan) {
                     dispatch(slice.actions.setSelectedPlan(equivalentPlan));
                 }
@@ -190,13 +190,13 @@ export function setUserSubscriptionPlan(plan) {
 }
 
 export function saveUserDetailsInSessionBackend(userDetails) {
+    //TODO remove this function (is legacy code)
     return async () => {
         try {
-            console.log("SHOULD BE REMOVED ====> saveUserDetailsInSessionBackend");
+            console.log('SHOULD BE REMOVED ====> saveUserDetailsInSessionBackend');
             dispatch(slice.actions.startSubmitting());
             await axios.post(`/gondor/users/register-new-user/user-details`, userDetails).then((response) => {
                 if (response.status === 200 && response.data.subscriptionId && response.data.clientSecret) {
-                    console.log('Payment service response status: ', response.status); //TODO Remove this line after testing
                     dispatch(slice.actions.setSetupIntentClientSecret(response.data.clientSecret));
                     dispatch(slice.actions.setCustomerId(response.data.customerId));
                 } else {
@@ -222,7 +222,7 @@ export function handleErrors(error) {
 export function saveSubscriptionPlan(userDetails) {
     return async () => {
         try {
-            console.log("SHOULD BE REMOVED ====> saveSubscriptionPlan");
+            console.log('SHOULD BE REMOVED ====> saveSubscriptionPlan');
             dispatch(slice.actions.startSubmitting());
             // Replace with your backend API endpoint
             const response = await axios.post(`/gondor/api/users/register-new-user/step-two`, userDetails);
@@ -281,10 +281,12 @@ export function getCheckoutSession() {
             const { selectedPlan, userDetails } = state.createAccount;
             const response = await axios.post('/gondor/checkout/create-checkout-session-for-subscription', {
                 PriceId: selectedPlan?.priceId,
-                Email: userDetails.email
+                Email: userDetails.email,
+                FirstName: userDetails.firstName,
+                LastName: userDetails.lastName
             });
             if (response.status === 200) {
-               dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
+                dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
             }
             dispatch(slice.actions.stopSubmitting());
         } catch (error) {

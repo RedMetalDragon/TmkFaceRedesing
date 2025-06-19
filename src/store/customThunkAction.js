@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { saveUserDetailsInSessionBackend, setUserDetails } from 'store/slices/createAccount';
+import { setUserDetails } from 'store/slices/createAccount';
 
 export const setPlanAndSaveUserDetails = createAsyncThunk(
     'createAccount/setPlanAndSaveUserDetails',
@@ -14,6 +14,6 @@ export const setPlanAndSaveUserDetails = createAsyncThunk(
         console.log('state', state);
 
         // Dispatch the action to save user details in the backend
-        await dispatch(saveUserDetailsInSessionBackend(updatedUserDetails));
+        //await dispatch(saveUserDetailsInSessionBackend(updatedUserDetails));
     }
 );

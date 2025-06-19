@@ -232,7 +232,7 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                         dispatch(setUserDetails(values));
                         // Only set submissionAttempted after the API call succeeds
                         try {
-                            await dispatch(requestEmailVerificationCode());
+                            //await dispatch(requestEmailVerificationCode());
                             setSubmissionAttempted(true);
                         } catch (apiError) {
                             console.error('API error:', apiError);
@@ -257,7 +257,6 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                                 errorMessage = 'Unable to connect to the server. Please check your internet connection.';
                                 errorCode = 'NETWORK_ERROR';
                             }
-
                             setErrorDetails({
                                 title: 'Verification Email Error',
                                 message: errorMessage,
