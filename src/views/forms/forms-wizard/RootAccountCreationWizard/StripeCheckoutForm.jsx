@@ -3,7 +3,7 @@ import { Button, Stack } from '@mui/material';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'store';
-import { setCurrentStep } from 'store/slices/createAccount';
+import { setCurrentStep, setSseListener } from 'store/slices/createAccount';
 import { getSuccessUrl, getErrorUrl } from 'utils/helperFunctions';
 import { useState } from 'react';
 
@@ -14,6 +14,12 @@ const StripeCheckoutForm = () => {
     const currentStep = useSelector((state) => state.createAccount.currentStep);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (stripe && elements) {
+            dispatch(setSseListener());
+        }
+    }, [stripe, elements, dispatch]);
 
     const handleBack = () => {
         // TODO
@@ -54,7 +60,13 @@ const StripeCheckoutForm = () => {
                     {'Back'}
                 </Button>
                 <AnimateButton>
-                    <Button variant="contained" onClick={handleSubmit} sx={{ my: 3, ml: 1 }} color="secondary" disabled={!stripe || loading}>
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        sx={{ my: 3, ml: 1 }}
+                        color="secondary"
+                        disabled={!stripe || loading}
+                    >
                         {'Make Payment'}
                     </Button>
                 </AnimateButton>

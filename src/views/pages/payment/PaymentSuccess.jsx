@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
+import { useSelector } from '../../../store';
 
 const PaymentSuccess = () => {
     const theme = useTheme();
     const [loading, setLoading] = useState(true);
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-    
     const messages = [
         "Verifying payment...",
         "Setting up your account...",

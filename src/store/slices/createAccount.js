@@ -86,6 +86,7 @@ const slice = createSlice({
                 typeofPlan: 'monthly',
                 dateOfBirth: ''
             };
+            state.clientTxnId = '';
             state.subscriptionPlan = '';
             state.paymentMethodId = '';
             state.isSubmitting = false;
@@ -113,6 +114,7 @@ export default slice.reducer;
 export function setUserDetails(userDetails) {
     return async () => {
         try {
+            window.localStorage.setItem('clientTxnId', crypto.randomUUID());
             dispatch(slice.actions.setUserDetails(userDetails));
         } catch (error) {
             dispatch(slice.actions.stopSubmitting());
@@ -122,7 +124,7 @@ export function setUserDetails(userDetails) {
     };
 }
 
-export function getPlansAvailables() {
+export function getPlansAvailable() {
     return async (dispatch) => {
         try {
             dispatch(slice.actions.startLoadingPlans());
@@ -261,6 +263,32 @@ export function setSubscriptionPlan(plan) {
     };
 }
 
+export function setSseListener() {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const { customerId } = state.createAccount;
+            const clientTxnId = window.localStorage.getItem('clientTxnId') || crypto.randomUUID();
+            const eventSource = new EventSource(
+                `/api/v1/sse/setup-sse/root-account-creation?customerId=${customerId}&clientTxnId=${clientTxnId}`,
+                {
+                    withCredentials: true
+                }
+            );
+            eventSource.addEventListener('ACCOUNT_CREATED', (e) => {
+                const payload = JSON.parse(e.data);
+                console.log('Account created for:', payload.customerId);
+                eventSource.close(); // close after handling
+            });
+        } catch (error) {
+            console.error('Error updating selected plan:', error);
+            dispatch(slice.actions.setError(error.message));
+            throw error;
+        }
+        console.log('SSE listener setup function called');
+    };
+}
+
 export function resetForm() {
     return () => {
         dispatch(slice.actions.resetForm());
@@ -278,15 +306,17 @@ export function getCheckoutSession() {
         try {
             dispatch(slice.actions.startSubmitting());
             const state = getState();
-            const { selectedPlan, userDetails } = state.createAccount;
+            const { selectedPlan, userDetails, clientTxnId } = state.createAccount;
             const response = await axios.post('/gondor/checkout/create-checkout-session-for-subscription', {
                 PriceId: selectedPlan?.priceId,
                 Email: userDetails.email,
                 FirstName: userDetails.firstName,
-                LastName: userDetails.lastName
+                LastName: userDetails.lastName,
+                ClientTxnId: clientTxnId
             });
             if (response.status === 200) {
                 dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
+                dispatch(slice.actions.setCustomerId(response.data.customerId));
             }
             dispatch(slice.actions.stopSubmitting());
         } catch (error) {

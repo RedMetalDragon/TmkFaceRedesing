@@ -23,7 +23,7 @@ import {
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { useDispatch, useSelector } from 'store';
-import { getPlansAvailables, switchBillingCycle, updateSelectedPlan } from 'store/slices/createAccount';
+import { getPlansAvailable, switchBillingCycle, updateSelectedPlan } from 'store/slices/createAccount';
 import Loader from 'ui-component/Loader';
 
 // assets
@@ -268,7 +268,7 @@ const SubscriptionPlanForm = ({ handleNext, handleBack }) => {
     useEffect(() => {
         const loadPlans = async () => {
             try {
-                await dispatch(getPlansAvailables());
+                await dispatch(getPlansAvailable());
             } catch (err) {
                 console.error('Failed to load plans:', err);
             }

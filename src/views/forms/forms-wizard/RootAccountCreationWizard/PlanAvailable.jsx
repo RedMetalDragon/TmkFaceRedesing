@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'store';
 import { currencySymbol } from 'utils/helperFunctions';
 
 // Import slice actions
-import { setBillingCycle, setSelectedPlan, getPlansAvailables, switchBillingCycle } from 'store/slices/createAccount';
+import { setBillingCycle, setSelectedPlan, getPlansAvailable, switchBillingCycle } from 'store/slices/createAccount';
 
 // assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
@@ -136,7 +136,7 @@ const PlanAvailable = ({ handleNext, handleBack }) => {
     useEffect(() => {
         const loadPlans = async () => {
             try {
-                await dispatch(getPlansAvailables());
+                await dispatch(getPlansAvailable());
             } catch (err) {
                 console.error('Failed to load plans:', err);
             }
