@@ -268,7 +268,11 @@ export function setSseListener() {
         try {
             const state = getState();
             const { customerId } = state.createAccount;
-            const clientTxnId = window.localStorage.getItem('clientTxnId') || crypto.randomUUID();
+            const clientTxnId = window.localStorage.getItem('clientTxnId');
+            if (!clientTxnId) {
+                console.error('Client transaction ID not found in local storage.');
+                throw new Error('We could not find the client transaction ID.');
+            }
             const eventSource = new EventSource(
                 `/api/v1/sse/setup-sse/root-account-creation?customerId=${customerId}&clientTxnId=${clientTxnId}`,
                 {
@@ -306,7 +310,8 @@ export function getCheckoutSession() {
         try {
             dispatch(slice.actions.startSubmitting());
             const state = getState();
-            const { selectedPlan, userDetails, clientTxnId } = state.createAccount;
+            const { selectedPlan, userDetails } = state.createAccount;
+            const clientTxnId = window.localStorage.getItem('clientTxnId') || crypto.randomUUID();
             const response = await axios.post('/gondor/checkout/create-checkout-session-for-subscription', {
                 PriceId: selectedPlan?.priceId,
                 Email: userDetails.email,
@@ -317,6 +322,7 @@ export function getCheckoutSession() {
             if (response.status === 200) {
                 dispatch(slice.actions.setSetupIntentClientSecret(response.data.intentClientSecret));
                 dispatch(slice.actions.setCustomerId(response.data.customerId));
+                window.localStorage.setItem('clientTxnId', clientTxnId);
             }
             dispatch(slice.actions.stopSubmitting());
         } catch (error) {

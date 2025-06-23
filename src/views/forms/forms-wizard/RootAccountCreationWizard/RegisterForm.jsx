@@ -232,11 +232,10 @@ const RegisterForm = ({ handleNext, setErrorIndex }) => {
                         dispatch(setUserDetails(values));
                         // Only set submissionAttempted after the API call succeeds
                         try {
-                            //await dispatch(requestEmailVerificationCode());
+                            await dispatch(requestEmailVerificationCode());
                             setSubmissionAttempted(true);
                         } catch (apiError) {
                             console.error('API error:', apiError);
-
                             // Show error dialog with appropriate message
                             let errorMessage = 'An error occurred while sending the verification email.';
                             let errorCode = '';

@@ -34,33 +34,27 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
         setIsSubmitting(true);
         // Mock API delay
         await new Promise((resolve) => setTimeout(resolve, 500));
-        //REMOVE lines below when integrating with actual API
-        setVerificationCode('');
-        setError('');
-        onVerify();
-        // END REMOVE
-
-        // try {
-        //     axios
-        //         .post('/core/account-verification/verify', {
-        //             email: email,
-        //             code: verificationCode
-        //         })
-        //         .then((resp) => {
-        //             if (resp.status === 200) {
-        //                 setVerificationCode('');
-        //                 setError('');
-        //                 onVerify();
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             console.error('Error resending verification code:', err);
-        //             setError('Failed to resend verification code. Please try again later.');
-        //         });
-        // } catch (err) {
-        //     console.error('Error resending verification code:', err);
-        //     setError('Failed to resend verification code. Please try again later.');
-        // }
+        try {
+            axios
+                .post('/core/account-verification/verify', {
+                    email: email,
+                    code: verificationCode
+                })
+                .then((resp) => {
+                    if (resp.status === 200) {
+                        setVerificationCode('');
+                        setError('');
+                        onVerify();
+                    }
+                })
+                .catch((err) => {
+                    console.error('Error resending verification code:', err);
+                    setError('Failed to resend verification code. Please try again later.');
+                });
+        } catch (err) {
+            console.error('Error resending verification code:', err);
+            setError('Failed to resend verification code. Please try again later.');
+        }
     };
 
     const handleResend = async () => {
@@ -68,11 +62,11 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
         // Clear the verification code immediately
         setVerificationCode('');
         setError('');
-
         // Mock API delay
         await new Promise((resolve) => setTimeout(resolve, 1500));
         setIsResending(false);
-        if (onResend) onResend();
+        if (onResend)
+            onResend();
     };
 
     // Reset state when modal closes
