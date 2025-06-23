@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import OtpInput from './OtpInput';
+import axios from 'utils/axios';
 
 const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
     const [verificationCode, setVerificationCode] = useState('');
@@ -25,6 +26,8 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+    const useMock = import.meta.env.DEV;
+
     const handleVerify = async () => {
         if (verificationCode.length !== 6) {
             setError('Please enter a 6-digit code');
@@ -32,15 +35,26 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
         }
 
         setIsSubmitting(true);
-        
-        // Mock API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Mock verification
-        if (verificationCode === '111111') {
-            onVerify();
-        } else {
-            setError('Invalid verification code');
+
+        try {
+            if (useMock) {
+                // Simulate API delay when mocking
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                if (verificationCode === '111111') {
+                    onVerify();
+                } else {
+                    throw new Error('Invalid code, try again or resend');
+                }
+            } else {
+                await axios.post('/gondor/users/register-new-user/verify-otp', {
+                    email,
+                    code: verificationCode
+                });
+                onVerify();
+            }
+        } catch (err) {
+            setError(err?.response?.data?.message || err.message || 'Invalid code, try again or resend');
+        } finally {
             setIsSubmitting(false);
         }
     };
@@ -50,12 +64,21 @@ const OtpVerification = ({ open, onClose, onVerify, email, onResend }) => {
         // Clear the verification code immediately
         setVerificationCode('');
         setError('');
-        
-        // Mock API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        setIsResending(false);
-        if (onResend) onResend();
+
+        try {
+            if (useMock) {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+            } else {
+                await axios.post('/gondor/users/register-new-user/resend-otp', {
+                    email
+                });
+            }
+            if (onResend) onResend();
+        } catch (err) {
+            setError('Unable to resend code. Please try again later.');
+        } finally {
+            setIsResending(false);
+        }
     };
 
     // Reset state when modal closes
